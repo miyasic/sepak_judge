@@ -4,6 +4,7 @@ import 'package:sepakjudge/match_setting.dart';
 import 'package:sepakjudge/result.dart';
 import 'package:sepakjudge/final_result.dart';
 
+//branchを作成した。
 bool server = true; //TeamAがサーブ権を得た場合true,TeamBがサーブ権を得た場合false
 List ServerList = new List.filled(50, false);
 int SetNumber = 1;
