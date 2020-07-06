@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sepakjudge/match_setting.dart';
+import 'package:sepakjudge/presentation/match_setting/match_setting_page.dart';
+import 'package:sepakjudge/presentation/result/result_page.dart';
+import 'package:sepakjudge/presentation/final_result/final_result_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -88,7 +90,42 @@ class _MyHomePageState extends State<MyHomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MatchSetting()),
+                              builder: (context) => MatchSettingPage()),
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: RaisedButton(
+                      color: Colors.blue,
+                      child: Text(
+                        'Go To Result',
+                        style: TextStyle(fontSize: 40, color: Colors.white),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ResultPage()),
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: RaisedButton(
+                      color: Colors.blue,
+                      child: Text(
+                        'Go To final Result',
+                        style: TextStyle(fontSize: 40, color: Colors.white),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FinalResultPage()),
                         );
                       },
                     ),
