@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../presentation/final_result/final_result.dart';
-import '../presentation/result/result.dart';
 
 class Match extends ChangeNotifier {
   bool server = true; //TeamAがサーブ権を得た場合true,TeamBがサーブ権を得た場合false

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sepakjudge/count_funcs.dart';
 import 'package:sepakjudge/presentation/match_setting/match_setting_page.dart';
-import 'package:sepakjudge/presentation/result/result.dart';
 import 'package:sepakjudge/presentation/final_result/final_result.dart';
 import 'point_counting_model.dart';
 
