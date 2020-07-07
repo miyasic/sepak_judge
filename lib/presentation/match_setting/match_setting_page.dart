@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sepakjudge/presentation/point_counting/point_counting.dart';
+import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart';
 import 'package:sepakjudge/file_funcs.dart';
 import 'match_setting_model.dart';
 
@@ -104,7 +104,6 @@ class MatchSettingPage extends StatelessWidget {
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           PointCountingPage()));
-//                        Navigator.pop(context);
                               model.FileContentsList[0] =
                                   model.MatchNameController.text;
                               model.FileContentsList[1] =

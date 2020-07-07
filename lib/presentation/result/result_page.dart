@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sepakjudge/presentation/point_counting/point_counting.dart';
-import 'package:sepakjudge/count_funcs.dart';
+import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart';
 import 'package:sepakjudge/presentation/match_setting/match_setting_page.dart';
 import 'package:sepakjudge/domain/match.dart';
+import 'package:sepakjudge/presentation/result/result_model.dart';
 
 class ResultPage extends StatelessWidget {
+  final ResultMatch = Match();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'flutter Demo',
-      home: ChangeNotifierProvider<Match>(
-        create: (_) => Match(), //mainmodelを作成
+      home: ChangeNotifierProvider<ResultModel>(
+        create: (_) => ResultModel(), //ResultModelを作成
         child: Scaffold(
           appBar: AppBar(
             title: Text('result'),
           ),
-          body: Consumer<Match>(
+          body: Consumer<ResultModel>(
             builder: (context, model, child) {
               return Center(
                 child: Column(
@@ -27,18 +28,18 @@ class ResultPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          if (model.ATeamWin)
-                            Text(model.ATeamName,
+                          if (ResultMatch.ATeamWin)
+                            Text(ResultMatch.ATeamName,
                                 style: TextStyle(fontSize: 40)),
-                          if (!model.ATeamWin)
-                            Text(model.ATeamName,
+                          if (!ResultMatch.ATeamWin)
+                            Text(ResultMatch.ATeamName,
                                 style: TextStyle(
                                     fontSize: 40, color: Colors.black38)),
-                          if (model.BTeamWin)
-                            Text(model.BTeamName,
+                          if (ResultMatch.BTeamWin)
+                            Text(ResultMatch.BTeamName,
                                 style: TextStyle(fontSize: 40)),
-                          if (!model.BTeamWin)
-                            Text(model.BTeamName,
+                          if (!ResultMatch.BTeamWin)
+                            Text(ResultMatch.BTeamName,
                                 style: TextStyle(
                                     fontSize: 40, color: Colors.black38)),
                         ],
@@ -51,11 +52,11 @@ class ResultPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Text(
-                                '${model.AScore[i]}',
+                                '${ResultMatch.AScore[i]}',
                                 style: Theme.of(context).textTheme.display1,
                               ),
                               Text(
-                                "${model.BScore[i]}",
+                                "${ResultMatch.BScore[i]}",
                                 style: Theme.of(context).textTheme.display1,
                               ),
                             ],
@@ -66,22 +67,8 @@ class ResultPage extends StatelessWidget {
                       height: 40,
                       width: double.infinity,
                       child: RaisedButton(
-                        child: Text(model.NavigationButtonText),
+                        child: Text(ResultMatch.NavigationButtonText),
                         onPressed: () {
-                          model.SetNumber++; //何セット目か
-                          for (int i = 0; i < 49; i++) {
-                            model.ServerList[i] =
-                                !model.ServerList[i]; //サーブ権は１セット目と２セット目で逆
-                            model.ACounter[i] = false;
-                            model.BCounter[i] = false;
-                          }
-                          model.APoint = 0;
-                          model.BPoint = 0;
-                          model.count = 0;
-                          model.side = !model.side;
-                          model.deuce = false;
-                          model.ATeamWin = false;
-                          model.BTeamWin = false;
                           Navigator.push(
                               context,
                               MaterialPageRoute(

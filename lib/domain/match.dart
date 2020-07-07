@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../presentation/final_result/final_result.dart';
-
 class Match extends ChangeNotifier {
   bool server = true; //TeamAがサーブ権を得た場合true,TeamBがサーブ権を得た場合false
   List ServerList = new List.filled(50, false);
   int SetNumber = 1;
+
 //  var ATeamName = FileContentsList[1];
 //  var BTeamName = FileContentsList[2];
-  var ATeamName = 'RAPORA A';
+  var ATeamName = 'RAPORA A';//本当は上みたいにmatch_setting_modelからチーム名を持ってきたい
   var BTeamName = 'TAKTAK A';
   var AScore = [0, 0, 0]; //なぜか配列からTextに出力できない
   var BScore = [0, 0, 0];
@@ -99,93 +98,5 @@ class Match extends ChangeNotifier {
         Winner = -1; //BTeamの勝利
       }
     }
-  }
-
-  //関数
-  ifPushACountPoint() {
-    ACounter[count] = true;
-    BCounter[count] = false;
-    count++;
-//    setState(() {
-    APoint = 0;
-    for (var i = 0; i < 49; i++) {
-      if (ACounter[i]) {
-        APoint++;
-      }
-    }
-    ifDeuce();
-    print(deuce);
-    server = ServerList[count];
-    getWinner();
-    if (ATeamWin) print('ATeamwin');
-    if (ATeamWin) {
-      AScore[SetNumber - 1] = APoint; //setnumberは１〜３
-      BScore[SetNumber - 1] = BPoint;
-      SetCount[SetNumber - 1] = 1;
-      getGameSet();
-//      if (GameSet) {
-//        Navigator.push(
-//            context, MaterialPageRoute(builder: (context) => FinalResult()));
-//      } else {
-//        Navigator.push(
-//            context, MaterialPageRoute(builder: (context) => Result()));
-//      }
-    }
-//    });
-  }
-
-  ifPushBCountPoint() {
-    ACounter[count] = false;
-    BCounter[count] = true;
-    count++;
-//    setState(() {
-    BPoint = 0;
-    for (var i = 0; i < 49; i++) {
-      if (BCounter[i]) {
-        BPoint++;
-      }
-    }
-    ifDeuce();
-    print(deuce);
-    server = ServerList[count];
-    getWinner();
-    if (BTeamWin) {
-      AScore[SetNumber - 1] = APoint; //setnumberは１〜３
-      BScore[SetNumber - 1] = BPoint;
-      SetCount[SetNumber - 1] = -1;
-      getGameSet();
-//      if (GameSet) {
-//        Navigator.push(
-//            context, MaterialPageRoute(builder: (context) => FinalResult()));
-//      } else {
-//        Navigator.push(
-//            context, MaterialPageRoute(builder: (context) => Result()));
-//      }
-    }
-//    });
-  }
-
-  ifPushReturnButton() {
-//    setState(() {
-    if (ATeamWin) ATeamWin = false;
-    if (BTeamWin) BTeamWin = false;
-    if (count > 0) count = count - 1;
-    ACounter[count] = false;
-    BCounter[count] = false;
-    APoint = 0;
-    BPoint = 0;
-    for (var i = 0; i < 49; i++) {
-      if (ACounter[i]) {
-        APoint++;
-      }
-      if (BCounter[i]) {
-        BPoint++;
-      }
-    }
-    if (!(APoint > 19 && BPoint > 19)) {
-      deuce = false;
-    }
-    server = ServerList[count];
-//    });
   }
 }

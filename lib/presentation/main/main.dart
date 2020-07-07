@@ -95,6 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                     ),
                   ),
+                  //debug用
                   SizedBox(
                     width: double.infinity,
                     height: 48,
@@ -112,6 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                     ),
                   ),
+                  //debug用
                   SizedBox(
                     width: double.infinity,
                     height: 48,
