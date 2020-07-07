@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sepakjudge/domain/match.dart';
 
 class ResultModel extends ChangeNotifier {
-  final ResultModelMatch = Match();//これは果たして正しいのか...
+  final ResultModelMatch = Match(); //これは果たして正しいのか...
 
   ifPushButton() {
     ResultModelMatch.SetNumber++; //何セット目か

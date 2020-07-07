@@ -7,7 +7,7 @@ class Match extends ChangeNotifier {
 
 //  var ATeamName = FileContentsList[1];
 //  var BTeamName = FileContentsList[2];
-  var ATeamName = 'RAPORA A';//本当は上みたいにmatch_setting_modelからチーム名を持ってきたい
+  var ATeamName = 'RAPORA A'; //本当は上みたいにmatch_setting_modelからチーム名を持ってきたい
   var BTeamName = 'TAKTAK A';
   var AScore = [0, 0, 0]; //なぜか配列からTextに出力できない
   var BScore = [0, 0, 0];
