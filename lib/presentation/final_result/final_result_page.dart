@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart';
-import 'package:sepakjudge/presentation/match_setting/match_setting_page.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'package:sepakjudge/presentation/main/main.dart';
 
 import 'final_result_model.dart';
 
 class FinalResultPage extends StatelessWidget {
-  final FinalResultMatch = Match();
+  FinalResultPage(this.match);
+  final Match match;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'flutter Demo',
       home: ChangeNotifierProvider<FinalResultModel>(
-        create: (_) => FinalResultModel(), //mainmodelを作成
+        create: (_) => FinalResultModel(match), //mainmodelを作成
         child: Scaffold(
           appBar: AppBar(
             title: Text('result'),
@@ -30,11 +29,11 @@ class FinalResultPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          Text(FinalResultMatch.ATeamName,
+                          Text(model.match.ATeamName,
                               style: TextStyle(
                                 fontSize: 50,
                               )),
-                          Text(FinalResultMatch.BTeamName,
+                          Text(model.match.BTeamName,
                               style: TextStyle(
                                 fontSize: 50,
                               )),
@@ -48,25 +47,25 @@ class FinalResultPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Text(
-                                '${FinalResultMatch.AScore[i]}',
+                                '${match.AScore[i]}',
                                 style: Theme.of(context).textTheme.display1,
                               ),
                               Text(
-                                "${FinalResultMatch.BScore[i]}",
+                                "${model.match.BScore[i]}",
                                 style: Theme.of(context).textTheme.display1,
                               ),
                             ],
                           ),
                       ],
                     ),
-                    if (FinalResultMatch.Winner == 1)
+                    if (model.match.Winner == 1)
                       Text(
-                        '$FinalResultMatch.ATeamName WIN',
+                        '${model.match.ATeamName} WIN',
                         style: TextStyle(fontSize: 50),
                       ),
-                    if (FinalResultMatch.Winner == -1)
+                    if (model.match.Winner == -1)
                       Text(
-                        '$FinalResultMatch.BTeamName WIN',
+                        '${model.match.BTeamName} WIN',
                         style: TextStyle(fontSize: 50),
                       ),
                     Container(
@@ -78,7 +77,7 @@ class FinalResultPage extends StatelessWidget {
                             onPressed: () {
                               for (int i = 0; i < 3; i++) {
 //                                OutText =
-//                                    OutText + "," + "${FinalResultMatch.AScore[i]} vs ${FinalResultMatch.BScore[i]}";
+//                                    OutText + "," + "${model.match.AScore[i]} vs ${model.match.BScore[i]}";
                               }
 //                              outButton();
                             },
@@ -87,33 +86,7 @@ class FinalResultPage extends StatelessWidget {
                             child: Text('fainl Result'),
                             onPressed: () {
 //                              share();
-
-                              //変数の初期化
-                              FinalResultMatch.ATeamName = 'TeamA';
-                              FinalResultMatch.BTeamName = 'TeamB';
-                              FinalResultMatch.SetNumber = 1; //何セット目か
-                              FinalResultMatch.server = true;
-                              for (int i = 0; i < 3; i++) {
-                                FinalResultMatch.AScore[i] = 0;
-                                FinalResultMatch.BScore[i] = 0;
-                                FinalResultMatch.SetCount[i] = 0;
-                              }
-                              for (int i = 0; i < 49; i++) {
-                                FinalResultMatch.ServerList[i] =
-                                    !FinalResultMatch
-                                        .ServerList[i]; //サーブ権は１セット目と２セット目で逆
-                                FinalResultMatch.ACounter[i] = false;
-                                FinalResultMatch.BCounter[i] = false;
-                              }
-                              FinalResultMatch.APoint = 0;
-                              FinalResultMatch.BPoint = 0;
-                              FinalResultMatch.count = 0;
-                              FinalResultMatch.side = true;
-                              FinalResultMatch.deuce = false;
-                              FinalResultMatch.ATeamWin = false;
-                              FinalResultMatch.BTeamWin = false;
-                              FinalResultMatch.Winner = 0;
-                              FinalResultMatch.GameSet = false;
+                              model.setNextMatch();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

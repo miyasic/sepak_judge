@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart';
 import 'package:sepakjudge/file_funcs.dart';
 import 'match_setting_model.dart';
+import 'package:sepakjudge/domain/match.dart';
 
 class MatchSettingPage extends StatelessWidget {
   @override
@@ -99,11 +100,15 @@ class MatchSettingPage extends StatelessWidget {
                           child: RaisedButton(
                             child: Text('GameStart'),
                             onPressed: () {
+                              model.match.ATeamName =
+                                  model.ATeamNameController.text;
+                              model.match.BTeamName =
+                                  model.BTeamNameController.text;
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          PointCountingPage()));
+                                          PointCountingPage(model.match)));
                               model.FileContentsList[0] =
                                   model.MatchNameController.text;
                               model.FileContentsList[1] =

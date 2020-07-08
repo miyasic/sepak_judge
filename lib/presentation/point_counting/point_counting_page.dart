@@ -7,42 +7,44 @@ import 'package:sepakjudge/presentation/final_result/final_result_page.dart';
 import 'package:sepakjudge/presentation/result/result_page.dart';
 
 class PointCountingPage extends StatelessWidget {
+  PointCountingPage(this.match);
+  final Match match;
   Widget counting() {
     return ChangeNotifierProvider<PointCountingModel>(
-      create: (_) => PointCountingModel(),
+      create: (_) => PointCountingModel(match),
       child: Container(
         height: double.infinity,
         width: double.infinity,
         // ignore: missing_return
         child: Consumer<PointCountingModel>(builder: (context, model, child) {
           // ignore: missing_return
-          if (model.PointCountingModelMatch.side)
+          if (model.match.side)
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                if (model.PointCountingModelMatch.server)
+                if (model.match.server)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(model.PointCountingModelMatch.ATeamName,
+                      Text(model.match.ATeamName,
                           style: TextStyle(
                             fontSize: 50,
                           )),
-                      Text(model.PointCountingModelMatch.BTeamName,
+                      Text(model.match.BTeamName,
                           style: TextStyle(
                             fontSize: 40,
                             color: Colors.black12,
                           )),
                     ],
                   ),
-                if (!model.PointCountingModelMatch.server)
+                if (!model.match.server)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(model.PointCountingModelMatch.ATeamName,
+                      Text(model.match.ATeamName,
                           style:
                               TextStyle(fontSize: 40, color: Colors.black12)),
-                      Text(model.PointCountingModelMatch.BTeamName,
+                      Text(model.match.BTeamName,
                           style: TextStyle(
                             fontSize: 50,
                             color: Colors.black,
@@ -53,11 +55,11 @@ class PointCountingPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Text(
-                      '${model.PointCountingModelMatch.APoint}',
+                      '${model.match.APoint}',
                       style: Theme.of(context).textTheme.display1,
                     ),
                     Text(
-                      "${model.PointCountingModelMatch.BPoint}",
+                      "${model.match.BPoint}",
                       style: Theme.of(context).textTheme.display1,
                     ),
                   ],
@@ -66,39 +68,43 @@ class PointCountingPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                      child: Text(model.PointCountingModelMatch.ATeamName),
+                      child: Text(model.match.ATeamName),
                       onPressed: () {
                         model.ifPushACountPoint();
-                        if (model.PointCountingModelMatch.ATeamWin) {
-                          if (model.PointCountingModelMatch.GameSet) {
+                        if (model.match.ATeamWin) {
+                          if (model.match.GameSet) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => FinalResultPage()));
+                                    builder: (context) =>
+                                        FinalResultPage(model.match)));
                           } else {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ResultPage()));
+                                    builder: (context) =>
+                                        ResultPage(model.match)));
                           }
                         }
                       },
                     ),
                     RaisedButton(
-                      child: Text(model.PointCountingModelMatch.BTeamName),
+                      child: Text(model.match.BTeamName),
                       onPressed: () {
                         model.ifPushBCountPoint();
-                        if (model.PointCountingModelMatch.BTeamWin) {
-                          if (model.PointCountingModelMatch.GameSet) {
+                        if (model.match.BTeamWin) {
+                          if (model.match.GameSet) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => FinalResultPage()));
+                                    builder: (context) =>
+                                        FinalResultPage(model.match)));
                           } else {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ResultPage()));
+                                    builder: (context) =>
+                                        ResultPage(model.match)));
                           }
                         }
                       },
@@ -126,35 +132,35 @@ class PointCountingPage extends StatelessWidget {
                 )
               ],
             );
-          if (!model.PointCountingModelMatch.side)
+          if (!model.match.side)
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                if (model.PointCountingModelMatch.server)
+                if (model.match.server)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(model.PointCountingModelMatch.BTeamName,
+                      Text(model.match.BTeamName,
                           style: TextStyle(
                             fontSize: 40,
                             color: Colors.black12,
                           )),
-                      Text(model.PointCountingModelMatch.ATeamName,
+                      Text(model.match.ATeamName,
                           style: TextStyle(
                             fontSize: 50,
                           )),
                     ],
                   ),
-                if (!model.PointCountingModelMatch.server)
+                if (!model.match.server)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(model.PointCountingModelMatch.BTeamName,
+                      Text(model.match.BTeamName,
                           style: TextStyle(
                             fontSize: 50,
                             color: Colors.black,
                           )),
-                      Text(model.PointCountingModelMatch.ATeamName,
+                      Text(model.match.ATeamName,
                           style:
                               TextStyle(fontSize: 40, color: Colors.black12)),
                     ],
@@ -163,11 +169,11 @@ class PointCountingPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Text(
-                      "${model.PointCountingModelMatch.BPoint}",
+                      "${model.match.BPoint}",
                       style: Theme.of(context).textTheme.display1,
                     ),
                     Text(
-                      '${model.PointCountingModelMatch.APoint}',
+                      '${model.match.APoint}',
                       style: Theme.of(context).textTheme.display1,
                     ),
                   ],
@@ -176,26 +182,45 @@ class PointCountingPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                      child: Text(model.PointCountingModelMatch.BTeamName),
+                      child: Text(model.match.BTeamName),
                       onPressed: () {
                         model.ifPushBCountPoint();
-                        if (model.PointCountingModelMatch.GameSet) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => FinalResultPage()));
-                        } else {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ResultPage()));
+                        if (model.match.BTeamWin) {
+                          if (model.match.GameSet) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        FinalResultPage(model.match)));
+                          } else {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ResultPage(model.match)));
+                          }
                         }
                       },
                     ),
                     RaisedButton(
-                      child: Text(model.PointCountingModelMatch.ATeamName),
+                      child: Text(model.match.ATeamName),
                       onPressed: () {
                         model.ifPushACountPoint();
+                        if (model.match.ATeamWin) {
+                          if (model.match.GameSet) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        FinalResultPage(model.match)));
+                          } else {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ResultPage(model.match)));
+                          }
+                        }
                       },
                     ),
                   ],
@@ -229,10 +254,10 @@ class PointCountingPage extends StatelessWidget {
     return MaterialApp(
       title: 'flutter Demo',
       home: ChangeNotifierProvider<PointCountingModel>(
-        create: (_) => PointCountingModel(), //mainmodelを作成
+        create: (_) => PointCountingModel(match), //mainmodelを作成
         // ignore: missing_return
         child: Consumer<PointCountingModel>(builder: (context, model, child) {
-          if (model.PointCountingModelMatch.SetNumber == 1) {
+          if (model.match.SetNumber == 1) {
             return Scaffold(
               appBar: AppBar(
                 title: Text('1st'),
@@ -240,7 +265,7 @@ class PointCountingPage extends StatelessWidget {
               body: counting(),
             );
           }
-          if (model.PointCountingModelMatch.SetNumber == 2) {
+          if (model.match.SetNumber == 2) {
             return Scaffold(
               appBar: AppBar(
                 title: Text('2nd'),
@@ -248,7 +273,7 @@ class PointCountingPage extends StatelessWidget {
               body: counting(),
             );
           }
-          if (model.PointCountingModelMatch.SetNumber == 3) {
+          if (model.match.SetNumber == 3) {
             return Scaffold(
               appBar: AppBar(
                 title: Text('3rd'),

@@ -3,16 +3,17 @@ import 'package:provider/provider.dart';
 import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart';
 import 'package:sepakjudge/presentation/match_setting/match_setting_page.dart';
 import 'package:sepakjudge/domain/match.dart';
-import 'package:sepakjudge/presentation/result/result_model.dart';
+import 'result_model.dart';
 
 class ResultPage extends StatelessWidget {
-  final ResultMatch = Match();
+  ResultPage(this.match);
+  final Match match;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'flutter Demo',
       home: ChangeNotifierProvider<ResultModel>(
-        create: (_) => ResultModel(), //ResultModelを作成
+        create: (_) => ResultModel(match), //ResultModelを作成
         child: Scaffold(
           appBar: AppBar(
             title: Text('result'),
@@ -28,18 +29,18 @@ class ResultPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          if (ResultMatch.ATeamWin)
-                            Text(ResultMatch.ATeamName,
+                          if (model.match.ATeamWin)
+                            Text(model.match.ATeamName,
                                 style: TextStyle(fontSize: 40)),
-                          if (!ResultMatch.ATeamWin)
-                            Text(ResultMatch.ATeamName,
+                          if (!model.match.ATeamWin)
+                            Text(model.match.ATeamName,
                                 style: TextStyle(
                                     fontSize: 40, color: Colors.black38)),
-                          if (ResultMatch.BTeamWin)
-                            Text(ResultMatch.BTeamName,
+                          if (model.match.BTeamWin)
+                            Text(model.match.BTeamName,
                                 style: TextStyle(fontSize: 40)),
-                          if (!ResultMatch.BTeamWin)
-                            Text(ResultMatch.BTeamName,
+                          if (!model.match.BTeamWin)
+                            Text(model.match.BTeamName,
                                 style: TextStyle(
                                     fontSize: 40, color: Colors.black38)),
                         ],
@@ -52,11 +53,11 @@ class ResultPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Text(
-                                '${ResultMatch.AScore[i]}',
+                                '${model.match.AScore[i]}',
                                 style: Theme.of(context).textTheme.display1,
                               ),
                               Text(
-                                "${ResultMatch.BScore[i]}",
+                                "${model.match.BScore[i]}",
                                 style: Theme.of(context).textTheme.display1,
                               ),
                             ],
@@ -67,12 +68,14 @@ class ResultPage extends StatelessWidget {
                       height: 40,
                       width: double.infinity,
                       child: RaisedButton(
-                        child: Text(ResultMatch.NavigationButtonText),
+                        child: Text(model.match.NavigationButtonText),
                         onPressed: () {
+                          model.ifPushButton();
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => PointCountingPage()));
+                                  builder: (context) =>
+                                      PointCountingPage(model.match)));
                         },
                       ),
                     ),

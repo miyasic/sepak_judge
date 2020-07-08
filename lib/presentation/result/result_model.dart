@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:sepakjudge/domain/match.dart';
 
 class ResultModel extends ChangeNotifier {
-  final ResultModelMatch = Match(); //これは果たして正しいのか...
+  ResultModel(this.match);
+  final Match match;
 
   ifPushButton() {
-    ResultModelMatch.SetNumber++; //何セット目か
+    match.SetNumber++; //何セット目か
     for (int i = 0; i < 49; i++) {
-      ResultModelMatch.ServerList[i] =
-          !ResultModelMatch.ServerList[i]; //サーブ権は１セット目と２セット目で逆
-      ResultModelMatch.ACounter[i] = false;
-      ResultModelMatch.BCounter[i] = false;
+      match.ServerList[i] = !match.ServerList[i]; //サーブ権は１セット目と２セット目で逆
+      match.ACounter[i] = false;
+      match.BCounter[i] = false;
     }
-    ResultModelMatch.APoint = 0;
-    ResultModelMatch.BPoint = 0;
-    ResultModelMatch.count = 0;
-    ResultModelMatch.side = !ResultModelMatch.side;
-    ResultModelMatch.deuce = false;
-    ResultModelMatch.ATeamWin = false;
-    ResultModelMatch.BTeamWin = false;
+    match.APoint = 0;
+    match.BPoint = 0;
+    match.count = 0;
+    match.side = !match.side;
+    match.deuce = false;
+    match.ATeamWin = false;
+    match.BTeamWin = false;
     notifyListeners();
   }
 }

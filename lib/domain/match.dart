@@ -7,8 +7,8 @@ class Match extends ChangeNotifier {
 
 //  var ATeamName = FileContentsList[1];
 //  var BTeamName = FileContentsList[2];
-  var ATeamName = 'RAPORA A'; //本当は上みたいにmatch_setting_modelからチーム名を持ってきたい
-  var BTeamName = 'TAKTAK A';
+  var ATeamName = 'ATeam'; //本当は上みたいにmatch_setting_modelからチーム名を持ってきたい
+  var BTeamName = 'BTeam';
   var AScore = [0, 0, 0]; //なぜか配列からTextに出力できない
   var BScore = [0, 0, 0];
   var SetCount = [
@@ -64,6 +64,23 @@ class Match extends ChangeNotifier {
       }
     }
   }
+
+  //次のセットの準備
+//  setNextSet() {
+//    SetNumber++; //何セット目か
+//    for (int i = 0; i < 49; i++) {
+//      ServerList[i] = !ServerList[i]; //サーブ権は１セット目と２セット目で逆
+//      ACounter[i] = false;
+//      BCounter[i] = false;
+//    }
+//    APoint = 0;
+//    BPoint = 0;
+//    count = 0;
+//    side = !side;
+//    deuce = false;
+//    ATeamWin = false;
+//    BTeamWin = false;
+//  }
 
   //セットの勝利判定をする関数
   getWinner() {

@@ -95,43 +95,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                     ),
                   ),
-                  //debug用
-                  SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: RaisedButton(
-                      color: Colors.blue,
-                      child: Text(
-                        'Go To Result',
-                        style: TextStyle(fontSize: 40, color: Colors.white),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ResultPage()),
-                        );
-                      },
-                    ),
-                  ),
-                  //debug用
-                  SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: RaisedButton(
-                      color: Colors.blue,
-                      child: Text(
-                        'Go To final Result',
-                        style: TextStyle(fontSize: 40, color: Colors.white),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FinalResultPage()),
-                        );
-                      },
-                    ),
-                  )
                 ],
               ),
             ),

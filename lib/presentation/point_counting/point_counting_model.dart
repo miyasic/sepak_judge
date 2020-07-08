@@ -1,97 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:sepakjudge/domain/match.dart';
+import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart';
 
 class PointCountingModel extends ChangeNotifier {
-  final PointCountingModelMatch = Match();
+  PointCountingModel(this.match);
+  final Match match;
+
   //関数
   ifPushACountPoint() {
 //    PointCountingModelMatch.ATeamName = "";
-    PointCountingModelMatch.SetServer(); //本当は一回だけ実行したい
-    PointCountingModelMatch.ACounter[PointCountingModelMatch.count] = true;
-    PointCountingModelMatch.BCounter[PointCountingModelMatch.count] = false;
-    PointCountingModelMatch.count++;
-    PointCountingModelMatch.APoint = 0;
+    match.SetServer(); //本当は一回だけ実行したい
+    match.ACounter[match.count] = true;
+    match.BCounter[match.count] = false;
+    match.count++;
+    match.APoint = 0;
     for (var i = 0; i < 49; i++) {
-      if (PointCountingModelMatch.ACounter[i]) {
-        PointCountingModelMatch.APoint++;
+      if (match.ACounter[i]) {
+        match.APoint++;
       }
     }
-    PointCountingModelMatch.ifDeuce();
-    print(PointCountingModelMatch.deuce);
-    PointCountingModelMatch.server =
-        PointCountingModelMatch.ServerList[PointCountingModelMatch.count];
-    PointCountingModelMatch.getWinner();
-    if (PointCountingModelMatch.ATeamWin) print('ATeamwin');
-    if (PointCountingModelMatch.ATeamWin) {
-      PointCountingModelMatch.AScore[PointCountingModelMatch.SetNumber - 1] =
-          PointCountingModelMatch.APoint; //setnumberは１〜３
-      PointCountingModelMatch.BScore[PointCountingModelMatch.SetNumber - 1] =
-          PointCountingModelMatch.BPoint;
-      PointCountingModelMatch.SetCount[PointCountingModelMatch.SetNumber - 1] =
-          1;
-      PointCountingModelMatch.getGameSet();
+    match.ifDeuce();
+    print(match.deuce);
+    match.server = match.ServerList[match.count];
+    match.getWinner();
+    if (match.ATeamWin) print('ATeamwin');
+    if (match.ATeamWin) {
+      match.AScore[match.SetNumber - 1] = match.APoint; //setnumberは１〜３
+      match.BScore[match.SetNumber - 1] = match.BPoint;
+      match.SetCount[match.SetNumber - 1] = 1;
+      match.getGameSet();
     }
     notifyListeners();
   }
 
   ifPushBCountPoint() {
-    PointCountingModelMatch.SetServer(); //本当は一回だけ実行したい
-    PointCountingModelMatch.ACounter[PointCountingModelMatch.count] = false;
-    PointCountingModelMatch.BCounter[PointCountingModelMatch.count] = true;
-    PointCountingModelMatch.count++;
-    PointCountingModelMatch.BPoint = 0;
+    match.SetServer(); //本当は一回だけ実行したい
+    match.ACounter[match.count] = false;
+    match.BCounter[match.count] = true;
+    match.count++;
+    match.BPoint = 0;
     for (var i = 0; i < 49; i++) {
-      if (PointCountingModelMatch.BCounter[i]) {
-        PointCountingModelMatch.BPoint++;
+      if (match.BCounter[i]) {
+        match.BPoint++;
       }
     }
-    PointCountingModelMatch.ifDeuce();
-    print(PointCountingModelMatch.deuce);
-    PointCountingModelMatch.server =
-        PointCountingModelMatch.ServerList[PointCountingModelMatch.count];
-    PointCountingModelMatch.getWinner();
-    if (PointCountingModelMatch.BTeamWin) {
-      PointCountingModelMatch.AScore[PointCountingModelMatch.SetNumber - 1] =
-          PointCountingModelMatch.APoint; //setnumberは１〜３
-      PointCountingModelMatch.BScore[PointCountingModelMatch.SetNumber - 1] =
-          PointCountingModelMatch.BPoint;
-      PointCountingModelMatch.SetCount[PointCountingModelMatch.SetNumber - 1] =
-          -1;
-      PointCountingModelMatch.getGameSet();
+    match.ifDeuce();
+    print(match.deuce);
+    match.server = match.ServerList[match.count];
+    match.getWinner();
+    if (match.BTeamWin) {
+      match.AScore[match.SetNumber - 1] = match.APoint; //setnumberは１〜３
+      match.BScore[match.SetNumber - 1] = match.BPoint;
+      match.SetCount[match.SetNumber - 1] = -1;
+      match.getGameSet();
     }
     notifyListeners();
   }
 
   ifPushReturnButton() {
-    if (PointCountingModelMatch.ATeamWin)
-      PointCountingModelMatch.ATeamWin = false;
-    if (PointCountingModelMatch.BTeamWin)
-      PointCountingModelMatch.BTeamWin = false;
-    if (PointCountingModelMatch.count > 0)
-      PointCountingModelMatch.count = PointCountingModelMatch.count - 1;
-    PointCountingModelMatch.ACounter[PointCountingModelMatch.count] = false;
-    PointCountingModelMatch.BCounter[PointCountingModelMatch.count] = false;
-    PointCountingModelMatch.APoint = 0;
-    PointCountingModelMatch.BPoint = 0;
+    if (match.ATeamWin) match.ATeamWin = false;
+    if (match.BTeamWin) match.BTeamWin = false;
+    if (match.count > 0) match.count = match.count - 1;
+    match.ACounter[match.count] = false;
+    match.BCounter[match.count] = false;
+    match.APoint = 0;
+    match.BPoint = 0;
     for (var i = 0; i < 49; i++) {
-      if (PointCountingModelMatch.ACounter[i]) {
-        PointCountingModelMatch.APoint++;
+      if (match.ACounter[i]) {
+        match.APoint++;
       }
-      if (PointCountingModelMatch.BCounter[i]) {
-        PointCountingModelMatch.BPoint++;
+      if (match.BCounter[i]) {
+        match.BPoint++;
       }
     }
-    if (!(PointCountingModelMatch.APoint > 19 &&
-        PointCountingModelMatch.BPoint > 19)) {
-      PointCountingModelMatch.deuce = false;
+    if (!(match.APoint > 19 && match.BPoint > 19)) {
+      match.deuce = false;
     }
-    PointCountingModelMatch.server =
-        PointCountingModelMatch.ServerList[PointCountingModelMatch.count];
+    match.server = match.ServerList[match.count];
     notifyListeners();
   }
 
   ifPushSideChangeButton() {
-    PointCountingModelMatch.side = !PointCountingModelMatch.side;
+    match.side = !match.side;
     notifyListeners();
   }
 }
