@@ -31,11 +31,11 @@ class FinalResultPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          Text(model.match.ATeamName,
+                          Text(model.match.aTeamName,
                               style: TextStyle(
                                 fontSize: 50,
                               )),
-                          Text(model.match.BTeamName,
+                          Text(model.match.bTeamName,
                               style: TextStyle(
                                 fontSize: 50,
                               )),
@@ -44,30 +44,30 @@ class FinalResultPage extends StatelessWidget {
                     ),
                     Column(
                       children: <Widget>[
-                        for (int i = 0; i < 3; i++)
+                        for (int i = 0; i < 3; i++) //set毎の結果を表示する
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Text(
-                                '${match.AScore[i]}',
+                                '${match.aScore[i]}',
                                 style: Theme.of(context).textTheme.display1,
                               ),
                               Text(
-                                "${model.match.BScore[i]}",
+                                "${model.match.bScore[i]}",
                                 style: Theme.of(context).textTheme.display1,
                               ),
                             ],
                           ),
                       ],
                     ),
-                    if (model.match.Winner == 1)
+                    if (model.match.winner == 1)
                       Text(
-                        '${model.match.ATeamName} WIN',
+                        '${model.match.aTeamName} WIN',
                         style: TextStyle(fontSize: 50),
                       ),
-                    if (model.match.Winner == -1)
+                    if (model.match.winner == -1)
                       Text(
-                        '${model.match.BTeamName} WIN',
+                        '${model.match.bTeamName} WIN',
                         style: TextStyle(fontSize: 50),
                       ),
                     Container(

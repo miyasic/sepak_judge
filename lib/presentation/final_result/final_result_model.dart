@@ -13,28 +13,28 @@ class FinalResultModel extends ChangeNotifier {
 
   setNextMatch() {
     //変数の初期化
-    match.ATeamName = 'TeamA';
-    match.BTeamName = 'TeamB';
-    match.SetNumber = 1; //何セット目か
+    match.aTeamName = 'TeamA';
+    match.bTeamName = 'TeamB';
+    match.setNumber = 1; //何セット目か
     match.server = true;
     for (int i = 0; i < 3; i++) {
-      match.AScore[i] = 0;
-      match.BScore[i] = 0;
-      match.SetCount[i] = 0;
+      match.aScore[i] = 0;
+      match.bScore[i] = 0;
+      match.setCount[i] = 0;
     }
     for (int i = 0; i < 49; i++) {
-      match.ServerList[i] = !match.ServerList[i]; //サーブ権は１セット目と２セット目で逆
-      match.ACounter[i] = false;
-      match.BCounter[i] = false;
+      match.serverList[i] = !match.serverList[i]; //サーブ権は１セット目と２セット目で逆
+      match.aCounter[i] = false;
+      match.bCounter[i] = false;
     }
-    match.APoint = 0;
-    match.BPoint = 0;
+    match.aPoint = 0;
+    match.bPoint = 0;
     match.count = 0;
     match.side = true;
     match.deuce = false;
-    match.ATeamWin = false;
-    match.BTeamWin = false;
-    match.Winner = 0;
-    match.GameSet = false;
+    match.aTeamWin = false;
+    match.bTeamWin = false;
+    match.winner = 0;
+    match.gameSet = false;
   }
 }

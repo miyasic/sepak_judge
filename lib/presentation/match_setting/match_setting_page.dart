@@ -43,10 +43,10 @@ class MatchSettingPage extends StatelessWidget {
                                 labelText: 'ATeam',
                               ),
                               onChanged: (Text) {
-                                model.TeamName[0] =
-                                    model.ATeamNameController.text;
+                                model.teamName[0] =
+                                    model.aTeamNameController.text;
                               },
-                              controller: model.ATeamNameController,
+                              controller: model.aTeamNameController,
                             ),
                             TextField(
                               decoration: InputDecoration(
@@ -54,10 +54,10 @@ class MatchSettingPage extends StatelessWidget {
                                 labelText: 'BTeam',
                               ),
                               onChanged: (Text) {
-                                model.TeamName[1] =
-                                    model.BTeamNameController.text;
+                                model.teamName[1] =
+                                    model.bTeamNameController.text;
                               },
-                              controller: model.BTeamNameController,
+                              controller: model.bTeamNameController,
                             ),
                             Column(
                               children: <Widget>[
@@ -67,7 +67,7 @@ class MatchSettingPage extends StatelessWidget {
                                     border: OutlineInputBorder(),
                                     labelText: 'ServiceTeam',
                                   ),
-                                  controller: model.ServiceController,
+                                  controller: model.serviceController,
                                 ),
                                 PopupMenuButton<String>(
                                   initialValue: '',
@@ -76,11 +76,12 @@ class MatchSettingPage extends StatelessWidget {
                                     if (value == Null) {
                                       print('a');
                                     }
-                                    model.ServiceController.text = value;
+                                    model.serviceController.text = value;
                                   },
                                   itemBuilder: (BuildContext context) {
-                                    return model.TeamName.map<
-                                        PopupMenuItem<String>>((String value) {
+                                    return model.teamName
+                                        .map<PopupMenuItem<String>>(
+                                            (String value) {
                                       return new PopupMenuItem(
                                           child: new Text(value), value: value);
                                     }).toList();
@@ -101,6 +102,7 @@ class MatchSettingPage extends StatelessWidget {
                               child: Text('GameStart'),
                               onPressed: () {
                                 model.setTeamName();
+                                model.match.setServer();
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(

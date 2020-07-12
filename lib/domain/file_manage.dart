@@ -46,7 +46,7 @@ class FileManage {
         '\n' +
         match.fileContents[2];
     for (int i = 0; i < 3; i++) {
-      outText = outText + "\n" + "${match.AScore[i]} vs ${match.BScore[i]}";
+      outText = outText + "\n" + "${match.aScore[i]} vs ${match.bScore[i]}";
     }
   }
 

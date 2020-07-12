@@ -28,18 +28,18 @@ class ResultPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          if (model.match.ATeamWin)
-                            Text(model.match.ATeamName,
+                          if (model.match.aTeamWin)
+                            Text(model.match.aTeamName,
                                 style: TextStyle(fontSize: 40)),
-                          if (!model.match.ATeamWin)
-                            Text(model.match.ATeamName,
+                          if (!model.match.aTeamWin)
+                            Text(model.match.aTeamName,
                                 style: TextStyle(
                                     fontSize: 40, color: Colors.black38)),
-                          if (model.match.BTeamWin)
-                            Text(model.match.BTeamName,
+                          if (model.match.bTeamWin)
+                            Text(model.match.bTeamName,
                                 style: TextStyle(fontSize: 40)),
-                          if (!model.match.BTeamWin)
-                            Text(model.match.BTeamName,
+                          if (!model.match.bTeamWin)
+                            Text(model.match.bTeamName,
                                 style: TextStyle(
                                     fontSize: 40, color: Colors.black38)),
                         ],
@@ -52,11 +52,11 @@ class ResultPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Text(
-                                '${model.match.AScore[i]}',
+                                '${model.match.aScore[i]}',
                                 style: Theme.of(context).textTheme.display1,
                               ),
                               Text(
-                                "${model.match.BScore[i]}",
+                                "${model.match.bScore[i]}",
                                 style: Theme.of(context).textTheme.display1,
                               ),
                             ],

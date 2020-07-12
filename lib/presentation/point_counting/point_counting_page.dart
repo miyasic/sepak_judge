@@ -26,11 +26,11 @@ class PointCountingPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(model.match.ATeamName,
+                      Text(model.match.aTeamName,
                           style: TextStyle(
                             fontSize: 50,
                           )),
-                      Text(model.match.BTeamName,
+                      Text(model.match.bTeamName,
                           style: TextStyle(
                             fontSize: 40,
                             color: Colors.black12,
@@ -41,10 +41,10 @@ class PointCountingPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(model.match.ATeamName,
+                      Text(model.match.aTeamName,
                           style:
                               TextStyle(fontSize: 40, color: Colors.black12)),
-                      Text(model.match.BTeamName,
+                      Text(model.match.bTeamName,
                           style: TextStyle(
                             fontSize: 50,
                             color: Colors.black,
@@ -55,11 +55,11 @@ class PointCountingPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Text(
-                      '${model.match.APoint}',
+                      '${model.match.aPoint}',
                       style: Theme.of(context).textTheme.display1,
                     ),
                     Text(
-                      "${model.match.BPoint}",
+                      "${model.match.bPoint}",
                       style: Theme.of(context).textTheme.display1,
                     ),
                   ],
@@ -68,11 +68,11 @@ class PointCountingPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                      child: Text(model.match.ATeamName),
+                      child: Text(model.match.aTeamName),
                       onPressed: () {
                         model.ifPushACountPoint();
-                        if (model.match.ATeamWin) {
-                          if (model.match.GameSet) {
+                        if (model.match.aTeamWin) {
+                          if (model.match.gameSet) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -89,11 +89,11 @@ class PointCountingPage extends StatelessWidget {
                       },
                     ),
                     RaisedButton(
-                      child: Text(model.match.BTeamName),
+                      child: Text(model.match.bTeamName),
                       onPressed: () {
                         model.ifPushBCountPoint();
-                        if (model.match.BTeamWin) {
-                          if (model.match.GameSet) {
+                        if (model.match.bTeamWin) {
+                          if (model.match.gameSet) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -140,12 +140,12 @@ class PointCountingPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(model.match.BTeamName,
+                      Text(model.match.bTeamName,
                           style: TextStyle(
                             fontSize: 40,
                             color: Colors.black12,
                           )),
-                      Text(model.match.ATeamName,
+                      Text(model.match.aTeamName,
                           style: TextStyle(
                             fontSize: 50,
                           )),
@@ -155,12 +155,12 @@ class PointCountingPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(model.match.BTeamName,
+                      Text(model.match.bTeamName,
                           style: TextStyle(
                             fontSize: 50,
                             color: Colors.black,
                           )),
-                      Text(model.match.ATeamName,
+                      Text(model.match.aTeamName,
                           style:
                               TextStyle(fontSize: 40, color: Colors.black12)),
                     ],
@@ -169,11 +169,11 @@ class PointCountingPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Text(
-                      "${model.match.BPoint}",
+                      "${model.match.bPoint}",
                       style: Theme.of(context).textTheme.display1,
                     ),
                     Text(
-                      '${model.match.APoint}',
+                      '${model.match.aPoint}',
                       style: Theme.of(context).textTheme.display1,
                     ),
                   ],
@@ -182,11 +182,11 @@ class PointCountingPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                      child: Text(model.match.BTeamName),
+                      child: Text(model.match.bTeamName),
                       onPressed: () {
                         model.ifPushBCountPoint();
-                        if (model.match.BTeamWin) {
-                          if (model.match.GameSet) {
+                        if (model.match.bTeamWin) {
+                          if (model.match.gameSet) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -203,11 +203,11 @@ class PointCountingPage extends StatelessWidget {
                       },
                     ),
                     RaisedButton(
-                      child: Text(model.match.ATeamName),
+                      child: Text(model.match.aTeamName),
                       onPressed: () {
                         model.ifPushACountPoint();
-                        if (model.match.ATeamWin) {
-                          if (model.match.GameSet) {
+                        if (model.match.aTeamWin) {
+                          if (model.match.gameSet) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -257,7 +257,7 @@ class PointCountingPage extends StatelessWidget {
         create: (_) => PointCountingModel(match), //mainmodelを作成
         // ignore: missing_return
         child: Consumer<PointCountingModel>(builder: (context, model, child) {
-          if (model.match.SetNumber == 1) {
+          if (model.match.setNumber == 1) {
             return Scaffold(
               appBar: AppBar(
                 title: Text('1st'),
@@ -265,7 +265,7 @@ class PointCountingPage extends StatelessWidget {
               body: countingWigets(),
             );
           }
-          if (model.match.SetNumber == 2) {
+          if (model.match.setNumber == 2) {
             return Scaffold(
               appBar: AppBar(
                 title: Text('2nd'),
@@ -273,7 +273,7 @@ class PointCountingPage extends StatelessWidget {
               body: countingWigets(),
             );
           }
-          if (model.match.SetNumber == 3) {
+          if (model.match.setNumber == 3) {
             return Scaffold(
               appBar: AppBar(
                 title: Text('3rd'),

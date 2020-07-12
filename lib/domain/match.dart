@@ -1,29 +1,27 @@
-import 'package:flutter/material.dart';
-
 class Match {
   bool server = true; //TeamAがサーブ権を得た場合true,TeamBがサーブ権を得た場合false
-  List ServerList = new List.filled(50, false);
-  int SetNumber = 1;
-  var ATeamName = 'ATeam';
-  var BTeamName = 'BTeam';
-  var AScore = [0, 0, 0]; //なぜか配列からTextに出力できない
-  var BScore = [0, 0, 0];
-  var SetCount = [
+  List serverList = new List.filled(50, false);
+  int setNumber = 1;
+  var aTeamName = 'ATeam';
+  var bTeamName = 'BTeam';
+  var aScore = [0, 0, 0]; //なぜか配列からTextに出力できない
+  var bScore = [0, 0, 0];
+  var setCount = [
     0,
     0,
     0
   ]; //そのセットが行われていなければ０、Ateamがそのセットをとっていたら１、BTeamがそのセットをとっていたら-1
-  var APoint = 0;
-  var BPoint = 0;
+  var aPoint = 0;
+  var bPoint = 0;
   int count = 0;
   bool side = true;
   bool deuce = false;
-  bool ATeamWin = false;
-  bool BTeamWin = false;
-  int Winner = 0; //Ateamが勝てば１、BTeamが勝てば−１
-  bool GameSet = false;
-  List ACounter = new List.filled(50, false);
-  List BCounter = new List.filled(50, false);
+  bool aTeamWin = false;
+  bool bTeamWin = false;
+  int winner = 0; //Ateamが勝てば１、BTeamが勝てば−１
+  bool gameSet = false;
+  List aCounter = new List.filled(50, false);
+  List bCounter = new List.filled(50, false);
   List fileContents = ['', '', '', ''];
 
   //最初にサーブ権の配列を埋める関数
@@ -31,27 +29,27 @@ class Match {
     for (var i = 0; i < 49; i++) {
       if (i == 0) {
         if (server == true) {
-          ServerList[i] = true;
+          serverList[i] = true;
         } else {
-          ServerList[i] = false;
+          serverList[i] = false;
         }
       } else if (i < 41) {
-        ServerList[i] = ServerList[i - 1];
+        serverList[i] = serverList[i - 1];
         if (i % 3 == 0) {
-          ServerList[i] = !ServerList[i];
+          serverList[i] = !serverList[i];
         }
       } else {
-        ServerList[i] = !ServerList[i - 1];
+        serverList[i] = !serverList[i - 1];
       }
     }
   }
 
   //deuceがどうかを判別する関数
   setIfDeuce() {
-    if (APoint > 19 && BPoint > 19) {
-      if (((APoint - BPoint < 2) && (APoint > BPoint)) ||
-          ((BPoint - APoint) < 2 && (BPoint > APoint)) ||
-          (APoint == BPoint)) {
+    if (aPoint > 19 && bPoint > 19) {
+      if (((aPoint - bPoint < 2) && (aPoint > bPoint)) ||
+          ((bPoint - aPoint) < 2 && (bPoint > aPoint)) ||
+          (aPoint == bPoint)) {
         //絶対値をどう描くか
         //得点が等しい時=>deuceではない  得点が等しい時もdeuceにした方が分かりやすいか？
         deuce = true;
@@ -62,34 +60,34 @@ class Match {
   //セットの勝利判定をする関数
   checkWinner() {
     if (deuce) {
-      if (APoint == 25) {
-        ATeamWin = true;
-      } else if (BPoint == 25) {
-        BTeamWin = true;
-      } else if (APoint - BPoint == 2) {
-        ATeamWin = true;
-      } else if (BPoint - APoint == 2) {
-        BTeamWin = true;
+      if (aPoint == 25) {
+        aTeamWin = true;
+      } else if (bPoint == 25) {
+        bTeamWin = true;
+      } else if (aPoint - bPoint == 2) {
+        aTeamWin = true;
+      } else if (bPoint - aPoint == 2) {
+        bTeamWin = true;
       }
-    } else if (APoint == 21) {
-      ATeamWin = true;
-    } else if (BPoint == 21) {
-      BTeamWin = true;
+    } else if (aPoint == 21) {
+      aTeamWin = true;
+    } else if (bPoint == 21) {
+      bTeamWin = true;
     }
   }
 
   //ゲームの勝利判定をする関数
   checkGameSet() {
-    if (SetCount[0] == SetCount[1]) {
-      GameSet = true;
-    } else if (SetCount[2] != 0) {
-      GameSet = true;
+    if (setCount[0] == setCount[1]) {
+      gameSet = true;
+    } else if (setCount[2] != 0) {
+      gameSet = true;
     }
-    if (GameSet) {
-      if (SetCount[0] + SetCount[1] + SetCount[2] > 0) {
-        Winner = 1; //ATeamの勝利
+    if (gameSet) {
+      if (setCount[0] + setCount[1] + setCount[2] > 0) {
+        winner = 1; //ATeamの勝利
       } else {
-        Winner = -1; //BTeamの勝利
+        winner = -1; //BTeamの勝利
       }
     }
   }

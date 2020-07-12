@@ -4,22 +4,22 @@ import 'package:sepakjudge/domain/match.dart';
 class MatchSettingModel extends ChangeNotifier {
   final match = Match();
   final matchNameController = TextEditingController(text: 'MatchName');
-  final ATeamNameController = TextEditingController(text: 'Ateam');
-  final BTeamNameController = TextEditingController(text: 'Bteam');
-  final ServiceController = TextEditingController();
-  var TeamName = ['ATeam', 'BTeam'];
+  final aTeamNameController = TextEditingController(text: 'Ateam');
+  final bTeamNameController = TextEditingController(text: 'Bteam');
+  final serviceController = TextEditingController();
+  var teamName = ['', ''];
   var firstServe;
 
   void setTeamName() {
-    match.ATeamName = ATeamNameController.text;
-    match.BTeamName = BTeamNameController.text;
+    match.aTeamName = aTeamNameController.text;
+    match.bTeamName = bTeamNameController.text;
   }
 
   void setFileContents() {
     match.fileContents[0] = matchNameController.text;
-    match.fileContents[1] = ATeamNameController.text;
-    match.fileContents[2] = BTeamNameController.text;
-    match.fileContents[3] = ServiceController.text;
+    match.fileContents[1] = aTeamNameController.text;
+    match.fileContents[2] = bTeamNameController.text;
+    match.fileContents[3] = serviceController.text;
   }
 
   void setFirstServe() {
