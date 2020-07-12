@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart';
-import 'package:sepakjudge/file_funcs.dart';
 import 'match_setting_model.dart';
-import 'package:sepakjudge/domain/match.dart';
 
 class MatchSettingPage extends StatelessWidget {
   @override
@@ -11,133 +9,111 @@ class MatchSettingPage extends StatelessWidget {
     return MaterialApp(
       title: 'flutter Demo',
       home: ChangeNotifierProvider<MatchSettingModel>(
-        create: (_) => MatchSettingModel(), //mainmodelを作成
+        create: (_) => MatchSettingModel(), //MatchSettingModelを作成
         child: Scaffold(
           appBar: AppBar(
             title: Text('MatchSetting'),
           ),
           body: Consumer<MatchSettingModel>(
             builder: (context, model, child) {
-              return Container(
-                width: double.infinity,
-                height: double.infinity,
-//          color: Colors.blue,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Container(
-//        color: Colors.red,
-                      height: 400,
-                      width: double.infinity,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          TextField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'MatchName',
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        height: 400,
+                        width: double.infinity,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            TextField(
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'MatchName',
+                              ),
+                              controller: model.matchNameController,
                             ),
-                            controller: model.MatchNameController,
-                          ),
-                          TextField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'ATeam',
+                            TextField(
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'ATeam',
+                              ),
+                              onChanged: (Text) {
+                                model.TeamName[0] =
+                                    model.ATeamNameController.text;
+                              },
+                              controller: model.ATeamNameController,
                             ),
-                            onChanged: (Text) {
-                              model.items[0] = model.ATeamNameController.text;
-                            },
-                            controller: model.ATeamNameController,
-                          ),
-                          TextField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'BTeam',
+                            TextField(
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'BTeam',
+                              ),
+                              onChanged: (Text) {
+                                model.TeamName[1] =
+                                    model.BTeamNameController.text;
+                              },
+                              controller: model.BTeamNameController,
                             ),
-                            onChanged: (Text) {
-                              model.items[1] = model.BTeamNameController.text;
-                            },
-                            controller: model.BTeamNameController,
-                          ),
-                          Column(
-                            children: <Widget>[
-                              TextField(
-                                autofocus: false,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'ServiceTeam',
+                            Column(
+                              children: <Widget>[
+                                TextField(
+                                  autofocus: false,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'ServiceTeam',
+                                  ),
+                                  controller: model.ServiceController,
                                 ),
-                                controller: model.ServiceController,
-                              ),
-                              PopupMenuButton<String>(
-                                initialValue: '',
-                                icon: const Icon(Icons.arrow_drop_down),
-                                onSelected: (String value) {
-                                  if (value == Null) {
-                                    print('a');
-                                  }
-                                  model.ServiceController.text = value;
-                                },
-                                itemBuilder: (BuildContext context) {
-                                  return model.items.map<PopupMenuItem<String>>(
-                                      (String value) {
-                                    return new PopupMenuItem(
-                                        child: new Text(value), value: value);
-                                  }).toList();
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
+                                PopupMenuButton<String>(
+                                  initialValue: '',
+                                  icon: const Icon(Icons.arrow_drop_down),
+                                  onSelected: (String value) {
+                                    if (value == Null) {
+                                      print('a');
+                                    }
+                                    model.ServiceController.text = value;
+                                  },
+                                  itemBuilder: (BuildContext context) {
+                                    return model.TeamName.map<
+                                        PopupMenuItem<String>>((String value) {
+                                      return new PopupMenuItem(
+                                          child: new Text(value), value: value);
+                                    }).toList();
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 160),
-                        child: Container(
-                          width: double.infinity,
-                          height: 48,
-                          child: RaisedButton(
-                            child: Text('GameStart'),
-                            onPressed: () {
-                              model.match.ATeamName =
-                                  model.ATeamNameController.text;
-                              model.match.BTeamName =
-                                  model.BTeamNameController.text;
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          PointCountingPage(model.match)));
-                              model.FileContentsList[0] =
-                                  model.MatchNameController.text;
-                              model.FileContentsList[1] =
-                                  model.ATeamNameController.text;
-                              model.FileContentsList[2] =
-                                  model.BTeamNameController.text;
-                              model.FileContentsList[3] =
-                                  model.ServiceController.text;
-                              if (model.FileContentsList[3] ==
-                                  model.FileContentsList[2]) {
-                                model.firstServe = false;
-                              } else {
-                                model.firstServe = true;
-                              }
-//                        OutText = FileContentsList[0] + '\n' + FileContentsList[1] + '\n' + FileContentsList[2];
-//                        fileName = FileContentsList[0] + ".txt";
-                              model.OutText = model.FileContentsList[0] +
-                                  ',' +
-                                  model.FileContentsList[1] +
-                                  ',' +
-                                  model.FileContentsList[2];
-//                              fileName = model.FileContentsList[0] + ".csv";
-                              print('$model.FileContentsList');
-                            },
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 160),
+                          child: Container(
+                            width: double.infinity,
+                            height: 48,
+                            child: RaisedButton(
+                              child: Text('GameStart'),
+                              onPressed: () {
+                                model.setTeamName();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            PointCountingPage(model.match)));
+                                model.setFirstServe();
+                              },
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               );
             },

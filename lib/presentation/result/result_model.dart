@@ -4,8 +4,9 @@ import 'package:sepakjudge/domain/match.dart';
 class ResultModel extends ChangeNotifier {
   ResultModel(this.match);
   final Match match;
+  var navigationButtonText = 'NextSet';
 
-  ifPushButton() {
+  setNextSet() {
     match.SetNumber++; //何セット目か
     for (int i = 0; i < 49; i++) {
       match.ServerList[i] = !match.ServerList[i]; //サーブ権は１セット目と２セット目で逆

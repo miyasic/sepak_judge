@@ -9,7 +9,7 @@ class PointCountingModel extends ChangeNotifier {
   //関数
   ifPushACountPoint() {
 //    PointCountingModelMatch.ATeamName = "";
-    match.SetServer(); //本当は一回だけ実行したい
+    match.setServer(); //本当は一回だけ実行したい
     match.ACounter[match.count] = true;
     match.BCounter[match.count] = false;
     match.count++;
@@ -19,22 +19,22 @@ class PointCountingModel extends ChangeNotifier {
         match.APoint++;
       }
     }
-    match.ifDeuce();
+    match.setIfDeuce();
     print(match.deuce);
     match.server = match.ServerList[match.count];
-    match.getWinner();
+    match.checkWinner();
     if (match.ATeamWin) print('ATeamwin');
     if (match.ATeamWin) {
       match.AScore[match.SetNumber - 1] = match.APoint; //setnumberは１〜３
       match.BScore[match.SetNumber - 1] = match.BPoint;
       match.SetCount[match.SetNumber - 1] = 1;
-      match.getGameSet();
+      match.checkGameSet();
     }
     notifyListeners();
   }
 
   ifPushBCountPoint() {
-    match.SetServer(); //本当は一回だけ実行したい
+    match.setServer(); //本当は一回だけ実行したい
     match.ACounter[match.count] = false;
     match.BCounter[match.count] = true;
     match.count++;
@@ -44,15 +44,15 @@ class PointCountingModel extends ChangeNotifier {
         match.BPoint++;
       }
     }
-    match.ifDeuce();
+    match.setIfDeuce();
     print(match.deuce);
     match.server = match.ServerList[match.count];
-    match.getWinner();
+    match.checkWinner();
     if (match.BTeamWin) {
       match.AScore[match.SetNumber - 1] = match.APoint; //setnumberは１〜３
       match.BScore[match.SetNumber - 1] = match.BPoint;
       match.SetCount[match.SetNumber - 1] = -1;
-      match.getGameSet();
+      match.checkGameSet();
     }
     notifyListeners();
   }

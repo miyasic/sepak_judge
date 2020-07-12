@@ -9,7 +9,7 @@ import 'package:sepakjudge/presentation/result/result_page.dart';
 class PointCountingPage extends StatelessWidget {
   PointCountingPage(this.match);
   final Match match;
-  Widget counting() {
+  Widget countingWigets() {
     return ChangeNotifierProvider<PointCountingModel>(
       create: (_) => PointCountingModel(match),
       child: Container(
@@ -262,7 +262,7 @@ class PointCountingPage extends StatelessWidget {
               appBar: AppBar(
                 title: Text('1st'),
               ),
-              body: counting(),
+              body: countingWigets(),
             );
           }
           if (model.match.SetNumber == 2) {
@@ -270,7 +270,7 @@ class PointCountingPage extends StatelessWidget {
               appBar: AppBar(
                 title: Text('2nd'),
               ),
-              body: counting(),
+              body: countingWigets(),
             );
           }
           if (model.match.SetNumber == 3) {
@@ -278,7 +278,7 @@ class PointCountingPage extends StatelessWidget {
               appBar: AppBar(
                 title: Text('3rd'),
               ),
-              body: counting(),
+              body: countingWigets(),
             );
           }
         }),

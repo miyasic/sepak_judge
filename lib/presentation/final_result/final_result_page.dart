@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sepakjudge/domain/file_manage.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'package:sepakjudge/presentation/main/main.dart';
 
@@ -8,6 +9,7 @@ import 'final_result_model.dart';
 class FinalResultPage extends StatelessWidget {
   FinalResultPage(this.match);
   final Match match;
+  final fileManage = FileManage();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -75,25 +77,22 @@ class FinalResultPage extends StatelessWidget {
                           RaisedButton(
                             child: Text('出力'),
                             onPressed: () {
-                              for (int i = 0; i < 3; i++) {
-//                                OutText =
-//                                    OutText + "," + "${model.match.AScore[i]} vs ${model.match.BScore[i]}";
-                              }
-//                              outButton();
+                              fileManage.setFileName(match);
+                              fileManage.setOutText(match);
+                              fileManage.outButton();
                             },
                           ),
                           RaisedButton(
-                            child: Text('fainl Result'),
+                            child: Text('final Result'),
                             onPressed: () {
-//                              share();
+                              fileManage.share();
                               model.setNextMatch();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => MyApp()),
                               );
-//                  loadButton();
-//                  Navigator.push(context, MaterialPageRoute(builder: (context) => FirstSet()));
+                              fileManage.loadButton();
                             },
                           ),
                         ],

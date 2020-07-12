@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart';
-import 'package:sepakjudge/presentation/match_setting/match_setting_page.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'result_model.dart';
 
@@ -64,19 +63,22 @@ class ResultPage extends StatelessWidget {
                           ),
                       ],
                     ),
-                    Container(
-                      height: 40,
-                      width: double.infinity,
-                      child: RaisedButton(
-                        child: Text(model.match.NavigationButtonText),
-                        onPressed: () {
-                          model.ifPushButton();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      PointCountingPage(model.match)));
-                        },
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 40,
+                        width: double.infinity,
+                        child: RaisedButton(
+                          child: Text(model.navigationButtonText),
+                          onPressed: () {
+                            model.setNextSet();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        PointCountingPage(model.match)));
+                          },
+                        ),
                       ),
                     ),
                   ],

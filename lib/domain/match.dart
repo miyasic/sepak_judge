@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 
-class Match extends ChangeNotifier {
+class Match {
   bool server = true; //TeamAがサーブ権を得た場合true,TeamBがサーブ権を得た場合false
   List ServerList = new List.filled(50, false);
   int SetNumber = 1;
-
-//  var ATeamName = FileContentsList[1];
-//  var BTeamName = FileContentsList[2];
-  var ATeamName = 'ATeam'; //本当は上みたいにmatch_setting_modelからチーム名を持ってきたい
+  var ATeamName = 'ATeam';
   var BTeamName = 'BTeam';
   var AScore = [0, 0, 0]; //なぜか配列からTextに出力できない
   var BScore = [0, 0, 0];
@@ -27,11 +24,10 @@ class Match extends ChangeNotifier {
   bool GameSet = false;
   List ACounter = new List.filled(50, false);
   List BCounter = new List.filled(50, false);
-
-  var NavigationButtonText = 'Push';
+  List fileContents = ['', '', '', ''];
 
   //最初にサーブ権の配列を埋める関数
-  SetServer() {
+  setServer() {
     for (var i = 0; i < 49; i++) {
       if (i == 0) {
         if (server == true) {
@@ -51,7 +47,7 @@ class Match extends ChangeNotifier {
   }
 
   //deuceがどうかを判別する関数
-  ifDeuce() {
+  setIfDeuce() {
     if (APoint > 19 && BPoint > 19) {
       if (((APoint - BPoint < 2) && (APoint > BPoint)) ||
           ((BPoint - APoint) < 2 && (BPoint > APoint)) ||
@@ -59,31 +55,12 @@ class Match extends ChangeNotifier {
         //絶対値をどう描くか
         //得点が等しい時=>deuceではない  得点が等しい時もdeuceにした方が分かりやすいか？
         deuce = true;
-      } else {
-//      deuce = false;
       }
     }
   }
 
-  //次のセットの準備
-//  setNextSet() {
-//    SetNumber++; //何セット目か
-//    for (int i = 0; i < 49; i++) {
-//      ServerList[i] = !ServerList[i]; //サーブ権は１セット目と２セット目で逆
-//      ACounter[i] = false;
-//      BCounter[i] = false;
-//    }
-//    APoint = 0;
-//    BPoint = 0;
-//    count = 0;
-//    side = !side;
-//    deuce = false;
-//    ATeamWin = false;
-//    BTeamWin = false;
-//  }
-
   //セットの勝利判定をする関数
-  getWinner() {
+  checkWinner() {
     if (deuce) {
       if (APoint == 25) {
         ATeamWin = true;
@@ -102,7 +79,7 @@ class Match extends ChangeNotifier {
   }
 
   //ゲームの勝利判定をする関数
-  getGameSet() {
+  checkGameSet() {
     if (SetCount[0] == SetCount[1]) {
       GameSet = true;
     } else if (SetCount[2] != 0) {
