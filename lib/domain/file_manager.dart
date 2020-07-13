@@ -8,8 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:sepakjudge/domain/match.dart';
 
-class FileManage {
-  final match = Match();
+class FileManager {
   var directory;
   var fileName; //保存するファイルの名前
   var outText = ''; //ファイルに出力する文字列
@@ -51,21 +50,20 @@ class FileManage {
   }
 
 //ファイルの出力処理
-  void outButton() async {
-    getFilePath().then((File file) {
-      file.writeAsString(outText);
-    });
+  void outPutFiles() async {
+    final file = await getFilePath();
+    await file.writeAsString(outText);
   }
 
   void loadButton() async {
-    load().then((String value) {
+    await load().then((String value) {
       var out = value;
       print(out);
     });
   }
 
   void share() async {
-    FlutterShare.shareFile(
+    await FlutterShare.shareFile(
       title: 'Example share',
       filePath: directory.path + '/' + fileName,
     );

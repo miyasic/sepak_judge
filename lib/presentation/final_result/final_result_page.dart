@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sepakjudge/domain/file_manage.dart';
+import 'package:sepakjudge/domain/file_manager.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'package:sepakjudge/presentation/main/main.dart';
 
@@ -9,7 +9,7 @@ import 'final_result_model.dart';
 class FinalResultPage extends StatelessWidget {
   FinalResultPage(this.match);
   final Match match;
-  final fileManage = FileManage();
+  final fileManage = FileManager();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -79,7 +79,7 @@ class FinalResultPage extends StatelessWidget {
                             onPressed: () {
                               fileManage.setFileName(match);
                               fileManage.setOutText(match);
-                              fileManage.outButton();
+                              fileManage.outPutFiles();
                             },
                           ),
                           RaisedButton(
