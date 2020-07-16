@@ -103,6 +103,7 @@ class MatchSettingPage extends StatelessWidget {
                               onPressed: () {
                                 model.setTeamName();
                                 model.match.setServer();
+                                model.setFileContents();
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(

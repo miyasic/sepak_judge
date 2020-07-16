@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sepakjudge/presentation/match_setting/match_setting_page.dart';
+import 'package:sepakjudge/presentation/open_file/open_file_page.dart';
 
 void main() {
   runApp(
@@ -50,7 +51,12 @@ class MyApp extends StatelessWidget {
                           style: TextStyle(fontSize: 40, color: Colors.white),
                         ),
                         onPressed: () {
-                          //todo:OpenFilePageに遷移（未作成）
+                          //todo:OpenFilePageに遷移
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => OpenFilePage()),
+                          );
                         },
                       ),
                     ),

@@ -4,10 +4,10 @@ import 'package:sepakjudge/domain/match.dart';
 class MatchSettingModel extends ChangeNotifier {
   final match = Match();
   final matchNameController = TextEditingController(text: 'MatchName');
-  final aTeamNameController = TextEditingController(text: 'Ateam');
-  final bTeamNameController = TextEditingController(text: 'Bteam');
+  final aTeamNameController = TextEditingController(text: 'ATeam');
+  final bTeamNameController = TextEditingController(text: 'BTeam');
   final serviceController = TextEditingController();
-  var teamName = ['', ''];
+  var teamName = ['ATeam', 'BTeam'];
   var firstServe;
 
   void setTeamName() {

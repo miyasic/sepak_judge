@@ -9,7 +9,7 @@ import 'final_result_model.dart';
 class FinalResultPage extends StatelessWidget {
   FinalResultPage(this.match);
   final Match match;
-  final fileManage = FileManager();
+  final fileManager = FileManager();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -77,22 +77,21 @@ class FinalResultPage extends StatelessWidget {
                           RaisedButton(
                             child: Text('出力'),
                             onPressed: () {
-                              fileManage.setFileName(match);
-                              fileManage.setOutText(match);
-                              fileManage.outPutFiles();
+                              fileManager.setFileName(match);
+                              fileManager.setFileContents(match);
+                              fileManager.outPutFiles();
                             },
                           ),
                           RaisedButton(
                             child: Text('final Result'),
                             onPressed: () {
-                              fileManage.share();
+                              fileManager.share();
                               model.setNextMatch();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => MyApp()),
                               );
-                              fileManage.loadButton();
                             },
                           ),
                         ],
