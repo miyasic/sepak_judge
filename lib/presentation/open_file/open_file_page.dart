@@ -25,11 +25,12 @@ class OpenFilePage extends StatelessWidget {
                   width: double.infinity,
                   height: double.infinity,
                   child: ListView.builder(
-                    itemCount: model.filemanager.inputFileNames.length - 1,//inputFileNamesは初期値に空白が入っている。
+                    itemCount: model.filemanager.inputFileNames.length -
+                        1, //inputFileNamesは初期値に空白が入っている。
                     itemBuilder: (context, index) {
                       return ListTile(
                         title: Text(
-                            '${model.filemanager.inputFileNames[index + 1]}'),//inputFileNamesは初期値に空白が入っている。
+                            '${model.filemanager.inputFileNames[index + 1]}'), //inputFileNamesは初期値に空白が入っている。
                         onTap: () {
                           //todo:画面遷移・ファイルからデータ取得
                           Navigator.push(

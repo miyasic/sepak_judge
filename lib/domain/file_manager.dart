@@ -49,7 +49,6 @@ class FileManager {
     return file.readAsString();
   }
 
-
   //outputFilenameをセットする。
   void setFileName(Match match) {
     outputFileName = match.fileContents[0] + '.txt';
