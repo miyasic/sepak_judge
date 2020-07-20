@@ -4,6 +4,8 @@ import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart'
 import 'match_setting_model.dart';
 
 class MatchSettingPage extends StatelessWidget {
+  MatchSettingPage({this.matchSettingData});
+  final matchSettingData;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sepakjudge/presentation/match_setting/match_setting_page.dart';
 import 'package:sepakjudge/presentation/open_file/open_file_page.dart';
+import 'package:sepakjudge/domain/file_manager.dart';
 
 void main() {
   runApp(
@@ -11,6 +12,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final filemanager = FileManager();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -50,12 +52,14 @@ class MyApp extends StatelessWidget {
                           'Open File',
                           style: TextStyle(fontSize: 40, color: Colors.white),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           //todo:OpenFilePageに遷移
+                          await filemanager.setInputFileName();
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => OpenFilePage()),
+                                builder: (context) =>
+                                    OpenFilePage(filemanager)),
                           );
                         },
                       ),

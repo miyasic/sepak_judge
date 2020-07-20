@@ -20,26 +20,35 @@ class FileManager {
     return File(documentDirectory.path + '/' + outputFileName);
   }
 
+  //ファイル名からファイルの中身を取り出す。
+  Future<String> getFileData(String fileName) async {
+    var text = await load(await getInPutFilePath(fileName));
+    return text;
+  }
+
+  //ファイル名から入力するテキストファイルのパスを取得する
+  Future<String> getInPutFilePath(String fileName) async {
+    documentDirectory = await getApplicationDocumentsDirectory();
+    final filePath = await documentDirectory.path + '/Inbox/' + fileName;
+    return filePath;
+  }
+
   //受け取ったファイル名をinputFileNamesに格納する。
   Future<void> setInputFileName() async {
     documentDirectory = await getApplicationDocumentsDirectory();
-
     var systemTempDir = await Directory(documentDirectory.path + '/Inbox');
-    // List directory contents, recursing into sub-directories,
-    // but not following symbolic links.
-    await systemTempDir
-        .list(recursive: true, followLinks: false)
-        .listen((FileSystemEntity entity) async {
-      String inputFileTemp = await entity.path.split('/').last as String;
-      await inputFileNames.add(inputFileTemp.toString());
-    });
+    await for (var value in systemTempDir.list()) {
+      String inputFileTemp = value.path.split('/').last as String;
+      inputFileNames.add(inputFileTemp.toString());
+    }
   }
 
   //テキストファイルの読み込み
-  Future<String> load() async {
-    final file = await getOutputFile();
+  Future<String> load(filePath) async {
+    final file = await File(filePath);
     return file.readAsString();
   }
+
 
   //outputFilenameをセットする。
   void setFileName(Match match) {

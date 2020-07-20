@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sepakjudge/domain/file_manager.dart';
+import 'package:sepakjudge/presentation/match_setting/match_setting_page.dart';
 import 'open_file_model.dart';
 
 class OpenFilePage extends StatelessWidget {
-  final filemanager = FileManager();
+  OpenFilePage(this.filemanager);
+  final FileManager filemanager;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,56 +24,24 @@ class OpenFilePage extends StatelessWidget {
                 child: Container(
                   width: double.infinity,
                   height: double.infinity,
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 500,
-                        child: Container(
-                          color: Colors.blue,
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              color: Colors.white,
-                              child: ListView.builder(
-                                itemCount:
-                                    model.filemanager.inputFileNames.length,
-                                itemBuilder: (context, index) {
-                                  return ListTile(
-                                    title: Text(
-                                        '${model.filemanager.inputFileNames[index]}'),
-                                    onTap: () {
-                                      //todo:画面遷移・ファイルからデータ取得
-                                    },
-                                  );
-                                },
-                              ),
+                  child: ListView.builder(
+                    itemCount: model.filemanager.inputFileNames.length - 1,//inputFileNamesは初期値に空白が入っている。
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(
+                            '${model.filemanager.inputFileNames[index + 1]}'),//inputFileNamesは初期値に空白が入っている。
+                        onTap: () {
+                          //todo:画面遷移・ファイルからデータ取得
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MatchSettingPage(
+                                  matchSettingData: model.getText(index)),
                             ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          child: Center(
-                            child: SizedBox(
-                              width: double.infinity,
-                              height: 48,
-                              child: RaisedButton(
-                                color: Colors.blue,
-                                child: Text(
-                                  'ファイルを表示する',
-                                  style: TextStyle(
-                                      fontSize: 40, color: Colors.white),
-                                ),
-                                onPressed: () {
-                                  //todo:inputFilesNameを格納する。
-                                  model.fileset();
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                          );
+                        },
+                      );
+                    },
                   ),
                 ),
               );
