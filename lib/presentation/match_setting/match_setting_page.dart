@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart';
 import 'match_setting_model.dart';
+import 'package:sepakjudge/domain/file_manager.dart';
 
 class MatchSettingPage extends StatelessWidget {
-  MatchSettingPage({this.matchSettingData});
-  final matchSettingData;
+  MatchSettingPage(this.filemanager);
+  final FileManager filemanager;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'flutter Demo',
       home: ChangeNotifierProvider<MatchSettingModel>(
-        create: (_) => MatchSettingModel(), //MatchSettingModelを作成
+        create: (_) => MatchSettingModel(filemanager), //MatchSettingModelを作成
         child: Scaffold(
           appBar: AppBar(
             title: Text('MatchSetting'),
@@ -37,7 +38,7 @@ class MatchSettingPage extends StatelessWidget {
                                 border: OutlineInputBorder(),
                                 labelText: 'MatchName',
                               ),
-                              controller: model.matchNameController,
+                              controller: model.filemanager.matchNameController,
                             ),
                             TextField(
                               decoration: InputDecoration(
@@ -45,10 +46,10 @@ class MatchSettingPage extends StatelessWidget {
                                 labelText: 'ATeam',
                               ),
                               onChanged: (Text) {
-                                model.teamName[0] =
-                                    model.aTeamNameController.text;
+                                model.filemanager.teamName[0] =
+                                    model.filemanager.aTeamNameController.text;
                               },
-                              controller: model.aTeamNameController,
+                              controller: model.filemanager.aTeamNameController,
                             ),
                             TextField(
                               decoration: InputDecoration(
@@ -56,10 +57,10 @@ class MatchSettingPage extends StatelessWidget {
                                 labelText: 'BTeam',
                               ),
                               onChanged: (Text) {
-                                model.teamName[1] =
-                                    model.bTeamNameController.text;
+                                model.filemanager.teamName[1] =
+                                    model.filemanager.bTeamNameController.text;
                               },
-                              controller: model.bTeamNameController,
+                              controller: model.filemanager.bTeamNameController,
                             ),
                             Column(
                               children: <Widget>[
@@ -69,7 +70,8 @@ class MatchSettingPage extends StatelessWidget {
                                     border: OutlineInputBorder(),
                                     labelText: 'ServiceTeam',
                                   ),
-                                  controller: model.serviceController,
+                                  controller:
+                                      model.filemanager.serviceController,
                                 ),
                                 PopupMenuButton<String>(
                                   initialValue: '',
@@ -78,10 +80,11 @@ class MatchSettingPage extends StatelessWidget {
                                     if (value == Null) {
                                       print('a');
                                     }
-                                    model.serviceController.text = value;
+                                    model.filemanager.serviceController.text =
+                                        value;
                                   },
                                   itemBuilder: (BuildContext context) {
-                                    return model.teamName
+                                    return model.filemanager.teamName
                                         .map<PopupMenuItem<String>>(
                                             (String value) {
                                       return new PopupMenuItem(

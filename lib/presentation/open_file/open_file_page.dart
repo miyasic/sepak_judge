@@ -31,13 +31,17 @@ class OpenFilePage extends StatelessWidget {
                       return ListTile(
                         title: Text(
                             '${model.filemanager.inputFileNames[index + 1]}'), //inputFileNamesは初期値に空白が入っている。
-                        onTap: () {
+                        onTap: () async {
                           //todo:画面遷移・ファイルからデータ取得
+                          List settings = await model.getText(
+                              model.filemanager.inputFileNames[index + 1]);
+                          filemanager.changeInitialText(
+                              settings[0], settings[1], settings[2]);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => MatchSettingPage(
-                                  matchSettingData: model.getText(index)),
+                              builder: (context) =>
+                                  MatchSettingPage(filemanager),
                             ),
                           );
                         },

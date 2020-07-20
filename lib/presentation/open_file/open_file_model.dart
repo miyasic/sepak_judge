@@ -7,16 +7,9 @@ class OpenFileModel extends ChangeNotifier {
   OpenFileModel(this.filemanager);
   final FileManager filemanager;
 
-  final match = Match();
-  final matchNameController = TextEditingController(text: 'MatchName');
-  final aTeamNameController = TextEditingController(text: 'ATeam');
-  final bTeamNameController = TextEditingController(text: 'BTeam');
-  final serviceController = TextEditingController();
-  var teamName = ['ATeam', 'BTeam'];
-  var firstServe;
-
-  Future<String> getText(fileName) async {
+  Future<List<String>> getText(fileName) async {
     final text = await filemanager.getFileData(fileName);
-    return text;
+    List settings = await text.split(',');
+    return settings;
   }
 }

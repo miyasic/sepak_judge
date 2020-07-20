@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:io';
 
 //アプリがファイルを保存可能な場所を取得するライブラリ
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:sepakjudge/domain/match.dart';
@@ -13,6 +14,20 @@ class FileManager {
   var outputFileName; //保存するファイル名
   var outText = ''; //ファイルに出力する文字列
   List inputFileNames = ['']; //読み込むファイル名の配列
+
+  final matchNameController = TextEditingController(text: 'MatchName');
+  final aTeamNameController = TextEditingController(text: 'ATeam');
+  final bTeamNameController = TextEditingController(text: 'BTeam');
+  final serviceController = TextEditingController();
+  var teamName = ['ATeam', 'BTeam'];
+  var firstServe;
+
+  //テキストフィールドの初期値を変更する
+  void changeInitialText(String matchName, String aTeamName, String bTeamName) {
+    matchNameController.text = matchName;
+    aTeamNameController.text = aTeamName;
+    bTeamNameController.text = bTeamName;
+  }
 
   //出力するテキストファイルを取得する
   Future<File> getOutputFile() async {
@@ -37,9 +52,11 @@ class FileManager {
   Future<void> setInputFileName() async {
     documentDirectory = await getApplicationDocumentsDirectory();
     var systemTempDir = await Directory(documentDirectory.path + '/Inbox');
-    await for (var value in systemTempDir.list()) {
-      String inputFileTemp = value.path.split('/').last as String;
-      inputFileNames.add(inputFileTemp.toString());
+    if (inputFileNames.length == 1) {
+      await for (var value in systemTempDir.list()) {
+        String inputFileTemp = value.path.split('/').last as String;
+        inputFileNames.add(inputFileTemp.toString());
+      }
     }
   }
 
