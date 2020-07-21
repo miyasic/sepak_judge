@@ -20,13 +20,13 @@ class FileManager {
   final bTeamNameController = TextEditingController(text: 'BTeam');
   final serviceController = TextEditingController();
   var teamName = ['ATeam', 'BTeam'];
-  var firstServe;
 
   //テキストフィールドの初期値を変更する
   void changeInitialText(String matchName, String aTeamName, String bTeamName) {
     matchNameController.text = matchName;
     aTeamNameController.text = aTeamName;
     bTeamNameController.text = bTeamName;
+    teamName = [aTeamName, bTeamName];
   }
 
   //出力するテキストファイルを取得する
@@ -51,7 +51,7 @@ class FileManager {
   //受け取ったファイル名をinputFileNamesに格納する。
   Future<void> setInputFileName() async {
     documentDirectory = await getApplicationDocumentsDirectory();
-    var systemTempDir = await Directory(documentDirectory.path + '/Inbox');
+    final systemTempDir = await Directory(documentDirectory.path + '/Inbox');
     if (inputFileNames.length == 1) {
       await for (var value in systemTempDir.list()) {
         String inputFileTemp = value.path.split('/').last as String;
@@ -68,18 +68,18 @@ class FileManager {
 
   //outputFilenameをセットする。
   void setFileName(Match match) {
-    outputFileName = match.fileContents[0] + '.txt';
+    outputFileName = match.fileContents[0] + '.csv';
   }
 
   //ファイルに出力する文字列をセットする。
   void setFileContents(Match match) {
     outText = match.fileContents[0] +
-        '\n' +
+        ',' +
         match.fileContents[1] +
-        '\n' +
+        ',' +
         match.fileContents[2];
     for (int i = 0; i < 3; i++) {
-      outText = outText + "\n" + "${match.aScore[i]} vs ${match.bScore[i]}";
+      outText = outText + "," + "${match.aScore[i]} vs ${match.bScore[i]}";
     }
   }
 

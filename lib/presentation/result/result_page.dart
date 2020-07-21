@@ -29,19 +29,27 @@ class ResultPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           if (model.match.aTeamWin)
-                            Text(model.match.aTeamName,
-                                style: TextStyle(fontSize: 40)),
+                            Flexible(
+                              child: Text(model.match.aTeamName,
+                                  style: TextStyle(fontSize: 40)),
+                            ),
                           if (!model.match.aTeamWin)
-                            Text(model.match.aTeamName,
-                                style: TextStyle(
-                                    fontSize: 40, color: Colors.black38)),
+                            Flexible(
+                              child: Text(model.match.aTeamName,
+                                  style: TextStyle(
+                                      fontSize: 40, color: Colors.black38)),
+                            ),
                           if (model.match.bTeamWin)
-                            Text(model.match.bTeamName,
-                                style: TextStyle(fontSize: 40)),
+                            Flexible(
+                              child: Text(model.match.bTeamName,
+                                  style: TextStyle(fontSize: 40)),
+                            ),
                           if (!model.match.bTeamWin)
-                            Text(model.match.bTeamName,
-                                style: TextStyle(
-                                    fontSize: 40, color: Colors.black38)),
+                            Flexible(
+                              child: Text(model.match.bTeamName,
+                                  style: TextStyle(
+                                      fontSize: 40, color: Colors.black38)),
+                            ),
                         ],
                       ),
                     ),

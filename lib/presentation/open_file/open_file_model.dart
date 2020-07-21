@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sepakjudge/domain/file_manager.dart';
-import 'package:sepakjudge/domain/match.dart';
 
 class OpenFileModel extends ChangeNotifier {
   OpenFileModel(this.filemanager);

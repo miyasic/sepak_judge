@@ -1,9 +1,3 @@
-//import 'package:flutter/material.dart';
-//
-//class FinalResultModel extends ChangeNotifier {
-//  FinalResultModel(this.match);
-//  final Match match;
-//}
 import 'package:flutter/material.dart';
 import 'package:sepakjudge/domain/match.dart';
 
@@ -23,7 +17,7 @@ class FinalResultModel extends ChangeNotifier {
       match.setCount[i] = 0;
     }
     for (int i = 0; i < 49; i++) {
-      match.serverList[i] = !match.serverList[i]; //サーブ権は１セット目と２セット目で逆
+      match.serverList[i] = false;
       match.aCounter[i] = false;
       match.bCounter[i] = false;
     }

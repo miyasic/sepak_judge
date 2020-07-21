@@ -20,10 +20,32 @@ class MatchSettingModel extends ChangeNotifier {
   }
 
   void setFirstServe() {
+    print(match.fileContents[2]);
+    print(match.fileContents[3]);
     if (match.fileContents[3] == match.fileContents[2]) {
-      filemanager.firstServe = false;
+      match.server = false;
     } else {
-      filemanager.firstServe = true;
+      match.server = true;
+    }
+  }
+
+  //最初にサーブ権の配列を埋める関数
+  setServer() {
+    for (var i = 0; i < 49; i++) {
+      if (i == 0) {
+        if (match.server == true) {
+          match.serverList[i] = true;
+        } else {
+          match.serverList[i] = false;
+        }
+      } else if (i < 41) {
+        match.serverList[i] = match.serverList[i - 1];
+        if (i % 3 == 0) {
+          match.serverList[i] = !match.serverList[i];
+        }
+      } else {
+        match.serverList[i] = !match.serverList[i - 1];
+      }
     }
   }
 }

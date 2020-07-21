@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sepakjudge/presentation/match_setting/match_setting_page.dart';
 import 'point_counting_model.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'package:sepakjudge/presentation/final_result/final_result_page.dart';
@@ -26,29 +25,37 @@ class PointCountingPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(model.match.aTeamName,
-                          style: TextStyle(
-                            fontSize: 50,
-                          )),
-                      Text(model.match.bTeamName,
-                          style: TextStyle(
-                            fontSize: 40,
-                            color: Colors.black12,
-                          )),
+                      Flexible(
+                        child: Text(model.match.aTeamName,
+                            style: TextStyle(
+                              fontSize: 40,
+                            )),
+                      ),
+                      Flexible(
+                        child: Text(model.match.bTeamName,
+                            style: TextStyle(
+                              fontSize: 40,
+                              color: Colors.black12,
+                            )),
+                      ),
                     ],
                   ),
                 if (!model.match.server)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(model.match.aTeamName,
-                          style:
-                              TextStyle(fontSize: 40, color: Colors.black12)),
-                      Text(model.match.bTeamName,
-                          style: TextStyle(
-                            fontSize: 50,
-                            color: Colors.black,
-                          )),
+                      Flexible(
+                        child: Text(model.match.aTeamName,
+                            style:
+                                TextStyle(fontSize: 40, color: Colors.black12)),
+                      ),
+                      Flexible(
+                        child: Text(model.match.bTeamName,
+                            style: TextStyle(
+                              fontSize: 40,
+                              color: Colors.black,
+                            )),
+                      ),
                     ],
                   ),
                 Row(
@@ -140,29 +147,37 @@ class PointCountingPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(model.match.bTeamName,
-                          style: TextStyle(
-                            fontSize: 40,
-                            color: Colors.black12,
-                          )),
-                      Text(model.match.aTeamName,
-                          style: TextStyle(
-                            fontSize: 50,
-                          )),
+                      Flexible(
+                        child: Text(model.match.bTeamName,
+                            style: TextStyle(
+                              fontSize: 40,
+                              color: Colors.black12,
+                            )),
+                      ),
+                      Flexible(
+                        child: Text(model.match.aTeamName,
+                            style: TextStyle(
+                              fontSize: 40,
+                            )),
+                      ),
                     ],
                   ),
                 if (!model.match.server)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(model.match.bTeamName,
-                          style: TextStyle(
-                            fontSize: 50,
-                            color: Colors.black,
-                          )),
-                      Text(model.match.aTeamName,
-                          style:
-                              TextStyle(fontSize: 40, color: Colors.black12)),
+                      Flexible(
+                        child: Text(model.match.bTeamName,
+                            style: TextStyle(
+                              fontSize: 40,
+                              color: Colors.black,
+                            )),
+                      ),
+                      Flexible(
+                        child: Text(model.match.aTeamName,
+                            style:
+                                TextStyle(fontSize: 40, color: Colors.black12)),
+                      ),
                     ],
                   ),
                 Row(

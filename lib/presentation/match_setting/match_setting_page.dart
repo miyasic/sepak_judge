@@ -24,103 +24,112 @@ class MatchSettingPage extends StatelessWidget {
                 child: Container(
                   width: double.infinity,
                   height: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        height: 400,
-                        width: double.infinity,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'MatchName',
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          height: 400,
+                          width: double.infinity,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              TextField(
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'MatchName',
+                                ),
+                                controller:
+                                    model.filemanager.matchNameController,
                               ),
-                              controller: model.filemanager.matchNameController,
-                            ),
-                            TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'ATeam',
+                              TextField(
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'ATeam',
+                                ),
+                                onChanged: (Text) {
+                                  model.filemanager.teamName[0] = model
+                                      .filemanager.aTeamNameController.text;
+                                },
+                                controller:
+                                    model.filemanager.aTeamNameController,
                               ),
-                              onChanged: (Text) {
-                                model.filemanager.teamName[0] =
-                                    model.filemanager.aTeamNameController.text;
-                              },
-                              controller: model.filemanager.aTeamNameController,
-                            ),
-                            TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'BTeam',
+                              TextField(
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'BTeam',
+                                ),
+                                onChanged: (Text) {
+                                  model.filemanager.teamName[1] = model
+                                      .filemanager.bTeamNameController.text;
+                                },
+                                controller:
+                                    model.filemanager.bTeamNameController,
                               ),
-                              onChanged: (Text) {
-                                model.filemanager.teamName[1] =
-                                    model.filemanager.bTeamNameController.text;
-                              },
-                              controller: model.filemanager.bTeamNameController,
-                            ),
-                            Column(
-                              children: <Widget>[
-                                TextField(
-                                  autofocus: false,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: 'ServiceTeam',
+                              Column(
+                                children: <Widget>[
+                                  TextField(
+                                    autofocus: false,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      labelText: 'ServiceTeam',
+                                    ),
+                                    controller:
+                                        model.filemanager.serviceController,
                                   ),
-                                  controller:
-                                      model.filemanager.serviceController,
-                                ),
-                                PopupMenuButton<String>(
-                                  initialValue: '',
-                                  icon: const Icon(Icons.arrow_drop_down),
-                                  onSelected: (String value) {
-                                    if (value == Null) {
-                                      print('a');
-                                    }
-                                    model.filemanager.serviceController.text =
-                                        value;
-                                  },
-                                  itemBuilder: (BuildContext context) {
-                                    return model.filemanager.teamName
-                                        .map<PopupMenuItem<String>>(
-                                            (String value) {
-                                      return new PopupMenuItem(
-                                          child: new Text(value), value: value);
-                                    }).toList();
-                                  },
-                                ),
-                              ],
-                            ),
-                          ],
+                                  PopupMenuButton<String>(
+                                    initialValue: '',
+                                    icon: const Icon(Icons.arrow_drop_down),
+                                    onSelected: (String value) {
+                                      if (value == Null) {
+                                        print('a');
+                                      }
+                                      model.filemanager.serviceController.text =
+                                          value;
+                                    },
+                                    itemBuilder: (BuildContext context) {
+                                      return model.filemanager.teamName
+                                          .map<PopupMenuItem<String>>(
+                                              (String value) {
+                                        return new PopupMenuItem(
+                                            child: new Text(value),
+                                            value: value);
+                                      }).toList();
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Center(
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 160),
-                          child: Container(
-                            width: double.infinity,
-                            height: 48,
-                            child: RaisedButton(
-                              child: Text('GameStart'),
-                              onPressed: () {
-                                model.setTeamName();
-                                model.match.setServer();
-                                model.setFileContents();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            PointCountingPage(model.match)));
-                                model.setFirstServe();
-                              },
+                        Container(
+                          height: 100,
+                        ),
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 160),
+                            child: Container(
+                              width: double.infinity,
+                              height: 48,
+                              child: RaisedButton(
+                                child: Text('GameStart'),
+                                onPressed: () {
+                                  model.setTeamName();
+                                  model.setFileContents();
+                                  model.setFirstServe();
+                                  model.setServer();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              PointCountingPage(model.match)));
+                                },
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               );

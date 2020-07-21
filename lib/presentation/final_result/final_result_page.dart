@@ -31,14 +31,18 @@ class FinalResultPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          Text(model.match.aTeamName,
-                              style: TextStyle(
-                                fontSize: 50,
-                              )),
-                          Text(model.match.bTeamName,
-                              style: TextStyle(
-                                fontSize: 50,
-                              )),
+                          Flexible(
+                            child: Text(model.match.aTeamName,
+                                style: TextStyle(
+                                  fontSize: 40,
+                                )),
+                          ),
+                          Flexible(
+                            child: Text(model.match.bTeamName,
+                                style: TextStyle(
+                                  fontSize: 40,
+                                )),
+                          ),
                         ],
                       ),
                     ),
@@ -61,32 +65,31 @@ class FinalResultPage extends StatelessWidget {
                       ],
                     ),
                     if (model.match.winner == 1)
-                      Text(
-                        '${model.match.aTeamName} WIN',
-                        style: TextStyle(fontSize: 50),
+                      Flexible(
+                        child: Text(
+                          '${model.match.aTeamName} WIN',
+                          style: TextStyle(fontSize: 50),
+                        ),
                       ),
                     if (model.match.winner == -1)
-                      Text(
-                        '${model.match.bTeamName} WIN',
-                        style: TextStyle(fontSize: 50),
+                      Flexible(
+                        child: Text(
+                          '${model.match.bTeamName} WIN',
+                          style: TextStyle(fontSize: 50),
+                        ),
                       ),
                     Container(
                       width: double.infinity,
                       child: Column(
                         children: <Widget>[
                           RaisedButton(
-                            child: Text('出力'),
-                            onPressed: () {
+                            child: Text('final Result'),
+                            onPressed: () async {
                               fileManager.setFileName(match);
                               fileManager.setFileContents(match);
-                              fileManager.outPutFiles();
-                            },
-                          ),
-                          RaisedButton(
-                            child: Text('final Result'),
-                            onPressed: () {
-                              fileManager.share();
-                              model.setNextMatch();
+                              await fileManager.outPutFiles();
+                              await fileManager.share();
+                              await model.setNextMatch();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
