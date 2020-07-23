@@ -78,6 +78,33 @@ class PointCountingPage extends StatelessWidget {
                       child: Text(model.match.aTeamName),
                       onPressed: () {
                         model.ifPushACountPoint();
+                        if (model.tieBreakSideChange[0]) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("サイドチェンジ"),
+                                content: Text("サイドチェンジしますか？"),
+                                actions: <Widget>[
+                                  // ボタン領域
+                                  FlatButton(
+                                    child: Text("Cancel"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  FlatButton(
+                                    child: Text("OK"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      model.ifPushSideChangeButton();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
                         if (model.match.aTeamWin) {
                           if (model.match.gameSet) {
                             Navigator.push(
@@ -99,6 +126,33 @@ class PointCountingPage extends StatelessWidget {
                       child: Text(model.match.bTeamName),
                       onPressed: () {
                         model.ifPushBCountPoint();
+                        if (model.tieBreakSideChange[0]) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("サイドチェンジ"),
+                                content: Text("サイドチェンジしますか？"),
+                                actions: <Widget>[
+                                  // ボタン領域
+                                  FlatButton(
+                                    child: Text("Cancel"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  FlatButton(
+                                    child: Text("OK"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      model.ifPushSideChangeButton();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
                         if (model.match.bTeamWin) {
                           if (model.match.gameSet) {
                             Navigator.push(
@@ -200,6 +254,33 @@ class PointCountingPage extends StatelessWidget {
                       child: Text(model.match.bTeamName),
                       onPressed: () {
                         model.ifPushBCountPoint();
+                        if (model.tieBreakSideChange[0]) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("サイドチェンジ"),
+                                content: Text("サイドチェンジしますか？"),
+                                actions: <Widget>[
+                                  // ボタン領域
+                                  FlatButton(
+                                    child: Text("Cancel"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  FlatButton(
+                                    child: Text("OK"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      model.ifPushSideChangeButton();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
                         if (model.match.bTeamWin) {
                           if (model.match.gameSet) {
                             Navigator.push(
@@ -221,6 +302,33 @@ class PointCountingPage extends StatelessWidget {
                       child: Text(model.match.aTeamName),
                       onPressed: () {
                         model.ifPushACountPoint();
+                        if (model.tieBreakSideChange[0]) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("サイドチェンジ"),
+                                content: Text("サイドチェンジしますか？"),
+                                actions: <Widget>[
+                                  // ボタン領域
+                                  FlatButton(
+                                    child: Text("Cancel"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  FlatButton(
+                                    child: Text("OK"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      model.ifPushSideChangeButton();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
                         if (model.match.aTeamWin) {
                           if (model.match.gameSet) {
                             Navigator.push(

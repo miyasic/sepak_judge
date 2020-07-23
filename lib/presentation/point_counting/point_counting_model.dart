@@ -5,6 +5,10 @@ class PointCountingModel extends ChangeNotifier {
   PointCountingModel(this.match);
   final Match match;
 
+  var tieBreakSideChange = [
+    false,
+    false
+  ]; //[1]は3セット目でどちらかにチームが11点になったときにtrueになる[2]はそれ以降常にtrue
   //関数
   ifPushACountPoint() {
     match.aCounter[match.count] = true;
@@ -26,6 +30,16 @@ class PointCountingModel extends ChangeNotifier {
       match.setCount[match.setNumber - 1] = 1;
       match.checkGameSet();
     }
+    if (match.setNumber == 3) {
+      if (tieBreakSideChange[1] == false) {
+        if (match.aPoint == 11 || match.bPoint == 11) {
+          tieBreakSideChange = [true, true];
+        }
+      } else {
+        tieBreakSideChange[0] = false;
+      }
+    }
+
     notifyListeners();
   }
 
@@ -48,6 +62,16 @@ class PointCountingModel extends ChangeNotifier {
       match.setCount[match.setNumber - 1] = -1;
       match.checkGameSet();
     }
+    if (match.setNumber == 3) {
+      if (tieBreakSideChange[1] == false) {
+        if (match.aPoint == 11 || match.bPoint == 11) {
+          tieBreakSideChange = [true, true];
+        }
+      } else {
+        tieBreakSideChange[0] = false;
+      }
+    }
+
     notifyListeners();
   }
 
@@ -71,6 +95,11 @@ class PointCountingModel extends ChangeNotifier {
       match.deuce = false;
     }
     match.server = match.serverList[match.count];
+    if (tieBreakSideChange[1] == true) {
+      if (match.aPoint < 11 && match.bPoint < 11) {
+        tieBreakSideChange = [false, false];
+      }
+    }
     notifyListeners();
   }
 

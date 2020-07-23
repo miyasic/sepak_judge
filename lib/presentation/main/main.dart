@@ -61,6 +61,21 @@ class MyApp extends StatelessWidget {
                                 builder: (context) =>
                                     OpenFilePage(filemanager)),
                           );
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return SimpleDialog(
+                                title: Text("タイトル"),
+                                children: <Widget>[
+                                  // コンテンツ領域
+                                  SimpleDialogOption(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: Text("１項目目"),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         },
                       ),
                     ),
