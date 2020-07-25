@@ -33,10 +33,8 @@ class OpenFilePage extends StatelessWidget {
                             '${model.filemanager.inputFileNames[index + 1]}'), //inputFileNamesは初期値に空白が入っている。
                         onTap: () async {
                           //todo:画面遷移・ファイルからデータ取得
-                          List settings = await model.getText(
+                          await model.setMatchSettings(
                               model.filemanager.inputFileNames[index + 1]);
-                          filemanager.changeInitialText(
-                              settings[0], settings[1], settings[2]);
                           Navigator.push(
                             context,
                             MaterialPageRoute(

@@ -23,7 +23,6 @@ class PointCountingModel extends ChangeNotifier {
     match.setIfDeuce();
     match.server = match.serverList[match.count];
     match.checkWinner();
-    if (match.aTeamWin) print('ATeamwin');
     if (match.aTeamWin) {
       match.aScore[match.setNumber - 1] = match.aPoint; //setnumberは１〜３
       match.bScore[match.setNumber - 1] = match.bPoint;

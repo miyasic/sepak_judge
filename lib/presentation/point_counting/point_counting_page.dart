@@ -94,7 +94,7 @@ class PointCountingPage extends StatelessWidget {
                                     },
                                   ),
                                   FlatButton(
-                                    child: Text("OK"),
+                                    child: Text("SideChange"),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                       model.ifPushSideChangeButton();
@@ -142,7 +142,7 @@ class PointCountingPage extends StatelessWidget {
                                     },
                                   ),
                                   FlatButton(
-                                    child: Text("OK"),
+                                    child: Text("SideChange"),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                       model.ifPushSideChangeButton();
@@ -270,7 +270,7 @@ class PointCountingPage extends StatelessWidget {
                                     },
                                   ),
                                   FlatButton(
-                                    child: Text("OK"),
+                                    child: Text("SideChange"),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                       model.ifPushSideChangeButton();
@@ -318,7 +318,7 @@ class PointCountingPage extends StatelessWidget {
                                     },
                                   ),
                                   FlatButton(
-                                    child: Text("OK"),
+                                    child: Text("SideChange"),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                       model.ifPushSideChangeButton();

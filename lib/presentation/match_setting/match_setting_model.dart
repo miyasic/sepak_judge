@@ -3,25 +3,23 @@ import 'package:sepakjudge/domain/match.dart';
 import 'package:sepakjudge/domain/file_manager.dart';
 
 class MatchSettingModel extends ChangeNotifier {
-  MatchSettingModel(this.filemanager);
-  final FileManager filemanager;
-  final match = Match();
+  MatchSettingModel(this.fileManager);
+  final FileManager fileManager;
+  var match = Match();
 
   void setTeamName() {
-    match.aTeamName = filemanager.aTeamNameController.text;
-    match.bTeamName = filemanager.bTeamNameController.text;
+    match.aTeamName = fileManager.aTeamNameController.text;
+    match.bTeamName = fileManager.bTeamNameController.text;
   }
 
   void setFileContents() {
-    match.fileContents[0] = filemanager.matchNameController.text;
-    match.fileContents[1] = filemanager.aTeamNameController.text;
-    match.fileContents[2] = filemanager.bTeamNameController.text;
-    match.fileContents[3] = filemanager.serviceController.text;
+    match.fileContents[0] = fileManager.matchNameController.text;
+    match.fileContents[1] = fileManager.aTeamNameController.text;
+    match.fileContents[2] = fileManager.bTeamNameController.text;
+    match.fileContents[3] = fileManager.serviceController.text;
   }
 
   void setFirstServe() {
-    print(match.fileContents[2]);
-    print(match.fileContents[3]);
     if (match.fileContents[3] == match.fileContents[2]) {
       match.server = false;
     } else {

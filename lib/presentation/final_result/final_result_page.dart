@@ -8,7 +8,7 @@ import 'final_result_model.dart';
 
 class FinalResultPage extends StatelessWidget {
   FinalResultPage(this.match);
-  final Match match;
+  Match match;
   final fileManager = FileManager();
   @override
   Widget build(BuildContext context) {
@@ -85,11 +85,8 @@ class FinalResultPage extends StatelessWidget {
                           RaisedButton(
                             child: Text('final Result'),
                             onPressed: () async {
-                              fileManager.setFileName(match);
-                              fileManager.setFileContents(match);
-                              await fileManager.outPutFiles();
-                              await fileManager.share();
-                              await model.setNextMatch();
+                              await fileManager.makeOutputAndShare(match);
+                              match = Match();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

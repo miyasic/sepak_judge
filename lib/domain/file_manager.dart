@@ -21,7 +21,7 @@ class FileManager {
   final serviceController = TextEditingController();
   var teamName = ['ATeam', 'BTeam'];
 
-  //テキストフィールドの初期値を変更する
+  //テキストフィールドの初期値を変更する。OpenFileModelで呼び出し
   void changeInitialText(String matchName, String aTeamName, String bTeamName) {
     matchNameController.text = matchName;
     aTeamNameController.text = aTeamName;
@@ -29,26 +29,26 @@ class FileManager {
     teamName = [aTeamName, bTeamName];
   }
 
-  //出力するテキストファイルを取得する
-  Future<File> getOutputFile() async {
-    documentDirectory = await getApplicationDocumentsDirectory();
-    return File(documentDirectory.path + '/' + outputFileName);
-  }
-
-  //ファイル名からファイルの中身を取り出す。
+  //ファイル名からファイルの中身を取り出す。OpenFileModelで呼び出し
   Future<String> getFileData(String fileName) async {
-    var text = await load(await getInPutFilePath(fileName));
+    var text = await _load(await _getInPutFilePath(fileName));
     return text;
   }
 
   //ファイル名から入力するテキストファイルのパスを取得する
-  Future<String> getInPutFilePath(String fileName) async {
+  Future<String> _getInPutFilePath(String fileName) async {
     documentDirectory = await getApplicationDocumentsDirectory();
     final filePath = await documentDirectory.path + '/Inbox/' + fileName;
     return filePath;
   }
 
-  //受け取ったファイル名をinputFileNamesに格納する。
+  //テキストファイルの読み込み
+  Future<String> _load(filePath) async {
+    final file = await File(filePath);
+    return file.readAsString();
+  }
+
+  //受け取ったファイル名をinputFileNamesに格納する。Mainで呼び出し
   Future<void> setInputFileName() async {
     documentDirectory = await getApplicationDocumentsDirectory();
     final systemTempDir = await Directory(documentDirectory.path + '/Inbox');
@@ -60,19 +60,20 @@ class FileManager {
     }
   }
 
-  //テキストファイルの読み込み
-  Future<String> load(filePath) async {
-    final file = await File(filePath);
-    return file.readAsString();
+  void makeOutputAndShare(Match match) async {
+    _setFileName(match);
+    _setFileContents(match);
+    await _outPutFiles();
+    await _share();
   }
 
   //outputFilenameをセットする。
-  void setFileName(Match match) {
+  void _setFileName(Match match) {
     outputFileName = match.fileContents[0] + '.csv';
   }
 
   //ファイルに出力する文字列をセットする。
-  void setFileContents(Match match) {
+  void _setFileContents(Match match) {
     outText = match.fileContents[0] +
         ',' +
         match.fileContents[1] +
@@ -84,13 +85,19 @@ class FileManager {
   }
 
 //ファイルの出力処理
-  void outPutFiles() async {
-    final file = await getOutputFile();
+  void _outPutFiles() async {
+    final file = await _getOutputFile();
     await file.writeAsString(outText);
   }
 
+  //出力するテキストファイルを取得する
+  Future<File> _getOutputFile() async {
+    documentDirectory = await getApplicationDocumentsDirectory();
+    return File(documentDirectory.path + '/' + outputFileName);
+  }
+
   //出力したファイルを共有する
-  void share() async {
+  void _share() async {
     await FlutterShare.shareFile(
       title: 'Example share',
       filePath: documentDirectory.path + '/' + outputFileName,

@@ -40,7 +40,7 @@ class MatchSettingPage extends StatelessWidget {
                                   labelText: 'MatchName',
                                 ),
                                 controller:
-                                    model.filemanager.matchNameController,
+                                    model.fileManager.matchNameController,
                               ),
                               TextField(
                                 decoration: InputDecoration(
@@ -48,11 +48,11 @@ class MatchSettingPage extends StatelessWidget {
                                   labelText: 'ATeam',
                                 ),
                                 onChanged: (Text) {
-                                  model.filemanager.teamName[0] = model
-                                      .filemanager.aTeamNameController.text;
+                                  model.fileManager.teamName[0] = model
+                                      .fileManager.aTeamNameController.text;
                                 },
                                 controller:
-                                    model.filemanager.aTeamNameController,
+                                    model.fileManager.aTeamNameController,
                               ),
                               TextField(
                                 decoration: InputDecoration(
@@ -60,11 +60,11 @@ class MatchSettingPage extends StatelessWidget {
                                   labelText: 'BTeam',
                                 ),
                                 onChanged: (Text) {
-                                  model.filemanager.teamName[1] = model
-                                      .filemanager.bTeamNameController.text;
+                                  model.fileManager.teamName[1] = model
+                                      .fileManager.bTeamNameController.text;
                                 },
                                 controller:
-                                    model.filemanager.bTeamNameController,
+                                    model.fileManager.bTeamNameController,
                               ),
                               Column(
                                 children: <Widget>[
@@ -75,20 +75,17 @@ class MatchSettingPage extends StatelessWidget {
                                       labelText: 'ServiceTeam',
                                     ),
                                     controller:
-                                        model.filemanager.serviceController,
+                                        model.fileManager.serviceController,
                                   ),
                                   PopupMenuButton<String>(
                                     initialValue: '',
                                     icon: const Icon(Icons.arrow_drop_down),
                                     onSelected: (String value) {
-                                      if (value == Null) {
-                                        print('a');
-                                      }
-                                      model.filemanager.serviceController.text =
+                                      model.fileManager.serviceController.text =
                                           value;
                                     },
                                     itemBuilder: (BuildContext context) {
-                                      return model.filemanager.teamName
+                                      return model.fileManager.teamName
                                           .map<PopupMenuItem<String>>(
                                               (String value) {
                                         return new PopupMenuItem(
