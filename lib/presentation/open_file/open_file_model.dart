@@ -6,7 +6,7 @@ class OpenFileModel extends ChangeNotifier {
   OpenFileModel(this.filemanager);
   final FileManager filemanager;
 
-  Future<void> setMatchSettings(fileName) async {
+  Future setMatchSettings(fileName) async {
     final text = await filemanager.getFileData(fileName);
     List settings = await text.split(',');
     await filemanager.changeInitialText(settings[0], settings[1], settings[2]);
