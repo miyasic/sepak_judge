@@ -189,12 +189,6 @@ class PointCountingPage extends StatelessWidget {
                         model.ifPushSideChangeButton();
                       },
                     ),
-                    RaisedButton(
-                      child: Text('back'),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
                   ],
                 )
               ],
@@ -380,38 +374,35 @@ class PointCountingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'flutter Demo',
-      home: ChangeNotifierProvider<PointCountingModel>(
-        create: (_) => PointCountingModel(match), //mainmodelを作成
-        // ignore: missing_return
-        child: Consumer<PointCountingModel>(builder: (context, model, child) {
-          if (model.match.setNumber == 1) {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text('1st'),
-              ),
-              body: countingWigets(),
-            );
-          }
-          if (model.match.setNumber == 2) {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text('2nd'),
-              ),
-              body: countingWigets(),
-            );
-          }
-          if (model.match.setNumber == 3) {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text('3rd'),
-              ),
-              body: countingWigets(),
-            );
-          }
-        }),
-      ),
+    return ChangeNotifierProvider<PointCountingModel>(
+      create: (_) => PointCountingModel(match), //mainmodelを作成
+      // ignore: missing_return
+      child: Consumer<PointCountingModel>(builder: (context, model, child) {
+        if (model.match.setNumber == 1) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('1st'),
+            ),
+            body: countingWigets(),
+          );
+        }
+        if (model.match.setNumber == 2) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('2nd'),
+            ),
+            body: countingWigets(),
+          );
+        }
+        if (model.match.setNumber == 3) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('3rd'),
+            ),
+            body: countingWigets(),
+          );
+        }
+      }),
     );
   }
 }
