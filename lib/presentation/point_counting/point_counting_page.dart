@@ -189,6 +189,12 @@ class PointCountingPage extends StatelessWidget {
                         model.ifPushSideChangeButton();
                       },
                     ),
+                    RaisedButton(
+                      child: Text('back'),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                   ],
                 )
               ],

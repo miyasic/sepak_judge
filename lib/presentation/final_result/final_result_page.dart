@@ -87,9 +87,9 @@ class FinalResultPage extends StatelessWidget {
                             onPressed: () async {
                               await fileManager.makeOutputAndShare(match);
                               model.resetMatch();
-                              Navigator.pushReplacement(
+                              Navigator.push(
                                 context,
-                                new MaterialPageRoute(
+                                MaterialPageRoute(
                                     builder: (context) => MyApp()),
                               );
                             },
