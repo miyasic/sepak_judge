@@ -64,6 +64,7 @@ class FileManager {
     _setFileName(match);
     _setFileContents(match);
     await _outPutFiles();
+    await loadButton();
     await _share();
   }
 
@@ -102,5 +103,9 @@ class FileManager {
       title: 'Example share',
       filePath: documentDirectory.path + '/' + outputFileName,
     );
+  }
+
+  Future loadButton() async {
+    print(await _load(documentDirectory.path + '/' + outputFileName));
   }
 }

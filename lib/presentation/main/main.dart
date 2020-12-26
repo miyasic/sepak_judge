@@ -12,7 +12,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final filemanager = FileManager();
+  final fileManager = FileManager();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +22,20 @@ class MyApp extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 200,
+                width: double.infinity,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 200,
+                width: double.infinity,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -54,12 +68,12 @@ class MyApp extends StatelessWidget {
                         ),
                         onPressed: () async {
                           //todo:OpenFilePageに遷移
-                          await filemanager.setInputFileName();
+                          await fileManager.setInputFileName();
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    OpenFilePage(filemanager)),
+                                    OpenFilePage(fileManager)),
                           );
                         },
                       ),
@@ -79,7 +93,7 @@ class MyApp extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    MatchSettingPage(filemanager)),
+                                    MatchSettingPage(fileManager)),
                           );
                         },
                       ),
