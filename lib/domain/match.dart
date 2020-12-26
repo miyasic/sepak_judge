@@ -24,26 +24,6 @@ class Match {
   List bCounter = new List.filled(50, false);
   List fileContents = ['', '', '', ''];
 
-  //最初にサーブ権の配列を埋める関数
-  setServer() {
-    for (var i = 0; i < 49; i++) {
-      if (i == 0) {
-        if (server == true) {
-          serverList[i] = true;
-        } else {
-          serverList[i] = false;
-        }
-      } else if (i < 41) {
-        serverList[i] = serverList[i - 1];
-        if (i % 3 == 0) {
-          serverList[i] = !serverList[i];
-        }
-      } else {
-        serverList[i] = !serverList[i - 1];
-      }
-    }
-  }
-
   //deuceがどうかを判別する関数
   setIfDeuce() {
     if (aPoint > 19 && bPoint > 19) {

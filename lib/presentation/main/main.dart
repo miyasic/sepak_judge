@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sepakjudge/presentation/match_setting/match_setting_page.dart';
+import 'package:sepakjudge/presentation/open_file/open_file_page.dart';
+import 'package:sepakjudge/domain/file_manager.dart';
 
 void main() {
   runApp(
@@ -10,14 +12,15 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final fileManager = FileManager();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Sepak Judge'),
-        ),
-        body: Column(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sepak Judge'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -49,8 +52,15 @@ class MyApp extends StatelessWidget {
                           'Open File',
                           style: TextStyle(fontSize: 40, color: Colors.white),
                         ),
-                        onPressed: () {
-                          //todo:OpenFilePageに遷移（未作成）
+                        onPressed: () async {
+                          //todo:OpenFilePageに遷移
+                          await fileManager.setInputFileName();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    OpenFilePage(fileManager)),
+                          );
                         },
                       ),
                     ),
@@ -68,7 +78,8 @@ class MyApp extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MatchSettingPage()),
+                                builder: (context) =>
+                                    MatchSettingPage(fileManager)),
                           );
                         },
                       ),
