@@ -82,4 +82,49 @@ class Match {
       }
     }
   }
+
+  String getOutPutText() {
+    String output = matchName +
+        ',' +
+        aTeamName +
+        ',' +
+        bTeamName +
+        ',' +
+        (server ? aTeamName : bTeamName);
+    //ATeamの選手名、背番号
+    for (int i = 0; i < aTeam.members.length; i++) {
+      output += ',' + aTeam.members[i].name + ',' + aTeam.members[i].number;
+    }
+    output += ',' + aTeam.captain;
+    //BTeamの選手名、背番号
+    for (int i = 0; i < bTeam.members.length; i++) {
+      output += ',' + bTeam.members[i].name + ',' + bTeam.members[i].number;
+    }
+    output += ',' + bTeam.captain;
+    output += '\n';
+    //以下試合結果
+    //勝利チーム
+    output += ',' + (winner == 1 ? aTeamName : bTeamName);
+    //得点とセットカウント
+    for (int i = 0; i < 3; i++) {
+      output += "," + "${aScore[i]} vs ${bScore[i]}";
+    }
+    output += ',' + getSetCount();
+    return output;
+  }
+
+  String getSetCount() {
+    int setCountSum = setCount.reduce((value, element) => value + element);
+    if (setCountSum == 2) {
+      return '2 vs 0';
+    } else if (setCountSum == 1) {
+      return '2 vs 1';
+    } else if (setCountSum == -1) {
+      return '1 vs 2';
+    } else if (setCountSum == -2) {
+      return '0 vs 2';
+    } else {
+      return 'セットカウントが計算できませんでした。';
+    }
+  }
 }

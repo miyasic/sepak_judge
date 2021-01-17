@@ -46,26 +46,20 @@ class FileManager {
   }
 
   void makeOutputAndShare(Match match) async {
-    _setFileName(match);
+    _setFileName(match.matchName);
     await _outPutFiles(_getFileContents(match));
     await loadButton();
     await _share();
   }
 
   //outputFilenameをセットする。
-  void _setFileName(Match match) {
-    outputFileName = match.matchName + '.csv';
+  void _setFileName(String matchName) {
+    outputFileName = matchName + '.csv';
   }
 
   //ファイルに出力する文字列をセットする。
   String _getFileContents(Match match) {
-    String outputText =
-        match.matchName + ',' + match.aTeamName + ',' + match.bTeamName;
-    for (int i = 0; i < 3; i++) {
-      outputText =
-          outputText + "," + "${match.aScore[i]} vs ${match.bScore[i]}";
-    }
-    return outputText;
+    return match.getOutPutText();
   }
 
 //ファイルの出力処理
