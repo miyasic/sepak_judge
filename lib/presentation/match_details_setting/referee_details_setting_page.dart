@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'package:sepakjudge/presentation/match_details_setting/match_details_setting_model.dart';
+import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart';
 import 'package:sepakjudge/utils/dialog_utils.dart';
 
 class RefereeDetailsPage extends StatelessWidget {
@@ -127,8 +128,9 @@ class RefereeDetailsPage extends StatelessWidget {
                     ],
                   ),
                   RaisedButton(
-                      child: Text('登録する'),
+                      child: Text('試合を開始する'),
                       onPressed: () {
+                        model.regist();
                         if (!model.match.aTeam.isInputCompleted) {
                           DialogUtils.showAlertDialog(
                               text: 'ATeamの入力が完了していません！',
@@ -139,11 +141,13 @@ class RefereeDetailsPage extends StatelessWidget {
                               text: 'BTeamの入力が完了していません！',
                               context: context,
                               completion: () {});
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      PointCountingPage(model.match)));
                         }
-
-                        print(model.match.aTeam.isInputCompleted);
-                        print(model.match.bTeam.isInputCompleted);
-                        model.regist();
                       }),
                 ],
               ),
