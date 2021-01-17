@@ -42,6 +42,22 @@ class MatchSettingModel extends ChangeNotifier {
         match.bTeam.members.add(player);
       }
       match.bTeam.captain = inputFileData[31] ?? '';
+    } else {
+      match.aTeam.name = 'ATeam';
+      match.bTeam.name = 'BTeam';
+      match.aTeam.members = [
+        Player(name: '1人目', number: '1'),
+        Player(name: '2人目', number: '2'),
+        Player(name: '3人目', number: '3'),
+        Player(name: '')
+      ];
+      match.bTeam.members = [
+        Player(name: '1人目', number: '1'),
+        Player(name: '2人目', number: '2'),
+        Player(name: '3人目', number: '3'),
+        Player(name: '')
+      ];
+      print(match.aTeam.members[1].name);
     }
     notifyListeners();
   }

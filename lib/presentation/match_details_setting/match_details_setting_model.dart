@@ -37,52 +37,44 @@ class MatchDetailsSettingModel extends ChangeNotifier {
 
   void init() {
     print(match.aTeam.members);
-    if (match.aTeam.members.length != 0 && match.bTeam.members.length != 0) {
-      if (index == 0) {
-        teamNameController.text = match.aTeamName;
-        for (int i = 0; i < 6; i++) {
-          playerNameControllerList[i][0].text = match.aTeam.members[i].name;
-          playerNameControllerList[i][1].text = match.aTeam.members[i].number;
-          //右辺に選手の名前がnullの場合の文字列を入れる。
-          if (playerNameControllerList[i][0].text == '') {
-            for (int j = i; j < 6; j++) {
-              playerNameControllerList.removeLast();
-            }
-            break;
+    if (index == 0) {
+      teamNameController.text = match.aTeamName;
+      for (int i = 0; i < 6; i++) {
+        playerNameControllerList[i][0].text = match.aTeam.members[i].name;
+        playerNameControllerList[i][1].text = match.aTeam.members[i].number;
+        //右辺に選手の名前がnullの場合の文字列を入れる。
+        if (playerNameControllerList[i][0].text == '') {
+          for (int j = i; j < 6; j++) {
+            playerNameControllerList.removeLast();
           }
-          team.members.add(Player());
+          break;
         }
-      } else if (index == 2) {
-        teamNameController.text = match.bTeamName;
-        for (int i = 0; i < 6; i++) {
-          playerNameControllerList[i][0].text = match.bTeam.members[i].name;
-          playerNameControllerList[i][1].text = match.bTeam.members[i].number;
-          //右辺に選手の名前がnullの場合の文字列を入れる。
-          if (playerNameControllerList[i][0].text == '') {
-            for (int j = i; j < 6; j++) {
-              playerNameControllerList.removeLast();
-            }
-            break;
+        team.members.add(Player());
+      }
+    } else if (index == 2) {
+      teamNameController.text = match.bTeamName;
+      for (int i = 0; i < 6; i++) {
+        playerNameControllerList[i][0].text = match.bTeam.members[i].name;
+        playerNameControllerList[i][1].text = match.bTeam.members[i].number;
+        //右辺に選手の名前がnullの場合の文字列を入れる。
+        if (playerNameControllerList[i][0].text == '') {
+          for (int j = i; j < 6; j++) {
+            playerNameControllerList.removeLast();
           }
-          team.members.add(Player());
+          break;
         }
-      } else if (index == 1) {
-        chiefRefereeController.text = match.chiefReferee;
-        assistantRefereeController.text = match.assistantReferee;
-        courtNameController.text = match.courtName;
-        matchNameController.text = match.matchName;
-        serviceTeamController.text =
-            match.server ? match.aTeamName : match.bTeamName;
-        teamName[0] = match.aTeamName;
-        teamName[1] = match.bTeamName;
-        print(match.assistantReferee);
+        team.members.add(Player());
       }
-//      onChanged('');
-    } else {
-      //ファイルを読み込んでいない場合
-      for (int i = 0; i < 3; i++) {
-        this.team.members.add(Player());
-      }
+    } else if (index == 1) {
+      chiefRefereeController.text = match.chiefReferee;
+      assistantRefereeController.text = match.assistantReferee;
+      courtNameController.text = match.courtName;
+      matchNameController.text = match.matchName;
+      serviceTeamController.text =
+          match.server ? match.aTeamName : match.bTeamName;
+      teamName[0] = match.aTeamName;
+      teamName[1] = match.bTeamName;
+      print(match.assistantReferee);
     }
   }
 

@@ -7,7 +7,7 @@ class Team {
 }
 
 class Player {
-  Player({name, number});
+  Player({this.name, this.number});
   String name = '';
   String number = '';
 }
