@@ -4,6 +4,7 @@ import 'package:sepakjudge/domain/team.dart';
 
 class MatchDetailsSettingModel extends ChangeNotifier {
   MatchDetailsSettingModel({this.match, this.index});
+  bool isCompleted = false;
   //NavigationBottomBar用
   int index;
   Match match;
@@ -127,16 +128,18 @@ class MatchDetailsSettingModel extends ChangeNotifier {
   void regist() {
     if (this.index == 0) {
       onChangedTeamInfo('');
+      team.isInputCompleted = true;
       match.aTeam = team;
-      print('a');
     } else if (this.index == 2) {
       onChangedTeamInfo('');
+      team.isInputCompleted = true;
       match.bTeam = team;
-      print('b');
     } else if (this.index == 1) {
       onChangedRefereeInfo('');
       match.chiefReferee = chiefRefereeController.text;
       match.assistantReferee = assistantRefereeController.text;
     }
+    isCompleted = true;
+    notifyListeners();
   }
 }

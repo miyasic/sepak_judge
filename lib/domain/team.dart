@@ -3,6 +3,7 @@ class Team {
   String name = '';
   List<Player> members = [];
   String captain = '';
+  bool isInputCompleted;
 }
 
 class Player {
