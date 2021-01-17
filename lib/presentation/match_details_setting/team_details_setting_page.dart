@@ -31,10 +31,19 @@ class TeamDetailsSettingPage extends StatelessWidget {
                             fontSize: 30, fontWeight: FontWeight.bold),
                       ),
                       RaisedButton(
-                          child: Text('入力を変更する'),
+                          child: Text('入力情報を変更する'),
                           onPressed: () {
-                            model.regist();
+                            model.reInputTeamInfo();
                           }),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        '必要な情報の入力が終わったら\nRefereeタブから試合を開始してください',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
                     ],
                   )),
                 )

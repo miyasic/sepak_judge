@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'package:sepakjudge/presentation/match_details_setting/match_details_setting_model.dart';
+import 'package:sepakjudge/utils/dialog_utils.dart';
 
 class RefereeDetailsPage extends StatelessWidget {
   RefereeDetailsPage(this.match, this.index);
@@ -128,6 +129,20 @@ class RefereeDetailsPage extends StatelessWidget {
                   RaisedButton(
                       child: Text('登録する'),
                       onPressed: () {
+                        if (!model.match.aTeam.isInputCompleted) {
+                          DialogUtils.showAlertDialog(
+                              text: 'ATeamの入力が完了していません！',
+                              context: context,
+                              completion: () {});
+                        } else if (!model.match.bTeam.isInputCompleted) {
+                          DialogUtils.showAlertDialog(
+                              text: 'BTeamの入力が完了していません！',
+                              context: context,
+                              completion: () {});
+                        }
+
+                        print(model.match.aTeam.isInputCompleted);
+                        print(model.match.bTeam.isInputCompleted);
                         model.regist();
                       }),
                 ],

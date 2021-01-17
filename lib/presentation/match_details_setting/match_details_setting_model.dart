@@ -125,6 +125,16 @@ class MatchDetailsSettingModel extends ChangeNotifier {
     match.chiefReferee = chiefRefereeController.text;
   }
 
+  void reInputTeamInfo() {
+    isCompleted = false;
+    if (this.index == 0) {
+      match.aTeam.isInputCompleted = false;
+    } else if (this.index == 2) {
+      match.bTeam.isInputCompleted = false;
+    }
+    notifyListeners();
+  }
+
   void regist() {
     if (this.index == 0) {
       onChangedTeamInfo('');
@@ -142,4 +152,6 @@ class MatchDetailsSettingModel extends ChangeNotifier {
     isCompleted = true;
     notifyListeners();
   }
+
+  void startGame() {}
 }
