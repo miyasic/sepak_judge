@@ -61,7 +61,6 @@ class MatchDetailsSettingModel extends ChangeNotifier {
       onChanged('');
     } else {
       //ファイルを読み込んでいない場合
-      print('qiue');
       for (int i = 0; i < 3; i++) {
         this.team.members.add(Player());
       }

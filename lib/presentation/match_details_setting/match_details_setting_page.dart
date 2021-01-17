@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sepakjudge/presentation/match_details_setting/match_details_setting_model.dart';
+import 'package:sepakjudge/presentation/match_details_setting/referee_details_setting_page.dart';
 import 'package:sepakjudge/presentation/match_details_setting/team_details_setting_page.dart';
 import 'package:sepakjudge/domain/match.dart';
 
@@ -33,6 +34,13 @@ class MatchDetailSettingPage extends StatelessWidget {
                 ),
                 BottomNavigationBarItem(
                   icon: new Image.asset(
+                    'assets/balance.png',
+                    height: 50,
+                  ),
+                  title: new Text('Referee'),
+                ),
+                BottomNavigationBarItem(
+                  icon: new Image.asset(
                     'assets/iconB.png',
                     height: 50,
                   ),
@@ -48,8 +56,9 @@ class MatchDetailSettingPage extends StatelessWidget {
               children: <Widget>[
                 _buildOffstage(
                     0, TeamDetailsSettingPage(model.match, 0), model),
+                _buildOffstage(1, RefereeDetailsPage(model.match, 1), model),
                 _buildOffstage(
-                    1, TeamDetailsSettingPage(model.match, 1), model),
+                    2, TeamDetailsSettingPage(model.match, 2), model),
               ],
             );
           },
