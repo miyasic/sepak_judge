@@ -27,7 +27,7 @@ class MatchSettingModel extends ChangeNotifier {
       }
       match.courtName = inputFileData[3] ?? '';
       match.chiefReferee = inputFileData[4] ?? '';
-      match.assistantReseree = inputFileData[5] ?? '';
+      match.assistantReferee = inputFileData[5] ?? '';
       for (int i = 0; i < 6; i++) {
         Player player = Player();
         player.name = inputFileData[6 + 2 * i] ?? '';

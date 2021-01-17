@@ -33,7 +33,7 @@ class Match {
   Team bTeam = Team(name: 'BTeam');
   String courtName;
   String chiefReferee;
-  String assistantReseree;
+  String assistantReferee;
 
   //deuceがどうかを判別する関数
   setIfDeuce() {

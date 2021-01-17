@@ -26,6 +26,14 @@ class MatchDetailsSettingModel extends ChangeNotifier {
     [TextEditingController(text: '6人目'), TextEditingController()],
   ];
 
+  //RefereeSettingPage用
+  final chiefRefereeController = TextEditingController();
+  final assistantRefereeController = TextEditingController();
+  final courtNameController = TextEditingController();
+  final matchNameController = TextEditingController();
+  final serviceTeamController = TextEditingController();
+  List<String> teamName = ['ATeam', 'BTeam'];
+
   void init() {
     print(match.aTeam.members);
     if (match.aTeam.members.length != 0 && match.bTeam.members.length != 0) {
@@ -35,7 +43,21 @@ class MatchDetailsSettingModel extends ChangeNotifier {
           playerNameControllerList[i][0].text = match.aTeam.members[i].name;
           playerNameControllerList[i][1].text = match.aTeam.members[i].number;
           //右辺に選手の名前がnullの場合の文字列を入れる。
-          if (playerNameControllerList[i][0].text == 'a4Name') {
+          if (playerNameControllerList[i][0].text == '') {
+            for (int j = i; j < 6; j++) {
+              playerNameControllerList.removeLast();
+            }
+            break;
+          }
+          team.members.add(Player());
+        }
+      } else if (index == 2) {
+        teamNameController.text = match.bTeamName;
+        for (int i = 0; i < 6; i++) {
+          playerNameControllerList[i][0].text = match.bTeam.members[i].name;
+          playerNameControllerList[i][1].text = match.bTeam.members[i].number;
+          //右辺に選手の名前がnullの場合の文字列を入れる。
+          if (playerNameControllerList[i][0].text == '') {
             for (int j = i; j < 6; j++) {
               playerNameControllerList.removeLast();
             }
@@ -44,21 +66,17 @@ class MatchDetailsSettingModel extends ChangeNotifier {
           team.members.add(Player());
         }
       } else if (index == 1) {
-        teamNameController.text = match.bTeamName;
-        for (int i = 0; i < 6; i++) {
-          playerNameControllerList[i][0].text = match.bTeam.members[i].name;
-          playerNameControllerList[i][1].text = match.bTeam.members[i].number;
-          //右辺に選手の名前がnullの場合の文字列を入れる。
-          if (playerNameControllerList[i][0].text == 'b5Name') {
-            for (int j = i; j < 6; j++) {
-              playerNameControllerList.removeLast();
-            }
-            break;
-          }
-          team.members.add(Player());
-        }
+        chiefRefereeController.text = match.chiefReferee;
+        assistantRefereeController.text = match.assistantReferee;
+        courtNameController.text = match.courtName;
+        matchNameController.text = match.matchName;
+        serviceTeamController.text =
+            match.server ? match.aTeamName : match.bTeamName;
+        teamName[0] = match.aTeamName;
+        teamName[1] = match.bTeamName;
+        print(match.assistantReferee);
       }
-      onChanged('');
+//      onChanged('');
     } else {
       //ファイルを読み込んでいない場合
       for (int i = 0; i < 3; i++) {
@@ -75,7 +93,7 @@ class MatchDetailsSettingModel extends ChangeNotifier {
           .add([TextEditingController(text: '$x人目'), TextEditingController()]);
       this.team.members.add(Player());
     }
-    onChanged('');
+    onChangedTeamInfo('');
     notifyListeners();
   }
 
@@ -84,29 +102,41 @@ class MatchDetailsSettingModel extends ChangeNotifier {
       this.playerNameControllerList.removeLast();
       this.team.members.removeLast();
     }
-    onChanged('');
+    onChangedTeamInfo('');
     notifyListeners();
   }
 
-  void onChanged(String text) {
+  void onChangedTeamInfo(String text) {
     for (int i = 0; i < playerNameControllerList.length; i++) {
       team.members[i].name = playerNameControllerList[i][0].text;
       team.members[i].number = playerNameControllerList[i][1].text;
     }
     team.name = teamNameController.text;
     team.captain = captainController.text;
+    if (index == 0) {
+      match.aTeamName = team.name;
+    } else if (index == 2) {
+      match.bTeamName = team.name;
+    }
+  }
+
+  void onChangedRefereeInfo(String text) {
+    match.chiefReferee = chiefRefereeController.text;
   }
 
   void regist() {
-    onChanged('');
     if (this.index == 0) {
+      onChangedTeamInfo('');
       match.aTeam = team;
       print('a');
-    } else if (this.index == 1) {
+    } else if (this.index == 2) {
+      onChangedTeamInfo('');
       match.bTeam = team;
       print('b');
-    } else {
-      print('タブバーのインデックスがずれています。');
+    } else if (this.index == 1) {
+      onChangedRefereeInfo('');
+      match.chiefReferee = chiefRefereeController.text;
+      match.assistantReferee = assistantRefereeController.text;
     }
   }
 }

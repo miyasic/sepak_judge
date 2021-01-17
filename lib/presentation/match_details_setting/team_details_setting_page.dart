@@ -36,7 +36,7 @@ class TeamDetailsSettingPage extends StatelessWidget {
                       labelText: 'チーム名',
                     ),
                     controller: model.teamNameController,
-                    onChanged: model.onChanged,
+                    onChanged: model.onChangedTeamInfo,
                   ),
                   SizedBox(
                     height: 10,
@@ -45,8 +45,8 @@ class TeamDetailsSettingPage extends StatelessWidget {
                     '選手名と背番号',
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
-                  getTextFieldList(
-                      model.playerNameControllerList, model.onChanged, context),
+                  getTextFieldList(model.playerNameControllerList,
+                      model.onChangedTeamInfo, context),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -87,7 +87,7 @@ class TeamDetailsSettingPage extends StatelessWidget {
                             labelText: 'キャプテン',
                           ),
                           controller: model.captainController,
-                          onChanged: model.onChanged,
+                          onChanged: model.onChangedTeamInfo,
                         ),
                       ),
                       PopupMenuButton<String>(
@@ -95,7 +95,7 @@ class TeamDetailsSettingPage extends StatelessWidget {
                         icon: const Icon(Icons.arrow_drop_down),
                         onSelected: (String value) {
                           model.captainController.text = value;
-                          model.onChanged(value);
+                          model.onChangedTeamInfo(value);
                         },
                         itemBuilder: (BuildContext context) {
                           return model.team.members
@@ -110,7 +110,7 @@ class TeamDetailsSettingPage extends StatelessWidget {
                           child: Text('確認する'),
                           onPressed: () {
                             print(match.courtName);
-                            print(match.assistantReseree);
+                            print(match.assistantReferee);
                           }),
                       RaisedButton(
                           child: Text('登録する'),

@@ -25,6 +25,38 @@ class RefereeDetailsPage extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
+                    '試合番号',
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
+                  //チーム名用のテキストフィールド
+                  TextField(
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: '試合番号',
+                    ),
+                    controller: model.matchNameController,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'コート名',
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
+                  //チーム名用のテキストフィールド
+                  TextField(
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'コート名',
+                    ),
+                    controller: model.courtNameController,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
                     '主審',
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
@@ -35,136 +67,75 @@ class RefereeDetailsPage extends StatelessWidget {
                       border: OutlineInputBorder(),
                       labelText: 'チーム名',
                     ),
-                    controller: model.teamNameController,
-                    onChanged: model.onChanged,
+                    controller: model.chiefRefereeController,
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    '選手名と背番号',
+                    '副審',
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
-                  getTextFieldList(
-                      model.playerNameControllerList, model.onChanged, context),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      RaisedButton.icon(
-                        onPressed: () {
-                          model.addPlayer();
-                        },
-                        icon: Icon(Icons.exposure_plus_1),
-                        label: Text('選手枠の追加'),
-                      ),
-                      RaisedButton.icon(
-                        onPressed: () {
-                          model.deletePlayer();
-                        },
-                        icon: Icon(Icons.exposure_minus_1),
-                        label: Text('選手枠の削除'),
-                      ),
-                    ],
+                  //チーム名用のテキストフィールド
+                  TextField(
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'チーム名',
+                    ),
+                    controller: model.assistantRefereeController,
                   ),
                   SizedBox(
-                    height: 15,
+                    height: 10,
                   ),
                   Text(
-                    'キャプテン',
+                    'サーブ権',
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
-                    height: 8,
-                  ),
+                  //チーム名用のテキストフィールド
                   Column(
                     children: <Widget>[
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.85,
-                        child: TextField(
-                          autofocus: false,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'キャプテン',
-                          ),
-                          controller: model.captainController,
-                          onChanged: model.onChanged,
+                      TextField(
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                        autofocus: false,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'ServiceTeam',
                         ),
+                        controller: model.serviceTeamController,
                       ),
                       PopupMenuButton<String>(
                         initialValue: '',
                         icon: const Icon(Icons.arrow_drop_down),
                         onSelected: (String value) {
-                          model.captainController.text = value;
-                          model.onChanged(value);
+                          model.serviceTeamController.text = value;
                         },
                         itemBuilder: (BuildContext context) {
-                          return model.team.members
-                              .map<PopupMenuItem<String>>((player) {
+                          List<String> teamName = [
+                            model.match.aTeamName,
+                            model.match.bTeamName
+                          ];
+                          return teamName
+                              .map<PopupMenuItem<String>>((String value) {
                             return new PopupMenuItem(
-                                child: new Text(player.name),
-                                value: player.name);
+                                child: new Text(value), value: value);
                           }).toList();
                         },
                       ),
-                      RaisedButton(
-                          child: Text('確認する'),
-                          onPressed: () {
-                            print(match.courtName);
-                            print(match.assistantReseree);
-                          }),
-                      RaisedButton(
-                          child: Text('登録する'),
-                          onPressed: () {
-                            model.regist();
-                          }),
                     ],
                   ),
+                  RaisedButton(
+                      child: Text('登録する'),
+                      onPressed: () {
+                        model.regist();
+                      }),
                 ],
               ),
             ),
           );
         }),
       ),
-    );
-  }
-
-  Widget getTextFieldList(
-      List<List> playerList, onChanged, BuildContext context) {
-    return Column(
-      children: playerList
-          .map(
-            (player) => Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: '選手名',
-                      ),
-                      controller: player[0],
-                      onChanged: onChanged,
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: '背番号',
-                      ),
-                      controller: player[1],
-                      onChanged: onChanged,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
-          .toList(),
     );
   }
 }
