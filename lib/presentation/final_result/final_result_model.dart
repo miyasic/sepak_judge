@@ -8,4 +8,8 @@ class FinalResultModel extends ChangeNotifier {
   resetMatch() {
     match = Match();
   }
+
+  setEndTime() {
+    match.timeEnd = DateTime.now();
+  }
 }

@@ -5,10 +5,10 @@ import 'package:sepakjudge/domain/file_manager.dart';
 class OpenFileModel extends ChangeNotifier {
   OpenFileModel(this.filemanager);
   final FileManager filemanager;
+  List<String> inputFileData;
 
   Future setMatchSettings(fileName) async {
     final text = await filemanager.getFileData(fileName);
-    List settings = await text.split(',');
-    await filemanager.changeInitialText(settings[0], settings[1], settings[2]);
+    inputFileData = await text.split(',');
   }
 }

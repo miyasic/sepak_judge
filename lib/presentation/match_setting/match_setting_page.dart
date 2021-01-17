@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sepakjudge/presentation/match_details_setting/match_details_setting_page.dart';
 import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart';
 import 'match_setting_model.dart';
 import 'package:sepakjudge/domain/file_manager.dart';
 
 class MatchSettingPage extends StatelessWidget {
-  MatchSettingPage(this.filemanager);
-  final FileManager filemanager;
+  MatchSettingPage(this.fileManager, {this.inputFileData});
+  final FileManager fileManager;
+  final List<String> inputFileData;
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<MatchSettingModel>(
-      create: (_) => MatchSettingModel(filemanager), //MatchSettingModelを作成
+      create: (_) =>
+          MatchSettingModel(fileManager, inputFileData: inputFileData)
+            ..init(), //MatchSettingModelを作成
       child: Scaffold(
         appBar: AppBar(
           title: Text('MatchSetting'),
@@ -37,7 +41,7 @@ class MatchSettingPage extends StatelessWidget {
                                 border: OutlineInputBorder(),
                                 labelText: 'MatchName',
                               ),
-                              controller: model.fileManager.matchNameController,
+                              controller: model.matchNameController,
                             ),
                             TextField(
                               decoration: InputDecoration(
@@ -45,10 +49,10 @@ class MatchSettingPage extends StatelessWidget {
                                 labelText: 'ATeam',
                               ),
                               onChanged: (Text) {
-                                model.fileManager.teamName[0] =
-                                    model.fileManager.aTeamNameController.text;
+                                model.teamName[0] =
+                                    model.aTeamNameController.text;
                               },
-                              controller: model.fileManager.aTeamNameController,
+                              controller: model.aTeamNameController,
                             ),
                             TextField(
                               decoration: InputDecoration(
@@ -56,10 +60,10 @@ class MatchSettingPage extends StatelessWidget {
                                 labelText: 'BTeam',
                               ),
                               onChanged: (Text) {
-                                model.fileManager.teamName[1] =
-                                    model.fileManager.bTeamNameController.text;
+                                model.teamName[1] =
+                                    model.bTeamNameController.text;
                               },
-                              controller: model.fileManager.bTeamNameController,
+                              controller: model.bTeamNameController,
                             ),
                             Column(
                               children: <Widget>[
@@ -69,18 +73,16 @@ class MatchSettingPage extends StatelessWidget {
                                     border: OutlineInputBorder(),
                                     labelText: 'ServiceTeam',
                                   ),
-                                  controller:
-                                      model.fileManager.serviceController,
+                                  controller: model.serviceController,
                                 ),
                                 PopupMenuButton<String>(
                                   initialValue: '',
                                   icon: const Icon(Icons.arrow_drop_down),
                                   onSelected: (String value) {
-                                    model.fileManager.serviceController.text =
-                                        value;
+                                    model.serviceController.text = value;
                                   },
                                   itemBuilder: (BuildContext context) {
-                                    return model.fileManager.teamName
+                                    return model.teamName
                                         .map<PopupMenuItem<String>>(
                                             (String value) {
                                       return new PopupMenuItem(
@@ -101,20 +103,37 @@ class MatchSettingPage extends StatelessWidget {
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 160),
                           child: Container(
                             width: double.infinity,
-                            height: 48,
-                            child: RaisedButton(
-                              child: Text('GameStart'),
-                              onPressed: () {
-                                model.setTeamName();
-                                model.setFileContents();
-                                model.setFirstServe();
-                                model.setServer();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            PointCountingPage(model.match)));
-                              },
+                            height: 100,
+                            child: Column(
+                              children: [
+                                RaisedButton(
+                                  child: Text('DetailSetting'),
+                                  onPressed: () {
+                                    model.setMatchSetting();
+                                    model.setServer();
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                MatchDetailSettingPage(
+                                                    model.match)));
+                                  },
+                                ),
+                                RaisedButton(
+                                  child: Text('GameStart'),
+                                  onPressed: () {
+                                    model.setMatchSetting();
+                                    model.setServer();
+
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                PointCountingPage(
+                                                    model.match)));
+                                  },
+                                ),
+                              ],
                             ),
                           ),
                         ),

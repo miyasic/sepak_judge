@@ -12,22 +12,7 @@ import 'package:sepakjudge/domain/match.dart';
 class FileManager {
   var documentDirectory; //documentDirectoryを格納する。
   var outputFileName; //保存するファイル名
-  var outText = ''; //ファイルに出力する文字列
   List inputFileNames = ['']; //読み込むファイル名の配列
-
-  final matchNameController = TextEditingController(text: 'MatchName');
-  final aTeamNameController = TextEditingController(text: 'ATeam');
-  final bTeamNameController = TextEditingController(text: 'BTeam');
-  final serviceController = TextEditingController();
-  var teamName = ['ATeam', 'BTeam'];
-
-  //テキストフィールドの初期値を変更する。OpenFileModelで呼び出し
-  void changeInitialText(String matchName, String aTeamName, String bTeamName) {
-    matchNameController.text = matchName;
-    aTeamNameController.text = aTeamName;
-    bTeamNameController.text = bTeamName;
-    teamName = [aTeamName, bTeamName];
-  }
 
   //ファイル名からファイルの中身を取り出す。OpenFileModelで呼び出し
   Future<String> getFileData(String fileName) async {
@@ -62,33 +47,31 @@ class FileManager {
 
   void makeOutputAndShare(Match match) async {
     _setFileName(match);
-    _setFileContents(match);
-    await _outPutFiles();
+    await _outPutFiles(_getFileContents(match));
     await loadButton();
     await _share();
   }
 
   //outputFilenameをセットする。
   void _setFileName(Match match) {
-    outputFileName = match.fileContents[0] + '.csv';
+    outputFileName = match.matchName + '.csv';
   }
 
   //ファイルに出力する文字列をセットする。
-  void _setFileContents(Match match) {
-    outText = match.fileContents[0] +
-        ',' +
-        match.fileContents[1] +
-        ',' +
-        match.fileContents[2];
+  String _getFileContents(Match match) {
+    String outputText =
+        match.matchName + ',' + match.aTeamName + ',' + match.bTeamName;
     for (int i = 0; i < 3; i++) {
-      outText = outText + "," + "${match.aScore[i]} vs ${match.bScore[i]}";
+      outputText =
+          outputText + "," + "${match.aScore[i]} vs ${match.bScore[i]}";
     }
+    return outputText;
   }
 
 //ファイルの出力処理
-  void _outPutFiles() async {
+  void _outPutFiles(outputText) async {
     final file = await _getOutputFile();
-    await file.writeAsString(outText);
+    await file.writeAsString(outputText);
   }
 
   //出力するテキストファイルを取得する

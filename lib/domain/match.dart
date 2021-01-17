@@ -1,4 +1,7 @@
+import 'package:sepakjudge/domain/team.dart';
+
 class Match {
+  String matchName = 'MatchName';
   bool server = true; //TeamAがサーブ権を得た場合true,TeamBがサーブ権を得た場合false
   List serverList = new List.filled(50, false);
   int setNumber = 1;
@@ -22,7 +25,15 @@ class Match {
   bool gameSet = false;
   List aCounter = new List.filled(50, false);
   List bCounter = new List.filled(50, false);
-  List fileContents = ['', '', '', ''];
+
+  DateTime timeStart;
+  DateTime timeEnd;
+
+  Team aTeam = Team(name: 'ATeam');
+  Team bTeam = Team(name: 'BTeam');
+  String courtName;
+  String chiefReferee;
+  String assistantReseree;
 
   //deuceがどうかを判別する関数
   setIfDeuce() {
