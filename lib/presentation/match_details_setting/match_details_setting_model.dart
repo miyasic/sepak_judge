@@ -129,26 +129,62 @@ class MatchDetailsSettingModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void register() {
+  void register(context) {
+    print(this.index);
     if (this.index == 0) {
-      onChangedTeamInfo('');
-      team.isInputCompleted = true;
-      match.aTeam = team;
+      print('a');
+      if (checkIsEnoughTeamInfo()) {
+        onChangedTeamInfo('');
+        team.isInputCompleted = true;
+        match.aTeam = team;
+        isCompleted = true;
+      } else {
+        DialogUtils.showAlertDialog(
+            text: 'チーム情報が不十分です。全ての項目を入力してください。',
+            context: context,
+            completion: () {});
+      }
     } else if (this.index == 2) {
-      onChangedTeamInfo('');
-      team.isInputCompleted = true;
-      match.bTeam = team;
+      if (checkIsEnoughTeamInfo()) {
+        onChangedTeamInfo('');
+        team.isInputCompleted = true;
+        match.bTeam = team;
+        isCompleted = true;
+      } else {
+        DialogUtils.showAlertDialog(
+            text: 'チーム情報が不十分です。全ての項目を入力してください。',
+            context: context,
+            completion: () {});
+      }
     } else if (this.index == 1) {
       onChangedRefereeInfo('');
       match.chiefReferee = chiefRefereeController.text;
       match.assistantReferee = assistantRefereeController.text;
     }
-    isCompleted = true;
     notifyListeners();
   }
 
+  ///TeamDetailsPage用
+  bool checkIsEnoughTeamInfo() {
+    ///選手情報の確認
+    bool isEnoughMember = true;
+    for (int i = 0; i < playerNameControllerList.length; i++) {
+      if (playerNameControllerList[i][0].text == '' ||
+          playerNameControllerList[i][1].text == '') {
+        isEnoughMember = false;
+        break;
+      }
+    }
+
+    ///チーム情報の確認
+    bool ans = isEnoughMember &&
+        teamNameController.text != '' &&
+        captainController.text != '';
+    return ans;
+  }
+
   ///RefereeDetailsPage用
-  bool checkIsEnoughInfo() {
+  bool checkIsEnoughRefereeInfo() {
     bool ans = matchNameController.text != '' &&
         courtNameController.text != '' &&
         chiefRefereeController.text != '' &&
@@ -168,7 +204,7 @@ class MatchDetailsSettingModel extends ChangeNotifier {
           text: 'BTeamの入力が完了していません。\nATeamの入力ページからチーム情報を登録してください。',
           context: context,
           completion: () {});
-    } else if (!checkIsEnoughInfo()) {
+    } else if (!checkIsEnoughRefereeInfo()) {
       DialogUtils.showAlertDialog(
           text: '試合情報が不十分です。\n全ての項目を入力してください。',
           context: context,
