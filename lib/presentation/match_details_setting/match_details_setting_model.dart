@@ -225,6 +225,7 @@ class MatchDetailsSettingModel extends ChangeNotifier {
           context: context,
           completion: () {});
     } else {
+      match.fileInput = true;
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => PointCountingPage(match)));
     }

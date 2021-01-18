@@ -34,6 +34,7 @@ class Match {
   String courtName;
   String chiefReferee;
   String assistantReferee;
+  bool fileInput = false;
 
   //deuceがどうかを判別する関数
   setIfDeuce() {
@@ -111,16 +112,18 @@ class Match {
         bTeamName +
         ',' +
         (server ? aTeamName : bTeamName);
-    //ATeamの選手名、背番号
-    for (int i = 0; i < aTeam.members.length; i++) {
-      output += ',' + aTeam.members[i].name + ',' + aTeam.members[i].number;
+    if (fileInput) {
+      //ATeamの選手名、背番号
+      for (int i = 0; i < aTeam.members.length; i++) {
+        output += ',' + aTeam.members[i].name + ',' + aTeam.members[i].number;
+      }
+      output += ',' + aTeam.captain;
+      //BTeamの選手名、背番号
+      for (int i = 0; i < bTeam.members.length; i++) {
+        output += ',' + bTeam.members[i].name + ',' + bTeam.members[i].number;
+      }
+      output += ',' + bTeam.captain;
     }
-    output += ',' + aTeam.captain;
-    //BTeamの選手名、背番号
-    for (int i = 0; i < bTeam.members.length; i++) {
-      output += ',' + bTeam.members[i].name + ',' + bTeam.members[i].number;
-    }
-    output += ',' + bTeam.captain;
     output += '\n';
     //以下試合結果
     //勝利チーム
