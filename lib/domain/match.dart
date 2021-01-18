@@ -48,6 +48,26 @@ class Match {
     }
   }
 
+  //最初にサーブ権の配列を埋める関数
+  setServer() {
+    for (var i = 0; i < 49; i++) {
+      if (i == 0) {
+        if (server == true) {
+          serverList[i] = true;
+        } else {
+          serverList[i] = false;
+        }
+      } else if (i < 41) {
+        serverList[i] = serverList[i - 1];
+        if (i % 3 == 0) {
+          serverList[i] = !serverList[i];
+        }
+      } else {
+        serverList[i] = !serverList[i - 1];
+      }
+    }
+  }
+
   //セットの勝利判定をする関数
   checkWinner() {
     if (deuce) {
@@ -104,7 +124,7 @@ class Match {
     output += '\n';
     //以下試合結果
     //勝利チーム
-    output += ',' + (winner == 1 ? aTeamName : bTeamName);
+    output += (winner == 1 ? aTeamName : bTeamName);
     //得点とセットカウント
     for (int i = 0; i < 3; i++) {
       output += "," + "${aScore[i]} vs ${bScore[i]}";

@@ -110,7 +110,6 @@ class MatchSettingPage extends StatelessWidget {
                                   child: Text('DetailSetting'),
                                   onPressed: () {
                                     model.setMatchSetting();
-                                    model.setServer();
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -123,7 +122,6 @@ class MatchSettingPage extends StatelessWidget {
                                   child: Text('GameStart'),
                                   onPressed: () {
                                     model.setMatchSetting();
-                                    model.setServer();
 
                                     Navigator.push(
                                         context,

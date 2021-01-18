@@ -41,6 +41,7 @@ class MatchDetailsSettingModel extends ChangeNotifier {
     print(match.aTeam.members);
     if (index == 0) {
       teamNameController.text = match.aTeamName;
+      captainController.text = match.aTeam.captain;
       for (int i = 0; i < 6; i++) {
         playerNameControllerList[i][0].text = match.aTeam.members[i].name;
         playerNameControllerList[i][1].text = match.aTeam.members[i].number;
@@ -55,6 +56,7 @@ class MatchDetailsSettingModel extends ChangeNotifier {
       }
     } else if (index == 2) {
       teamNameController.text = match.bTeamName;
+      captainController.text = match.bTeam.captain;
       for (int i = 0; i < 6; i++) {
         playerNameControllerList[i][0].text = match.bTeam.members[i].name;
         playerNameControllerList[i][1].text = match.bTeam.members[i].number;
@@ -115,8 +117,21 @@ class MatchDetailsSettingModel extends ChangeNotifier {
     }
   }
 
-  void onChangedRefereeInfo(String text) {
+  void onChangedRefereeInfo(String text, context) {
+    match.matchName = matchNameController.text;
+    match.courtName = courtNameController.text;
     match.chiefReferee = chiefRefereeController.text;
+    match.assistantReferee = assistantRefereeController.text;
+    if (match.aTeam.name == serviceTeamController.text) {
+      match.server = true;
+    } else if (match.bTeam.name == serviceTeamController.text) {
+      match.server = false;
+    } else {
+      DialogUtils.showAlertDialog(
+          text: 'サーブ権に該当するチームが存在しません。チーム登録した名前と同じ名前のチームをサーブ権欄に入力してください。',
+          context: context,
+          completion: () {});
+    }
   }
 
   void reInputTeamInfo() {
@@ -157,7 +172,7 @@ class MatchDetailsSettingModel extends ChangeNotifier {
             completion: () {});
       }
     } else if (this.index == 1) {
-      onChangedRefereeInfo('');
+      onChangedRefereeInfo('', context);
       match.chiefReferee = chiefRefereeController.text;
       match.assistantReferee = assistantRefereeController.text;
     }
@@ -201,7 +216,7 @@ class MatchDetailsSettingModel extends ChangeNotifier {
           completion: () {});
     } else if (!match.bTeam.isInputCompleted) {
       DialogUtils.showAlertDialog(
-          text: 'BTeamの入力が完了していません。\nATeamの入力ページからチーム情報を登録してください。',
+          text: 'BTeamの入力が完了していません。\nBTeamの入力ページからチーム情報を登録してください。',
           context: context,
           completion: () {});
     } else if (!checkIsEnoughRefereeInfo()) {

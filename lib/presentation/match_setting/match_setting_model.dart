@@ -66,27 +66,8 @@ class MatchSettingModel extends ChangeNotifier {
     match.matchName = matchNameController.text;
     match.aTeamName = aTeamNameController.text;
     match.bTeamName = bTeamNameController.text;
-    match.server = serviceController.text == aTeamNameController.text;
+    match.server = !(serviceController.text == bTeamNameController.text);
+    match.setServer();
     match.timeStart = DateTime.now();
-  }
-
-  //最初にサーブ権の配列を埋める関数
-  setServer() {
-    for (var i = 0; i < 49; i++) {
-      if (i == 0) {
-        if (match.server == true) {
-          match.serverList[i] = true;
-        } else {
-          match.serverList[i] = false;
-        }
-      } else if (i < 41) {
-        match.serverList[i] = match.serverList[i - 1];
-        if (i % 3 == 0) {
-          match.serverList[i] = !match.serverList[i];
-        }
-      } else {
-        match.serverList[i] = !match.serverList[i - 1];
-      }
-    }
   }
 }
