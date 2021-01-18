@@ -130,24 +130,8 @@ class RefereeDetailsPage extends StatelessWidget {
                   RaisedButton(
                       child: Text('試合を開始する'),
                       onPressed: () {
-                        model.regist();
-                        if (!model.match.aTeam.isInputCompleted) {
-                          DialogUtils.showAlertDialog(
-                              text: 'ATeamの入力が完了していません！',
-                              context: context,
-                              completion: () {});
-                        } else if (!model.match.bTeam.isInputCompleted) {
-                          DialogUtils.showAlertDialog(
-                              text: 'BTeamの入力が完了していません！',
-                              context: context,
-                              completion: () {});
-                        } else {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      PointCountingPage(model.match)));
-                        }
+                        model.register();
+                        model.startGame(context);
                       }),
                 ],
               ),

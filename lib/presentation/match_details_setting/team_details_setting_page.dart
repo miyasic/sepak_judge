@@ -149,7 +149,7 @@ class TeamDetailsSettingPage extends StatelessWidget {
                             RaisedButton(
                                 child: Text('登録する'),
                                 onPressed: () {
-                                  model.regist();
+                                  model.register();
                                 }),
                           ],
                         ),

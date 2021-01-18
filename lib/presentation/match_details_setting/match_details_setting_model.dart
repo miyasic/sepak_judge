@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'package:sepakjudge/domain/team.dart';
+import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart';
+import 'package:sepakjudge/utils/dialog_utils.dart';
 
 class MatchDetailsSettingModel extends ChangeNotifier {
   MatchDetailsSettingModel({this.match, this.index});
@@ -127,7 +129,7 @@ class MatchDetailsSettingModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void regist() {
+  void register() {
     if (this.index == 0) {
       onChangedTeamInfo('');
       team.isInputCompleted = true;
@@ -145,5 +147,35 @@ class MatchDetailsSettingModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void startGame() {}
+  ///RefereeDetailsPage用
+  bool checkIsEnoughInfo() {
+    bool ans = matchNameController.text != '' &&
+        courtNameController.text != '' &&
+        chiefRefereeController.text != '' &&
+        assistantRefereeController.text != '' &&
+        serviceTeamController.text != '';
+    return ans;
+  }
+
+  void startGame(context) {
+    if (!match.aTeam.isInputCompleted) {
+      DialogUtils.showAlertDialog(
+          text: 'ATeamの入力が完了していません。\nATeamの入力ページからチーム情報を登録してください。',
+          context: context,
+          completion: () {});
+    } else if (!match.bTeam.isInputCompleted) {
+      DialogUtils.showAlertDialog(
+          text: 'BTeamの入力が完了していません。\nATeamの入力ページからチーム情報を登録してください。',
+          context: context,
+          completion: () {});
+    } else if (!checkIsEnoughInfo()) {
+      DialogUtils.showAlertDialog(
+          text: '試合情報が不十分です。\n全ての項目を入力してください。',
+          context: context,
+          completion: () {});
+    } else {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => PointCountingPage(match)));
+    }
+  }
 }
