@@ -20,7 +20,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  path_provider: ^1.6.9
+  path_provider: ^1.6.27
   flutter_share: ^1.0.2+1
   provider: ^4.1.3+1
 
@@ -43,6 +43,10 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/iconA.png
+    - assets/iconB.png
+    - assets/balance.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -36,7 +36,8 @@ class OpenFilePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => MatchSettingPage(filemanager),
+                            builder: (context) => MatchSettingPage(filemanager,
+                                inputFileData: model.inputFileData),
                           ),
                         );
                       },

@@ -83,6 +83,7 @@ class FinalResultPage extends StatelessWidget {
                         RaisedButton(
                           child: Text('final Result'),
                           onPressed: () async {
+                            model.setEndTime();
                             await fileManager.makeOutputAndShare(match);
                             model.resetMatch();
                             Navigator.pushAndRemoveUntil(
