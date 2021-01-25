@@ -110,7 +110,7 @@ class MatchSettingPage extends StatelessWidget {
                                   child: Text('DetailSetting'),
                                   onPressed: () {
                                     model.setMatchSetting();
-                                    Navigator.push(
+                                    Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>

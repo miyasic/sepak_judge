@@ -49,12 +49,16 @@ class MatchSettingModel extends ChangeNotifier {
         Player(name: '1人目', number: '1'),
         Player(name: '2人目', number: '2'),
         Player(name: '3人目', number: '3'),
+        Player(name: ''),
+        Player(name: ''),
         Player(name: '')
       ];
       match.bTeam.members = [
         Player(name: '1人目', number: '1'),
         Player(name: '2人目', number: '2'),
         Player(name: '3人目', number: '3'),
+        Player(name: ''),
+        Player(name: ''),
         Player(name: '')
       ];
       print(match.aTeam.members[1].name);

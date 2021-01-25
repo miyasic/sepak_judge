@@ -141,11 +141,6 @@ class TeamDetailsSettingPage extends StatelessWidget {
                               },
                             ),
                             RaisedButton(
-                                child: Text('確認する'),
-                                onPressed: () {
-                                  model.checkIsEnoughTeamInfo();
-                                }),
-                            RaisedButton(
                                 child: Text('登録する'),
                                 onPressed: () {
                                   model.register(context);
