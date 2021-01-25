@@ -38,7 +38,6 @@ class MatchDetailsSettingModel extends ChangeNotifier {
   List<String> teamName = ['ATeam', 'BTeam'];
 
   void init() {
-    print(match.aTeam.members);
     if (index == 0) {
       teamNameController.text = match.aTeamName;
       captainController.text = match.aTeam.captain;
@@ -49,10 +48,11 @@ class MatchDetailsSettingModel extends ChangeNotifier {
         if (playerNameControllerList[i][0].text == '') {
           for (int j = i; j < 6; j++) {
             playerNameControllerList.removeLast();
+            match.aTeam.members.removeLast();
           }
           break;
         }
-        team.members.add(Player());
+        team.members = match.aTeam.members;
       }
     } else if (index == 2) {
       teamNameController.text = match.bTeamName;
@@ -64,10 +64,11 @@ class MatchDetailsSettingModel extends ChangeNotifier {
         if (playerNameControllerList[i][0].text == '') {
           for (int j = i; j < 6; j++) {
             playerNameControllerList.removeLast();
+            match.bTeam.members.removeLast();
           }
           break;
         }
-        team.members.add(Player());
+        team.members = match.bTeam.members;
       }
     } else if (index == 1) {
       chiefRefereeController.text = match.chiefReferee;
@@ -78,7 +79,6 @@ class MatchDetailsSettingModel extends ChangeNotifier {
           match.server ? match.aTeamName : match.bTeamName;
       teamName[0] = match.aTeamName;
       teamName[1] = match.bTeamName;
-      print(match.assistantReferee);
     }
   }
 

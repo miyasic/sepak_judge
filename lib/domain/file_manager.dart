@@ -11,7 +11,7 @@ import 'package:sepakjudge/domain/match.dart';
 class FileManager {
   var documentDirectory; //documentDirectoryを格納する。
   var outputFileName; //保存するファイル名
-  List inputFileNames = ['']; //読み込むファイル名の配列
+  List inputFileNames; //読み込むファイル名の配列
 
   //ファイル名からファイルの中身を取り出す。OpenFileModelで呼び出し
   Future<String> getFileData(String fileName) async {
@@ -34,6 +34,7 @@ class FileManager {
 
   //受け取ったファイル名をinputFileNamesに格納する。Mainで呼び出し
   Future<void> setInputFileName() async {
+    inputFileNames = [''];
     documentDirectory = await getApplicationDocumentsDirectory();
     final systemTempDir = await Directory(documentDirectory.path + '/Inbox');
     //systemTempDirの中にファイルが存在するかどうか
