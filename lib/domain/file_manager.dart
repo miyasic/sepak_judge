@@ -4,7 +4,6 @@ import 'dart:async';
 import 'dart:io';
 
 //アプリがファイルを保存可能な場所を取得するライブラリ
-import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:sepakjudge/domain/match.dart';
@@ -37,11 +36,14 @@ class FileManager {
   Future<void> setInputFileName() async {
     documentDirectory = await getApplicationDocumentsDirectory();
     final systemTempDir = await Directory(documentDirectory.path + '/Inbox');
-    if (inputFileNames.length == 1) {
+    //systemTempDirの中にファイルが存在するかどうか
+    if (await systemTempDir.exists()) {
       await for (var value in systemTempDir.list()) {
         String inputFileTemp = value.path.split('/').last as String;
         inputFileNames.add(inputFileTemp.toString());
       }
+    } else {
+      throw '読み込めるファイルがありません。csv形式のファイルをSepakJudgeに読み込んでください。';
     }
   }
 
