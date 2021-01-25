@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sepakjudge/constants.dart';
 import 'package:sepakjudge/presentation/match_setting/match_setting_page.dart';
 import 'package:sepakjudge/presentation/open_file/open_file_page.dart';
 import 'package:sepakjudge/domain/file_manager.dart';
@@ -7,6 +8,11 @@ import 'package:sepakjudge/utils/dialog_utils.dart';
 void main() {
   runApp(
     MaterialApp(
+      theme: ThemeData(
+        primaryColor: themeMainColor,
+        scaffoldBackgroundColor: themeBackGroundColor,
+        canvasColor: themeSecondColor,
+      ),
       home: MyApp(),
     ),
   );
@@ -18,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sepak Judge'),
+        title: Text(kServiceName),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -49,6 +55,7 @@ class MyApp extends StatelessWidget {
                       minWidth: double.infinity,
                       height: 48,
                       child: RaisedButton(
+                        color: themeMainColor,
                         child: Text(
                           'Open File',
                           style: TextStyle(fontSize: 40, color: Colors.white),
@@ -74,7 +81,7 @@ class MyApp extends StatelessWidget {
                       width: double.infinity,
                       height: 48,
                       child: RaisedButton(
-                        color: Colors.blue,
+                        color: themeMainColor,
                         child: Text(
                           'Match Setting',
                           style: TextStyle(fontSize: 40, color: Colors.white),

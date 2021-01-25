@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sepakjudge/constants.dart';
 import 'package:sepakjudge/presentation/match_details_setting/match_details_setting_model.dart';
 import 'package:sepakjudge/presentation/match_details_setting/referee_details_setting_page.dart';
 import 'package:sepakjudge/presentation/match_details_setting/team_details_setting_page.dart';
@@ -28,23 +29,32 @@ class MatchDetailSettingPage extends StatelessWidget {
                 BottomNavigationBarItem(
                   icon: new Image.asset(
                     'assets/iconA.png',
-                    height: 50,
+                    height: 40,
                   ),
-                  title: new Text('ATeam'),
+                  title: new Text(
+                    'ATeam',
+                    style: TextStyle(color: themeBackGroundColor),
+                  ),
                 ),
                 BottomNavigationBarItem(
                   icon: new Image.asset(
                     'assets/balance.png',
-                    height: 50,
+                    height: 40,
                   ),
-                  title: new Text('Referee'),
+                  title: new Text(
+                    'Referee',
+                    style: TextStyle(color: themeBackGroundColor),
+                  ),
                 ),
                 BottomNavigationBarItem(
                   icon: new Image.asset(
                     'assets/iconB.png',
-                    height: 50,
+                    height: 40,
                   ),
-                  title: new Text('BTeam'),
+                  title: new Text(
+                    'BTeam',
+                    style: TextStyle(color: themeBackGroundColor),
+                  ),
                 ),
               ],
             );
