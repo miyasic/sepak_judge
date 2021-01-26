@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sepakjudge/constants.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'package:sepakjudge/presentation/match_details_setting/match_details_setting_model.dart';
 
@@ -125,6 +126,7 @@ class TeamDetailsSettingPage extends StatelessWidget {
                               ),
                             ),
                             PopupMenuButton<String>(
+                              color: themeBackGroundColor,
                               initialValue: '',
                               icon: const Icon(Icons.arrow_drop_down),
                               onSelected: (String value) {

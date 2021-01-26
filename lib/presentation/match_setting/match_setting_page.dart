@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sepakjudge/constants.dart';
 import 'package:sepakjudge/presentation/match_details_setting/match_details_setting_page.dart';
 import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart';
 import 'match_setting_model.dart';
@@ -77,6 +78,7 @@ class MatchSettingPage extends StatelessWidget {
                                 ),
                                 PopupMenuButton<String>(
                                   initialValue: '',
+                                  color: themeBackGroundColor,
                                   icon: const Icon(Icons.arrow_drop_down),
                                   onSelected: (String value) {
                                     model.serviceController.text = value;
@@ -86,7 +88,10 @@ class MatchSettingPage extends StatelessWidget {
                                         .map<PopupMenuItem<String>>(
                                             (String value) {
                                       return new PopupMenuItem(
-                                          child: new Text(value), value: value);
+                                          child: new Text(
+                                            value,
+                                          ),
+                                          value: value);
                                     }).toList();
                                   },
                                 ),

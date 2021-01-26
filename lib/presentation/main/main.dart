@@ -9,10 +9,13 @@ void main() {
   runApp(
     MaterialApp(
       theme: ThemeData(
-        primaryColor: themeMainColor,
-        scaffoldBackgroundColor: themeBackGroundColor,
-        canvasColor: themeSecondColor,
-      ),
+          primaryColor: themeMainColor,
+          scaffoldBackgroundColor: themeBackGroundColor,
+          canvasColor: themeSecondColor,
+          buttonTheme: ButtonThemeData(
+            buttonColor: themeSecondColor,
+            textTheme: ButtonTextTheme.primary,
+          )),
       home: MyApp(),
     ),
   );
