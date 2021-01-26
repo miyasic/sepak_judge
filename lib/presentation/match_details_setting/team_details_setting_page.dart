@@ -89,14 +89,14 @@ class TeamDetailsSettingPage extends StatelessWidget {
                                 model.addPlayer();
                               },
                               icon: Icon(Icons.exposure_plus_1),
-                              label: Text('選手枠の追加'),
+                              label: Text(kTextAddMember),
                             ),
                             RaisedButton.icon(
                               onPressed: () {
                                 model.deletePlayer();
                               },
                               icon: Icon(Icons.exposure_minus_1),
-                              label: Text('選手枠の削除'),
+                              label: Text(kTextMinusMember),
                             ),
                           ],
                         ),
@@ -143,7 +143,7 @@ class TeamDetailsSettingPage extends StatelessWidget {
                               },
                             ),
                             RaisedButton(
-                                child: Text('登録する'),
+                                child: Text(kTextRegister),
                                 onPressed: () {
                                   model.register(context);
                                 }),

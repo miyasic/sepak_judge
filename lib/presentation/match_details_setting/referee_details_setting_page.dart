@@ -130,7 +130,7 @@ class RefereeDetailsPage extends StatelessWidget {
                     ],
                   ),
                   RaisedButton(
-                      child: Text('試合を開始する'),
+                      child: Text(kTextGameStart),
                       onPressed: () {
                         model.register(context);
                         model.startGame(context);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sepakjudge/constants.dart';
 import 'point_counting_model.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'package:sepakjudge/presentation/final_result/final_result_page.dart';
@@ -94,7 +95,7 @@ class PointCountingPage extends StatelessWidget {
                                     },
                                   ),
                                   FlatButton(
-                                    child: Text("SideChange"),
+                                    child: Text(kTextSideChange),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                       model.ifPushSideChangeButton();
@@ -142,7 +143,7 @@ class PointCountingPage extends StatelessWidget {
                                     },
                                   ),
                                   FlatButton(
-                                    child: Text("SideChange"),
+                                    child: Text(kTextSideChange),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                       model.ifPushSideChangeButton();
@@ -178,13 +179,13 @@ class PointCountingPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                      child: Text('return'),
+                      child: Text(kTextReturn),
                       onPressed: () {
                         model.ifPushReturnButton();
                       },
                     ),
                     RaisedButton(
-                      child: Text('SideChange'),
+                      child: Text(kTextSideChange),
                       onPressed: () {
                         model.ifPushSideChangeButton();
                       },
@@ -352,13 +353,13 @@ class PointCountingPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                      child: Text('return'),
+                      child: Text(kTextReturn),
                       onPressed: () {
                         model.ifPushReturnButton();
                       },
                     ),
                     RaisedButton(
-                      child: Text('SideChange'),
+                      child: Text(kTextSideChange),
                       onPressed: () {
                         model.ifPushSideChangeButton();
                       },

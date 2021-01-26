@@ -107,34 +107,40 @@ class MatchSettingPage extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 160),
                           child: Container(
-                            width: double.infinity,
-                            height: 100,
+                            width: 200,
                             child: Column(
                               children: [
-                                RaisedButton(
-                                  child: Text('DetailSetting'),
-                                  onPressed: () {
-                                    model.setMatchSetting();
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                MatchDetailSettingPage(
-                                                    model.match)));
-                                  },
+                                Container(
+                                  child: RaisedButton(
+                                    child: Text(kTextDetailSetting),
+                                    onPressed: () {
+                                      model.setMatchSetting();
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  MatchDetailSettingPage(
+                                                      model.match)));
+                                    },
+                                  ),
                                 ),
-                                RaisedButton(
-                                  child: Text('GameStart'),
-                                  onPressed: () {
-                                    model.setMatchSetting();
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  child: RaisedButton(
+                                    child: Text(kTextGameStart),
+                                    onPressed: () {
+                                      model.setMatchSetting();
 
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                PointCountingPage(
-                                                    model.match)));
-                                  },
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PointCountingPage(
+                                                      model.match)));
+                                    },
+                                  ),
                                 ),
                               ],
                             ),
