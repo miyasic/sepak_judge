@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'package:sepakjudge/domain/team.dart';
 import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart';
 import 'package:sepakjudge/utils/dialog_utils.dart';
+
+import '../../constants.dart';
 
 class MatchDetailsSettingModel extends ChangeNotifier {
   MatchDetailsSettingModel({this.match, this.index});
@@ -20,6 +23,7 @@ class MatchDetailsSettingModel extends ChangeNotifier {
   Team team = Team(members: []);
   final teamNameController = TextEditingController();
   final captainController = TextEditingController();
+  int captainPickerIndex = 0;
   List<List> playerNameControllerList = [
     [TextEditingController(text: '1人目'), TextEditingController()],
     [TextEditingController(text: '2人目'), TextEditingController()],
@@ -35,6 +39,7 @@ class MatchDetailsSettingModel extends ChangeNotifier {
   final courtNameController = TextEditingController();
   final matchNameController = TextEditingController();
   final serviceTeamController = TextEditingController();
+  int servicePickerIndex = 0;
   List<String> teamName = ['ATeam', 'BTeam'];
 
   void init() {
@@ -80,6 +85,67 @@ class MatchDetailsSettingModel extends ChangeNotifier {
       teamName[0] = match.aTeamName;
       teamName[1] = match.bTeamName;
     }
+  }
+
+  void showCaptainPicker(
+    context,
+  ) {
+    final _pickerItems = team.members.map((item) => Text(item.name)).toList();
+
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 300,
+          color: themeSecondBackColor,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: CupertinoPicker(
+              scrollController:
+                  FixedExtentScrollController(initialItem: captainPickerIndex),
+              itemExtent: 32,
+              children: _pickerItems,
+              onSelectedItemChanged: (int index) {
+                captainPickerIndex = index;
+                captainController.text = team.members[captainPickerIndex].name;
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void showServicePicker(context) {
+    final _pickerItems =
+        [match.aTeamName, match.bTeamName].map((item) => Text(item)).toList();
+
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 300,
+          color: themeSecondBackColor,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: CupertinoPicker(
+              scrollController:
+                  FixedExtentScrollController(initialItem: servicePickerIndex),
+              itemExtent: 32,
+              children: _pickerItems,
+              onSelectedItemChanged: (int index) {
+                servicePickerIndex = index;
+                serviceTeamController.text = teamName[servicePickerIndex];
+              },
+            ),
+          ),
+        );
+      },
+    );
   }
 
   void addPlayer() {

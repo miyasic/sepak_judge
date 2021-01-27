@@ -96,38 +96,23 @@ class RefereeDetailsPage extends StatelessWidget {
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                   //チーム名用のテキストフィールド
-                  Column(
-                    children: <Widget>[
-                      TextField(
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                        autofocus: false,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'ServiceTeam',
-                        ),
-                        controller: model.serviceTeamController,
-                      ),
-                      PopupMenuButton<String>(
-                        color: themeBackGroundColor,
-                        initialValue: '',
-                        icon: const Icon(Icons.arrow_drop_down),
-                        onSelected: (String value) {
-                          model.serviceTeamController.text = value;
-                        },
-                        itemBuilder: (BuildContext context) {
-                          List<String> teamName = [
-                            model.match.aTeamName,
-                            model.match.bTeamName
-                          ];
-                          return teamName
-                              .map<PopupMenuItem<String>>((String value) {
-                            return new PopupMenuItem(
-                                child: new Text(value), value: value);
-                          }).toList();
-                        },
-                      ),
-                    ],
+                  TextField(
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    autofocus: false,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'ServiceTeam',
+                    ),
+                    controller: model.serviceTeamController,
+                    onTap: () {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      model.showServicePicker(
+                        context,
+                      );
+                    },
+                  ),
+                  SizedBox(
+                    height: 30,
                   ),
                   RaisedButton(
                       child: Text(kTextGameStart),

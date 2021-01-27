@@ -79,9 +79,7 @@ class MatchSettingModel extends ChangeNotifier {
     match.timeStart = DateTime.now();
   }
 
-  Future<void> showServicePicker(
-    context,
-  ) async {
+  void showServicePicker(context) {
     final _pickerItems = teamName.map((item) => Text(item)).toList();
 
     showCupertinoModalPopup<void>(

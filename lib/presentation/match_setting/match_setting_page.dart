@@ -67,24 +67,20 @@ class MatchSettingPage extends StatelessWidget {
                               },
                               controller: model.bTeamNameController,
                             ),
-                            Column(
-                              children: <Widget>[
-                                TextField(
-                                  autofocus: false,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: 'ServiceTeam',
-                                  ),
-                                  controller: model.serviceController,
-                                  onTap: () async {
-                                    FocusScope.of(context)
-                                        .requestFocus(new FocusNode());
-                                    await model.showServicePicker(
-                                      context,
-                                    );
-                                  },
-                                ),
-                              ],
+                            TextField(
+                              autofocus: false,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'ServiceTeam',
+                              ),
+                              controller: model.serviceController,
+                              onTap: () {
+                                FocusScope.of(context)
+                                    .requestFocus(new FocusNode());
+                                model.showServicePicker(
+                                  context,
+                                );
+                              },
                             ),
                           ],
                         ),
