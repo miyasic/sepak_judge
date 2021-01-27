@@ -94,8 +94,7 @@ class MyApp extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    MatchSettingPage(fileManager)),
+                                builder: (context) => MatchSettingPage()),
                           );
                         },
                       ),
