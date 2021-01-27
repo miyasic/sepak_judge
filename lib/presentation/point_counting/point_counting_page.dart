@@ -185,7 +185,7 @@ class PointCountingPage extends StatelessWidget {
                       },
                     ),
                     RaisedButton(
-                      child: Text(kTextYes),
+                      child: Text(kTextSideChange),
                       onPressed: () {
                         model.ifPushSideChangeButton();
                       },
