@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sepakjudge/constants.dart';
 import 'package:sepakjudge/domain/file_manager.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'package:sepakjudge/presentation/main/main.dart';
@@ -81,7 +82,7 @@ class FinalResultPage extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
                         RaisedButton(
-                          child: Text('final Result'),
+                          child: Text(kTextOutput),
                           onPressed: () async {
                             model.setEndTime();
                             await fileManager.makeOutputAndShare(match);

@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sepakjudge/constants.dart';
 import 'package:sepakjudge/presentation/match_details_setting/match_details_setting_page.dart';
 import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart';
 import 'match_setting_model.dart';
@@ -65,32 +67,20 @@ class MatchSettingPage extends StatelessWidget {
                               },
                               controller: model.bTeamNameController,
                             ),
-                            Column(
-                              children: <Widget>[
-                                TextField(
-                                  autofocus: false,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: 'ServiceTeam',
-                                  ),
-                                  controller: model.serviceController,
-                                ),
-                                PopupMenuButton<String>(
-                                  initialValue: '',
-                                  icon: const Icon(Icons.arrow_drop_down),
-                                  onSelected: (String value) {
-                                    model.serviceController.text = value;
-                                  },
-                                  itemBuilder: (BuildContext context) {
-                                    return model.teamName
-                                        .map<PopupMenuItem<String>>(
-                                            (String value) {
-                                      return new PopupMenuItem(
-                                          child: new Text(value), value: value);
-                                    }).toList();
-                                  },
-                                ),
-                              ],
+                            TextField(
+                              autofocus: false,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'ServiceTeam',
+                              ),
+                              controller: model.serviceController,
+                              onTap: () {
+                                FocusScope.of(context)
+                                    .requestFocus(new FocusNode());
+                                model.showServicePicker(
+                                  context,
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -102,34 +92,40 @@ class MatchSettingPage extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 160),
                           child: Container(
-                            width: double.infinity,
-                            height: 100,
+                            width: 200,
                             child: Column(
                               children: [
-                                RaisedButton(
-                                  child: Text('DetailSetting'),
-                                  onPressed: () {
-                                    model.setMatchSetting();
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                MatchDetailSettingPage(
-                                                    model.match)));
-                                  },
+                                Container(
+                                  child: RaisedButton(
+                                    child: Text(kTextDetailSetting),
+                                    onPressed: () {
+                                      model.setMatchSetting();
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  MatchDetailSettingPage(
+                                                      model.match)));
+                                    },
+                                  ),
                                 ),
-                                RaisedButton(
-                                  child: Text('GameStart'),
-                                  onPressed: () {
-                                    model.setMatchSetting();
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  child: RaisedButton(
+                                    child: Text(kTextGameStart),
+                                    onPressed: () {
+                                      model.setMatchSetting();
 
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                PointCountingPage(
-                                                    model.match)));
-                                  },
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PointCountingPage(
+                                                      model.match)));
+                                    },
+                                  ),
                                 ),
                               ],
                             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sepakjudge/constants.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'package:sepakjudge/presentation/match_details_setting/match_details_setting_model.dart';
 
@@ -19,7 +20,7 @@ class TeamDetailsSettingPage extends StatelessWidget {
             builder: (context, model, child) {
           return model.isCompleted
               ? Container(
-                  color: Colors.grey,
+                  color: themeAccentColor,
                   child: Center(
                       child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -88,14 +89,14 @@ class TeamDetailsSettingPage extends StatelessWidget {
                                 model.addPlayer();
                               },
                               icon: Icon(Icons.exposure_plus_1),
-                              label: Text('選手枠の追加'),
+                              label: Text(kTextAddMember),
                             ),
                             RaisedButton.icon(
                               onPressed: () {
                                 model.deletePlayer();
                               },
                               icon: Icon(Icons.exposure_minus_1),
-                              label: Text('選手枠の削除'),
+                              label: Text(kTextMinusMember),
                             ),
                           ],
                         ),
@@ -110,43 +111,31 @@ class TeamDetailsSettingPage extends StatelessWidget {
                         SizedBox(
                           height: 8,
                         ),
-                        Column(
-                          children: <Widget>[
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.85,
-                              child: TextField(
-                                autofocus: false,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'キャプテン',
-                                ),
-                                controller: model.captainController,
-                                onChanged: model.onChangedTeamInfo,
-                              ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.85,
+                          child: TextField(
+                            autofocus: false,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'キャプテン',
                             ),
-                            PopupMenuButton<String>(
-                              initialValue: '',
-                              icon: const Icon(Icons.arrow_drop_down),
-                              onSelected: (String value) {
-                                model.captainController.text = value;
-                                model.onChangedTeamInfo(value);
-                              },
-                              itemBuilder: (BuildContext context) {
-                                return model.team.members
-                                    .map<PopupMenuItem<String>>((player) {
-                                  return new PopupMenuItem(
-                                      child: new Text(player.name),
-                                      value: player.name);
-                                }).toList();
-                              },
-                            ),
-                            RaisedButton(
-                                child: Text('登録する'),
-                                onPressed: () {
-                                  model.register(context);
-                                }),
-                          ],
+                            controller: model.captainController,
+                            onChanged: model.onChangedTeamInfo,
+                            onTap: () {
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
+                              model.showCaptainPicker(context);
+                            },
+                          ),
                         ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        RaisedButton(
+                            child: Text(kTextRegister),
+                            onPressed: () {
+                              model.register(context);
+                            }),
                       ],
                     ),
                   ),

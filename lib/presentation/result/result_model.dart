@@ -4,7 +4,6 @@ import 'package:sepakjudge/domain/match.dart';
 class ResultModel extends ChangeNotifier {
   ResultModel(this.match);
   final Match match;
-  var navigationButtonText = 'NextSet';
 
   setNextSet() {
     match.setNumber++; //何セット目か

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sepakjudge/constants.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'package:sepakjudge/presentation/match_details_setting/match_details_setting_model.dart';
 import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart';
@@ -95,40 +96,26 @@ class RefereeDetailsPage extends StatelessWidget {
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                   //チーム名用のテキストフィールド
-                  Column(
-                    children: <Widget>[
-                      TextField(
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                        autofocus: false,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'ServiceTeam',
-                        ),
-                        controller: model.serviceTeamController,
-                      ),
-                      PopupMenuButton<String>(
-                        initialValue: '',
-                        icon: const Icon(Icons.arrow_drop_down),
-                        onSelected: (String value) {
-                          model.serviceTeamController.text = value;
-                        },
-                        itemBuilder: (BuildContext context) {
-                          List<String> teamName = [
-                            model.match.aTeamName,
-                            model.match.bTeamName
-                          ];
-                          return teamName
-                              .map<PopupMenuItem<String>>((String value) {
-                            return new PopupMenuItem(
-                                child: new Text(value), value: value);
-                          }).toList();
-                        },
-                      ),
-                    ],
+                  TextField(
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    autofocus: false,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'ServiceTeam',
+                    ),
+                    controller: model.serviceTeamController,
+                    onTap: () {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      model.showServicePicker(
+                        context,
+                      );
+                    },
+                  ),
+                  SizedBox(
+                    height: 30,
                   ),
                   RaisedButton(
-                      child: Text('試合を開始する'),
+                      child: Text(kTextGameStart),
                       onPressed: () {
                         model.register(context);
                         model.startGame(context);

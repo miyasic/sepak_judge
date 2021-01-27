@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sepakjudge/constants.dart';
 import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'result_model.dart';
@@ -73,9 +74,8 @@ class ResultPage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       height: 40,
-                      width: double.infinity,
                       child: RaisedButton(
-                        child: Text(model.navigationButtonText),
+                        child: Text(kTextNextSet),
                         onPressed: () {
                           model.setNextSet();
                           Navigator.pushAndRemoveUntil(

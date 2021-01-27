@@ -6,6 +6,7 @@ import 'dart:io';
 //アプリがファイルを保存可能な場所を取得するライブラリ
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_share/flutter_share.dart';
+import 'package:sepakjudge/constants.dart';
 import 'package:sepakjudge/domain/match.dart';
 
 class FileManager {
@@ -44,7 +45,7 @@ class FileManager {
         inputFileNames.add(inputFileTemp.toString());
       }
     } else {
-      throw '読み込めるファイルがありません。csv形式のファイルをSepakJudgeに読み込んでください。';
+      throw '読み込めるファイルがありません。csv形式のファイルを$kServiceNameに読み込んでください。';
     }
   }
 
