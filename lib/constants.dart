@@ -13,6 +13,9 @@ const kTextReturn = '1点取り消す';
 const kTextNextSet = '次のセットへ';
 const kTextOutput = '試合結果を出力する';
 
+const kTextYes = 'Yes';
+const kTextNo = 'No';
+
 const themeMainColor = Color(0xFF2F5580);
 const themeBackGroundColor = Color(0xFFEBE2D9);
 const themeAccentColor = Color(0xFFE8D2D4);

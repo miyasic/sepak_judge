@@ -89,13 +89,13 @@ class PointCountingPage extends StatelessWidget {
                                 actions: <Widget>[
                                   // ボタン領域
                                   FlatButton(
-                                    child: Text("Cancel"),
+                                    child: Text(kTextNo),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
                                   ),
                                   FlatButton(
-                                    child: Text(kTextSideChange),
+                                    child: Text(kTextYes),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                       model.ifPushSideChangeButton();
@@ -137,13 +137,13 @@ class PointCountingPage extends StatelessWidget {
                                 actions: <Widget>[
                                   // ボタン領域
                                   FlatButton(
-                                    child: Text("Cancel"),
+                                    child: Text(kTextNo),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
                                   ),
                                   FlatButton(
-                                    child: Text(kTextSideChange),
+                                    child: Text(kTextYes),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                       model.ifPushSideChangeButton();
@@ -185,7 +185,7 @@ class PointCountingPage extends StatelessWidget {
                       },
                     ),
                     RaisedButton(
-                      child: Text(kTextSideChange),
+                      child: Text(kTextYes),
                       onPressed: () {
                         model.ifPushSideChangeButton();
                       },
@@ -265,13 +265,13 @@ class PointCountingPage extends StatelessWidget {
                                 actions: <Widget>[
                                   // ボタン領域
                                   FlatButton(
-                                    child: Text("Cancel"),
+                                    child: Text(kTextNo),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
                                   ),
                                   FlatButton(
-                                    child: Text("SideChange"),
+                                    child: Text(kTextYes),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                       model.ifPushSideChangeButton();
@@ -313,13 +313,13 @@ class PointCountingPage extends StatelessWidget {
                                 actions: <Widget>[
                                   // ボタン領域
                                   FlatButton(
-                                    child: Text("Cancel"),
+                                    child: Text(kTextNo),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
                                   ),
                                   FlatButton(
-                                    child: Text("SideChange"),
+                                    child: Text(kTextYes),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                       model.ifPushSideChangeButton();

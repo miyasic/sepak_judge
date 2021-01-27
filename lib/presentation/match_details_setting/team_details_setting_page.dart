@@ -20,7 +20,7 @@ class TeamDetailsSettingPage extends StatelessWidget {
             builder: (context, model, child) {
           return model.isCompleted
               ? Container(
-                  color: Colors.grey,
+                  color: themeAccentColor,
                   child: Center(
                       child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
