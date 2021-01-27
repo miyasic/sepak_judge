@@ -5,12 +5,12 @@ import 'package:sepakjudge/presentation/match_setting/match_setting_page.dart';
 import 'open_file_model.dart';
 
 class OpenFilePage extends StatelessWidget {
-  OpenFilePage(this.filemanager);
-  final FileManager filemanager;
+  OpenFilePage(this.fileManager);
+  final FileManager fileManager;
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<OpenFileModel>(
-      create: (_) => OpenFileModel(filemanager), //MatchSettingModelを作成
+      create: (_) => OpenFileModel(fileManager), //MatchSettingModelを作成
       child: Scaffold(
         appBar: AppBar(
           title: Text('OpenFile'),
@@ -36,7 +36,7 @@ class OpenFilePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => MatchSettingPage(filemanager,
+                            builder: (context) => MatchSettingPage(fileManager,
                                 inputFileData: model.inputFileData),
                           ),
                         );
