@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'package:sepakjudge/domain/file_manager.dart';
 import 'package:sepakjudge/domain/team.dart';
+
+import '../../constants.dart';
 
 class MatchSettingModel extends ChangeNotifier {
   MatchSettingModel(this.fileManager, {this.inputFileData});
@@ -13,6 +16,7 @@ class MatchSettingModel extends ChangeNotifier {
   final aTeamNameController = TextEditingController(text: 'ATeam');
   final bTeamNameController = TextEditingController(text: 'BTeam');
   final serviceController = TextEditingController();
+  int servicePickerIndex = 0;
   List<String> teamName = ['ATeam', 'BTeam'];
 
   void init() {
@@ -73,5 +77,36 @@ class MatchSettingModel extends ChangeNotifier {
     match.server = !(serviceController.text == bTeamNameController.text);
     match.setServer();
     match.timeStart = DateTime.now();
+  }
+
+  Future<void> showServicePicker(
+    context,
+  ) async {
+    final _pickerItems = teamName.map((item) => Text(item)).toList();
+
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 300,
+          color: themeSecondBackColor,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: CupertinoPicker(
+              scrollController:
+                  FixedExtentScrollController(initialItem: servicePickerIndex),
+              itemExtent: 32,
+              children: _pickerItems,
+              onSelectedItemChanged: (int index) {
+                servicePickerIndex = index;
+                serviceController.text = teamName[servicePickerIndex];
+              },
+            ),
+          ),
+        );
+      },
+    );
   }
 }

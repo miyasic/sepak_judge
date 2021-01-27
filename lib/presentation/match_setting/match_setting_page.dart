@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sepakjudge/constants.dart';
@@ -75,24 +76,12 @@ class MatchSettingPage extends StatelessWidget {
                                     labelText: 'ServiceTeam',
                                   ),
                                   controller: model.serviceController,
-                                ),
-                                PopupMenuButton<String>(
-                                  initialValue: '',
-                                  color: themeBackGroundColor,
-                                  icon: const Icon(Icons.arrow_drop_down),
-                                  onSelected: (String value) {
-                                    model.serviceController.text = value;
-                                  },
-                                  itemBuilder: (BuildContext context) {
-                                    return model.teamName
-                                        .map<PopupMenuItem<String>>(
-                                            (String value) {
-                                      return new PopupMenuItem(
-                                          child: new Text(
-                                            value,
-                                          ),
-                                          value: value);
-                                    }).toList();
+                                  onTap: () async {
+                                    FocusScope.of(context)
+                                        .requestFocus(new FocusNode());
+                                    await model.showServicePicker(
+                                      context,
+                                    );
                                   },
                                 ),
                               ],
