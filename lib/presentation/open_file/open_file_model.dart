@@ -15,25 +15,33 @@ class OpenFileModel extends ChangeNotifier {
     inputFileData = text.split(',');
 
     if (inputFileData[1] != null && inputFileData[2] != null) {
-      match.aTeam.name = inputFileData[1];
-      match.bTeam.name = inputFileData[2];
+      match.aTeam.name = checkNoData(inputFileData[1]);
+      match.bTeam.name = checkNoData(inputFileData[2]);
     }
-    match.courtName = inputFileData[3] ?? '';
-    match.chiefReferee = inputFileData[4] ?? '';
-    match.assistantReferee = inputFileData[5] ?? '';
+    match.courtName = checkNoData(inputFileData[3]);
+    match.chiefReferee = checkNoData(inputFileData[4]);
+    match.assistantReferee = checkNoData(inputFileData[5]);
     for (int i = 0; i < 6; i++) {
       Player player = Player();
-      player.name = inputFileData[6 + 2 * i] ?? '';
-      player.number = inputFileData[7 + 2 * i] ?? '';
+      player.name = checkNoData(inputFileData[6 + 2 * i]);
+      player.number = checkNoData(inputFileData[7 + 2 * i]);
       match.aTeam.members.add(player);
     }
-    match.aTeam.captain = inputFileData[18] ?? '';
+    match.aTeam.captain = checkNoData(inputFileData[18]);
     for (int i = 0; i < 6; i++) {
       Player player = Player();
-      player.name = inputFileData[19 + 2 * i] ?? '';
-      player.number = inputFileData[20 + 2 * i] ?? '';
+      player.name = checkNoData(inputFileData[19 + 2 * i]);
+      player.number = checkNoData(inputFileData[20 + 2 * i]);
       match.bTeam.members.add(player);
     }
-    match.bTeam.captain = inputFileData[31] ?? '';
+    match.bTeam.captain = checkNoData(inputFileData[31]);
+  }
+
+  String checkNoData(String input) {
+    if (input == 'NODATA') {
+      return '';
+    } else {
+      return input;
+    }
   }
 }
