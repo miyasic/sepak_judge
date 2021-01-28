@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sepakjudge/domain/file_manager.dart';
-import 'package:sepakjudge/presentation/match_setting/match_setting_page.dart';
+import 'package:sepakjudge/presentation/match_details_setting/match_details_setting_page.dart';
 import 'open_file_model.dart';
 
 class OpenFilePage extends StatelessWidget {
@@ -36,8 +36,8 @@ class OpenFilePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => MatchSettingPage(fileManager,
-                                inputFileData: model.inputFileData),
+                            builder: (context) =>
+                                MatchDetailSettingPage(model.match),
                           ),
                         );
                       },

@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sepakjudge/domain/match.dart';
-import 'package:sepakjudge/domain/file_manager.dart';
 import 'package:sepakjudge/domain/team.dart';
 
 import '../../constants.dart';
 
 class MatchSettingModel extends ChangeNotifier {
-  MatchSettingModel(this.fileManager, {this.inputFileData});
-  final FileManager fileManager;
-  final inputFileData;
+  MatchSettingModel();
   var match = Match();
 
   final matchNameController = TextEditingController(text: 'MatchName');
@@ -20,53 +17,25 @@ class MatchSettingModel extends ChangeNotifier {
   List<String> teamName = ['ATeam', 'BTeam'];
 
   void init() {
-    if (inputFileData != null) {
-      if (inputFileData[0] != null) matchNameController.text = inputFileData[0];
-      if (inputFileData[1] != null && inputFileData[2] != null) {
-        aTeamNameController.text = inputFileData[1];
-        bTeamNameController.text = inputFileData[2];
-        match.aTeam.name = inputFileData[1];
-        match.bTeam.name = inputFileData[2];
-        teamName = [inputFileData[1], inputFileData[2]];
-      }
-      match.courtName = inputFileData[3] ?? '';
-      match.chiefReferee = inputFileData[4] ?? '';
-      match.assistantReferee = inputFileData[5] ?? '';
-      for (int i = 0; i < 6; i++) {
-        Player player = Player();
-        player.name = inputFileData[6 + 2 * i] ?? '';
-        player.number = inputFileData[7 + 2 * i] ?? '';
-        match.aTeam.members.add(player);
-      }
-      match.aTeam.captain = inputFileData[18] ?? '';
-      for (int i = 0; i < 6; i++) {
-        Player player = Player();
-        player.name = inputFileData[19 + 2 * i] ?? '';
-        player.number = inputFileData[20 + 2 * i] ?? '';
-        match.bTeam.members.add(player);
-      }
-      match.bTeam.captain = inputFileData[31] ?? '';
-    } else {
-      match.aTeam.name = 'ATeam';
-      match.bTeam.name = 'BTeam';
-      match.aTeam.members = [
-        Player(name: '1人目', number: '1'),
-        Player(name: '2人目', number: '2'),
-        Player(name: '3人目', number: '3'),
-        Player(name: ''),
-        Player(name: ''),
-        Player(name: '')
-      ];
-      match.bTeam.members = [
-        Player(name: '1人目', number: '1'),
-        Player(name: '2人目', number: '2'),
-        Player(name: '3人目', number: '3'),
-        Player(name: ''),
-        Player(name: ''),
-        Player(name: '')
-      ];
-      print(match.aTeam.members[1].name);
-    }
+    match.aTeam.name = 'ATeam';
+    match.bTeam.name = 'BTeam';
+    match.aTeam.members = [
+      Player(name: '1人目', number: '1'),
+      Player(name: '2人目', number: '2'),
+      Player(name: '3人目', number: '3'),
+      Player(name: ''),
+      Player(name: ''),
+      Player(name: '')
+    ];
+    match.bTeam.members = [
+      Player(name: '1人目', number: '1'),
+      Player(name: '2人目', number: '2'),
+      Player(name: '3人目', number: '3'),
+      Player(name: ''),
+      Player(name: ''),
+      Player(name: '')
+    ];
+    print(match.aTeam.members[1].name);
     notifyListeners();
   }
 

@@ -5,18 +5,13 @@ import 'package:sepakjudge/constants.dart';
 import 'package:sepakjudge/presentation/match_details_setting/match_details_setting_page.dart';
 import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart';
 import 'match_setting_model.dart';
-import 'package:sepakjudge/domain/file_manager.dart';
 
 class MatchSettingPage extends StatelessWidget {
-  MatchSettingPage(this.fileManager, {this.inputFileData});
-  final FileManager fileManager;
-  final List<String> inputFileData;
+  MatchSettingPage();
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<MatchSettingModel>(
-      create: (_) =>
-          MatchSettingModel(fileManager, inputFileData: inputFileData)
-            ..init(), //MatchSettingModelを作成
+      create: (_) => MatchSettingModel()..init(), //MatchSettingModelを作成
       child: Scaffold(
         appBar: AppBar(
           title: Text('MatchSetting'),
