@@ -213,7 +213,6 @@ class MatchDetailsSettingModel extends ChangeNotifier {
   void register(context) {
     print(this.index);
     if (this.index == 0) {
-      print('a');
       if (checkIsEnoughTeamInfo()) {
         onChangedTeamInfo('');
         team.isInputCompleted = true;
@@ -292,6 +291,7 @@ class MatchDetailsSettingModel extends ChangeNotifier {
           completion: () {});
     } else {
       match.fileInput = true;
+      match.setServer();
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => PointCountingPage(match)));
     }
