@@ -1,17 +1,20 @@
 # sepakjudge
 
-A new Flutter application.
+セパタクロー大会のスコアシートアプリ
 
-## Getting Started
+## アプリ作成の目的
+セパタクローは日本においてはマイナーなスポーツであり、認知度も競技人口も少ない。
+そのため、日本国内で行われる多くのセパタクロー大会は大会主催者側のメンバーが選手である場合がほとんとである。
+そこで、大会の運営コストを少しでも下げることがこのアプリ作成の最大のモチベーションである。
 
-This project is a starting point for a Flutter application.
+## sepakjudgeの技術選定
+セパタクロー界にはアプリをエンジニアにお願いして作ってもらうほどの余裕はない。たぶん。
+そこで、このアプリを作成しようと考えたが初心者の自分が1人で作るにはandroidもiOSも両方勉強して両方作るのは途方もないと考えクロスプラットフォームであるflutterを用いることにした。
 
-A few resources to get you started if this is your first Flutter project:
+## 本アプリでできること
+*試合の得点を数えることができます。
+*試合結果を他のアプリに出力できます。（csv形式）
+＊試合前に対戦カードを読み込むこともできます。
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# sepak_judge
+
