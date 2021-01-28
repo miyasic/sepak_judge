@@ -1,6 +1,8 @@
 # sepakjudge
-
 セパタクロー大会のスコアシートアプリ
+
+<img src="https://user-images.githubusercontent.com/62228968/106133403-8c3add00-61a8-11eb-86e7-aca6c9dcd75f.JPG" width= 100>
+
 
 ## アプリ作成の目的
 セパタクローは日本においてはマイナーなスポーツであり、認知度も競技人口も少ない。
@@ -17,4 +19,6 @@
 ＊試合前に対戦カードを読み込むこともできます。
 
 
+## 開発時の画像
 
+<img src="https://user-images.githubusercontent.com/62228968/106133400-8b09b000-61a8-11eb-9001-f8335a62244d.PNG" width= 200>  <img src="https://user-images.githubusercontent.com/62228968/106133394-89d88300-61a8-11eb-81ed-519b0b71e155.PNG" width= 200>  <img src="https://user-images.githubusercontent.com/62228968/106133385-880ebf80-61a8-11eb-977d-64ce6e495219.PNG" width= 200>  <img src="https://user-images.githubusercontent.com/62228968/106133376-83e2a200-61a8-11eb-9037-6ad2a6335d0e.PNG" width= 200>
