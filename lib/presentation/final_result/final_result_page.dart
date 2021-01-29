@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sepakjudge/constants.dart';
 import 'package:sepakjudge/domain/file_manager.dart';
 import 'package:sepakjudge/domain/match.dart';
-import 'package:sepakjudge/presentation/main/main.dart';
+import 'package:sepakjudge/main.dart';
 
 import 'final_result_model.dart';
 

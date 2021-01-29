@@ -16,6 +16,7 @@ void main() {
             buttonColor: themeSecondColor,
             textTheme: ButtonTextTheme.primary,
           )),
+      debugShowCheckedModeBanner: false,
       home: MyApp(),
     ),
   );
