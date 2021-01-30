@@ -3,6 +3,8 @@
 
 <img src="https://user-images.githubusercontent.com/62228968/106133403-8c3add00-61a8-11eb-86e7-aca6c9dcd75f.JPG" width= 100>
 
+## AppStoreのリンク
+https://itunes.apple.com/jp/app/id1551240373?mt=8
 
 ## アプリ作成の目的
 セパタクローは日本においてはマイナーなスポーツであり、認知度も競技人口も少ない。
