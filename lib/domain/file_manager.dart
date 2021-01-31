@@ -9,6 +9,8 @@ import 'package:flutter_share/flutter_share.dart';
 import 'package:sepakjudge/constants.dart';
 import 'package:sepakjudge/domain/match.dart';
 
+bool isAndroid = Platform.isAndroid;
+
 class FileManager {
   var documentDirectory; //documentDirectoryを格納する。
   var outputFileName; //保存するファイル名
@@ -37,15 +39,33 @@ class FileManager {
   Future<void> setInputFileName() async {
     inputFileNames = [''];
     documentDirectory = await getApplicationDocumentsDirectory();
-    final systemTempDir = await Directory(documentDirectory.path + '/Inbox');
-    //systemTempDirの中にファイルが存在するかどうか
-    if (await systemTempDir.exists()) {
-      await for (var value in systemTempDir.list()) {
-        String inputFileTemp = value.path.split('/').last as String;
-        inputFileNames.add(inputFileTemp.toString());
+    if (isAndroid) {
+      ///以下Android
+      final systemTempDir = await Directory(documentDirectory.path); //android
+      if (await systemTempDir.exists()) {
+        await for (var value in systemTempDir.list()) {
+          String inputFileTemp = value.path.split('/').last as String;
+          if (inputFileTemp.split('.').last.endsWith('csv')) {
+            inputFileNames.add(inputFileTemp.toString());
+          }
+        }
+      } else {
+        throw '読み込めるファイルがありません。csv形式のファイルを$kServiceNameに読み込んでください。';
       }
     } else {
-      throw '読み込めるファイルがありません。csv形式のファイルを$kServiceNameに読み込んでください。';
+      ///以下iOS
+      final systemTempDir =
+          await Directory(documentDirectory.path + '/Inbox'); //iOS
+      print(systemTempDir.path);
+      //systemTempDirの中にファイルが存在するかどうか
+      if (await systemTempDir.exists()) {
+        await for (var value in systemTempDir.list()) {
+          String inputFileTemp = value.path.split('/').last as String;
+          inputFileNames.add(inputFileTemp.toString());
+        }
+      } else {
+        throw '読み込めるファイルがありません。csv形式のファイルを$kServiceNameに読み込んでください。';
+      }
     }
   }
 
