@@ -19,13 +19,20 @@ class FileManager {
   //ファイル名からファイルの中身を取り出す。OpenFileModelで呼び出し
   Future<String> getFileData(String fileName) async {
     var text = await _load(await _getInPutFilePath(fileName));
+    print(text);
     return text;
   }
 
   //ファイル名から入力するテキストファイルのパスを取得する
   Future<String> _getInPutFilePath(String fileName) async {
     documentDirectory = await getApplicationDocumentsDirectory();
-    final filePath = await documentDirectory.path + '/Inbox/' + fileName;
+    String filePath;
+    if (isAndroid) {
+      filePath = await documentDirectory.path + '/' + fileName;
+    } else {
+      filePath = await documentDirectory.path + '/Inbox/' + fileName;
+    }
+    print(filePath);
     return filePath;
   }
 
