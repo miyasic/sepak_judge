@@ -3,9 +3,14 @@ import 'package:sepakjudge/constants.dart';
 import 'package:sepakjudge/presentation/match_setting/match_setting_page.dart';
 import 'package:sepakjudge/presentation/open_file/open_file_page.dart';
 import 'package:sepakjudge/domain/file_manager.dart';
+import 'package:sepakjudge/presentation/temp/temp_page.dart';
 import 'package:sepakjudge/utils/dialog_utils.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(
     MaterialApp(
       theme: ThemeData(
@@ -55,6 +60,30 @@ class MyApp extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
+                    ButtonTheme(
+                      minWidth: double.infinity,
+                      height: 48,
+                      child: RaisedButton(
+                        color: themeMainColor,
+                        child: Text(
+                          'TempPage',
+                          style: TextStyle(fontSize: 40, color: Colors.white),
+                        ),
+                        onPressed: () async {
+                          //todo:OpenFilePageに遷移
+                          try {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TempPage()),
+                            );
+                          } catch (e) {
+                            DialogUtils.showAlertDialog(
+                                text: e, context: context);
+                          } finally {}
+                        },
+                      ),
+                    ),
                     ButtonTheme(
                       minWidth: double.infinity,
                       height: 48,
