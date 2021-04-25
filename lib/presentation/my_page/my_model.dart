@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sepakjudge/exception/generic_exception.dart';
 import 'package:sepakjudge/main.dart';
 import 'package:sepakjudge/repository/auth_repository.dart';
 import 'package:sepakjudge/repository/player_repository.dart';
@@ -24,6 +25,30 @@ class MyModel extends ChangeNotifier {
     await _auth.logout();
     isLogin = _auth.isLogin;
     notifyListeners();
+  }
+
+  Future signin(context) async {
+    final email = emailController.text;
+    final pass = passController.text;
+    if (email.isEmpty) {
+      await DialogUtils.showSimpleDialog(
+          text: 'メールアドレスを入力して下さい。', context: context);
+      return;
+    }
+    if (pass.isEmpty) {
+      await DialogUtils.showSimpleDialog(
+          text: 'パスワードを入力して下さい。', context: context);
+      return;
+    }
+
+    try {
+      await _auth.signIn(email, pass);
+    } catch (e) {
+      throw GenericException(errorMessages: [e.toString()]);
+    } finally {
+      isLogin = _auth.isLogin;
+      notifyListeners();
+    }
   }
 //  Future SignUp(context, completion) async {
 //    final name = nameController.text;

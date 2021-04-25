@@ -30,6 +30,30 @@ class DialogUtils {
     );
   }
 
+  static Future showSimpleDialog({
+    @required String text,
+    @required BuildContext context,
+    String okText = 'OK',
+  }) async {
+    await showDialog<AlertDialog>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(text),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    okText,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ))
+            ],
+          );
+        });
+  }
+
   static Future showOKCancelAlertDialog({
     @required String text,
     BuildContext context,

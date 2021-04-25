@@ -36,20 +36,59 @@ class MyPage extends StatelessWidget {
   }
 
   Widget withoutLogin(MyModel model, context) {
-    return Center(
-        child: Column(
-      children: [
-        Text('ログインして下さい'),
-        Container(
-          child: RaisedButton(
-            child: Text('SignUp'),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SignupPage()));
-            },
-          ),
-        ),
-      ],
-    ));
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+          height: double.infinity,
+          child: Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                height: 400,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'メールアドレス',
+                      ),
+                      controller: model.emailController,
+                    ),
+                    TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'パスワード',
+                      ),
+                      controller: model.passController,
+                    ),
+                  ],
+                ),
+              ),
+              RaisedButton(
+                child: Text('SignIn'),
+                onPressed: () {
+                  model.signin(context);
+                },
+              ),
+            ],
+          ))),
+    );
+//    return Center(
+//        child: Column(
+//      children: [
+//        Text('ログインして下さい'),
+//        Container(
+//          child: RaisedButton(
+//            child: Text('SignUp'),
+//            onPressed: () {
+//              Navigator.push(context,
+//                  MaterialPageRoute(builder: (context) => SignupPage()));
+//            },
+//          ),
+//        ),
+//      ],
+//    ));
   }
 }
