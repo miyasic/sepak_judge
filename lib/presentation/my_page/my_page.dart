@@ -40,71 +40,85 @@ class MyPage extends StatelessWidget {
   }
 
   Widget withoutLogin(MyModel model, context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SingleChildScrollView(
-        child: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              height: 500,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                      height: 80,
-                      width: 80,
-                      child: Icon(
-                        Icons.account_circle_sharp,
-                        size: 60,
-                      )),
-                  TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'メールアドレス',
-                    ),
-                    controller: model.emailController,
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SingleChildScrollView(
+            child: Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height: 500,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                          height: 80,
+                          width: 80,
+                          child: Icon(
+                            Icons.account_circle_sharp,
+                            size: 60,
+                          )),
+                      TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'メールアドレス',
+                        ),
+                        controller: model.emailController,
+                      ),
+                      TextField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'パスワード',
+                        ),
+                        controller: model.passController,
+                      ),
+                      RaisedButton(
+                        child: Text('SignIn'),
+                        onPressed: () async {
+                          model.startLoading();
+                          await model.signin(context);
+                          model.endLoading();
+                        },
+                      ),
+                      Container(
+                        child: RaisedButton(
+                          child: Text('SignUp'),
+                          onPressed: () async {
+                            bool isDone = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignupPage()));
+                            if (isDone) {
+                              await DialogUtils.showAlertDialog(
+                                  text: 'アカウントを作成しました',
+                                  context: context,
+                                  completion: () {
+                                    model.init(context);
+                                  });
+                            }
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                  TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'パスワード',
-                    ),
-                    controller: model.passController,
-                  ),
-                  RaisedButton(
-                    child: Text('SignIn'),
-                    onPressed: () {
-                      model.signin(context);
-                    },
-                  ),
-                  Container(
-                    child: RaisedButton(
-                      child: Text('SignUp'),
-                      onPressed: () async {
-                        bool isDone = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignupPage()));
-                        if (isDone) {
-                          await DialogUtils.showAlertDialog(
-                              text: 'アカウントを作成しました',
-                              context: context,
-                              completion: () {
-                                model.init(context);
-                              });
-                        }
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        )),
-      ),
+                ),
+              ],
+            )),
+          ),
+        ),
+        model.isLoading
+            ? Container(
+                height: double.infinity,
+                width: double.infinity,
+                color: Colors.black12,
+                child: Center(child: CircularProgressIndicator()),
+              )
+            : Container()
+      ],
     );
   }
 }
