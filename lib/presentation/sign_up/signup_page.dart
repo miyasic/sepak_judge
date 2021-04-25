@@ -13,81 +13,93 @@ class SignupPage extends StatelessWidget {
         ),
         body: Consumer<SignupModel>(
           builder: (context, model, child) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SingleChildScrollView(
-                child: Container(
-                  height: 600,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(
-                        Icons.account_circle,
-                        size: 60,
-                      ),
-                      TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: '名前',
-                        ),
-                        controller: model.nameController,
-                      ),
-                      TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'メールアドレス',
-                        ),
-                        controller: model.emailController,
-                      ),
-                      TextField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'パスワード',
-                        ),
-                        controller: model.passController,
-                      ),
-                      Text(
-                        '性別',
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+            return Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SingleChildScrollView(
+                    child: Container(
+                      height: 600,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text('男性'),
-                          Radio(
-                            value: true,
-                            groupValue: model.isMale,
-                            onChanged: (value) {
-                              model.changeRadioButton(value);
-                            },
+                          Icon(
+                            Icons.account_circle,
+                            size: 60,
                           ),
-                          SizedBox(
-                            width: 40,
+                          TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: '名前',
+                            ),
+                            controller: model.nameController,
                           ),
-                          Text('女性'),
-                          Radio(
-                            value: false,
-                            groupValue: model.isMale,
-                            onChanged: (value) {
-                              model.changeRadioButton(value);
+                          TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'メールアドレス',
+                            ),
+                            controller: model.emailController,
+                          ),
+                          TextField(
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'パスワード',
+                            ),
+                            controller: model.passController,
+                          ),
+                          Text(
+                            '性別',
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('男性'),
+                              Radio(
+                                value: true,
+                                groupValue: model.isMale,
+                                onChanged: (value) {
+                                  model.changeRadioButton(value);
+                                },
+                              ),
+                              SizedBox(
+                                width: 40,
+                              ),
+                              Text('女性'),
+                              Radio(
+                                value: false,
+                                groupValue: model.isMale,
+                                onChanged: (value) {
+                                  model.changeRadioButton(value);
+                                },
+                              ),
+                            ],
+                          ),
+                          RaisedButton(
+                            child: Text('SignUp'),
+                            onPressed: () async {
+                              model.startLoading();
+                              await model.SignUp(context);
+                              model.endLoading();
                             },
                           ),
                         ],
                       ),
-                      RaisedButton(
-                        child: Text('SignUp'),
-                        onPressed: () {
-                          model.SignUp(context, () {
-                            print('a');
-                          });
-                        },
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+                model.isLoading
+                    ? Container(
+                        height: double.infinity,
+                        width: double.infinity,
+                        color: Colors.black12,
+                        child: Center(child: CircularProgressIndicator()),
+                      )
+                    : Container()
+              ],
             );
           },
         ),

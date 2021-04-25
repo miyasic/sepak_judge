@@ -12,10 +12,11 @@ class SignupModel extends ChangeNotifier {
   final emailController = TextEditingController();
   final passController = TextEditingController();
   bool isMale;
+  bool isLoading = false;
 
   final _auth = AuthRepository.instance;
-  final _playerRepository = PlayersRepository.instance;
-  Future SignUp(context, completion) async {
+
+  Future SignUp(context) async {
     final name = nameController.text;
     final email = emailController.text;
     final pass = passController.text;
@@ -47,19 +48,18 @@ class SignupModel extends ChangeNotifier {
     }
   }
 
-  ///テスト用の関数。必要ないのでいいタイミングで消す。
-  Future fetchData() async {
-    final _firestore = FirebaseFirestore.instance;
-    final snapshot = await _firestore
-        .collection('associations')
-        .doc('0hFSRB2TzCgUevUibxJb7xSzutL2')
-        .get();
-    final name = snapshot.data()['name'];
-    return name;
-  }
-
   void changeRadioButton(value) {
     isMale = value;
+    notifyListeners();
+  }
+
+  void startLoading() {
+    isLoading = true;
+    notifyListeners();
+  }
+
+  void endLoading() {
+    isLoading = false;
     notifyListeners();
   }
 }
