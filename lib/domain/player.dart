@@ -5,7 +5,7 @@ class Player {
   String name;
   String email;
   String teamId;
-  bool sex; //女性が0男性が1
+  bool isMale; //女性が0男性が1
   bool isApproved;
   Timestamp createdAt;
 
@@ -14,7 +14,7 @@ class Player {
     name = doc.data()['name'];
     email = doc.data()['email'];
     teamId = doc.data()['teamId'];
-    sex = doc.data()['sex'];
+    isMale = doc.data()['isMale'];
     isApproved = doc.data()['isApproved'];
     createdAt = doc.data()['createdAt'];
   }
@@ -24,7 +24,7 @@ class Player {
     data['name'] = this.name;
     data['email'] = this.email;
     data['teamId'] = this.teamId;
-    data['sex'] = this.sex;
+    data['sex'] = this.isMale;
     data['isApproved'] = this.isApproved;
     data['createdAt'] = this.createdAt;
     return data;

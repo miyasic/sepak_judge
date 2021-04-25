@@ -12,6 +12,8 @@ import 'package:sepakjudge/utils/dialog_utils.dart';
 class MyModel extends ChangeNotifier {
   final emailController = TextEditingController();
   final passController = TextEditingController();
+  final nameController = TextEditingController();
+  bool isMale;
   bool isLoading = false;
 
   final _auth = AuthRepository.instance;
@@ -25,9 +27,17 @@ class MyModel extends ChangeNotifier {
         player = await _playerRepository.fetch();
       } catch (e) {
         DialogUtils.showSimpleDialog(text: 'アカウントが存在しません。', context: context);
+      } finally {
+        _setTextField();
       }
     }
     notifyListeners();
+  }
+
+  void _setTextField() {
+    nameController.text = player.name;
+    emailController.text = player.email;
+    isMale = player.isMale;
   }
 
   Future logout() async {

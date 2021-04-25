@@ -18,6 +18,6 @@ const kTextNo = 'No';
 
 const themeMainColor = Color(0xFF2F5580);
 const themeBackGroundColor = Color(0xFFEBE2D9);
-const themeAccentColor = Color(0xFFE8D2D4);
+const themeAccentColor = Color(0xFFEBD843);
 const themeSecondColor = Color(0xFF4D6392);
 const themeSecondBackColor = Color(0xFFC0BBC0);
