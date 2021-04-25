@@ -15,69 +15,66 @@ class SignupPage extends StatelessWidget {
           builder: (context, model, child) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  height: double.infinity,
-                  child: Center(
-                      child: Column(
+              child: SingleChildScrollView(
+                child: Container(
+                  height: 600,
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Container(
-                        height: 400,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: '名前',
-                              ),
-                              controller: model.nameController,
-                            ),
-                            TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'メールアドレス',
-                              ),
-                              controller: model.emailController,
-                            ),
-                            TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'パスワード',
-                              ),
-                              controller: model.passController,
-                            ),
-                            Text(
-                              '性別',
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('男性'),
-                                Radio(
-                                  value: true,
-                                  groupValue: model.isMale,
-                                  onChanged: (value) {
-                                    model.changeRadioButton(value);
-                                  },
-                                ),
-                                SizedBox(
-                                  width: 40,
-                                ),
-                                Text('女性'),
-                                Radio(
-                                  value: false,
-                                  groupValue: model.isMale,
-                                  onChanged: (value) {
-                                    model.changeRadioButton(value);
-                                  },
-                                ),
-                              ],
-                            )
-                          ],
+                      Icon(
+                        Icons.account_circle,
+                        size: 60,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: '名前',
                         ),
+                        controller: model.nameController,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'メールアドレス',
+                        ),
+                        controller: model.emailController,
+                      ),
+                      TextField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'パスワード',
+                        ),
+                        controller: model.passController,
+                      ),
+                      Text(
+                        '性別',
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('男性'),
+                          Radio(
+                            value: true,
+                            groupValue: model.isMale,
+                            onChanged: (value) {
+                              model.changeRadioButton(value);
+                            },
+                          ),
+                          SizedBox(
+                            width: 40,
+                          ),
+                          Text('女性'),
+                          Radio(
+                            value: false,
+                            groupValue: model.isMale,
+                            onChanged: (value) {
+                              model.changeRadioButton(value);
+                            },
+                          ),
+                        ],
                       ),
                       RaisedButton(
                         child: Text('SignUp'),
@@ -88,7 +85,9 @@ class SignupPage extends StatelessWidget {
                         },
                       ),
                     ],
-                  ))),
+                  ),
+                ),
+              ),
             );
           },
         ),
