@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sepakjudge/main.dart';
+import 'package:sepakjudge/presentation/my_page/my_page.dart';
 import 'package:sepakjudge/repository/auth_repository.dart';
 import 'package:sepakjudge/repository/player_repository.dart';
 import 'package:sepakjudge/utils/dialog_utils.dart';
@@ -18,27 +20,28 @@ class SignupModel extends ChangeNotifier {
     final email = emailController.text;
     final pass = passController.text;
     if (name.isEmpty) {
-      await DialogUtils.showAlertDialog(
-          text: '名前を入力して下さい。', context: context, completion: completion);
+      await DialogUtils.showSimpleDialog(text: '名前を入力して下さい。', context: context);
       return;
     }
     if (email.isEmpty) {
-      await DialogUtils.showAlertDialog(
-          text: 'メールアドレスを入力して下さい。', context: context, completion: completion);
+      await DialogUtils.showSimpleDialog(
+          text: 'メールアドレスを入力して下さい。', context: context);
       return;
     }
     if (pass.isEmpty) {
-      await DialogUtils.showAlertDialog(
-          text: 'パスワードを入力して下さい。', context: context, completion: completion);
+      await DialogUtils.showSimpleDialog(
+          text: 'パスワードを入力して下さい。', context: context);
       return;
     }
     if (isMale == null) {
-      await DialogUtils.showAlertDialog(
-          text: '性別をチェックして下さい', context: context, completion: completion);
+      await DialogUtils.showSimpleDialog(
+          text: '性別をチェックして下さい', context: context);
     }
 
     try {
       await _auth.signUp(name, email, pass, isMale);
+      isLogin = _auth.isLogin;
+      Navigator.pop(context, isLogin);
     } catch (e) {
       DialogUtils.showSimpleDialog(text: e.toString(), context: context);
     }

@@ -37,6 +37,11 @@ class PlayersRepository {
     return _player;
   }
 
+  void playerRelease() {
+    _player = null;
+    return;
+  }
+
   /// ユーザーをアップデートする
   Future updatePlayer(Player player) async {
     FirebaseFirestore.instance

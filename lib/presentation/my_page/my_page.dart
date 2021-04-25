@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sepakjudge/presentation/sign_up/signup_page.dart';
+import 'package:sepakjudge/utils/dialog_utils.dart';
 
 import '../../main.dart';
 import 'my_model.dart';
@@ -82,11 +83,19 @@ class MyPage extends StatelessWidget {
                   Container(
                     child: RaisedButton(
                       child: Text('SignUp'),
-                      onPressed: () {
-                        Navigator.push(
+                      onPressed: () async {
+                        bool isDone = await Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SignupPage()));
+                        if (isDone) {
+                          await DialogUtils.showAlertDialog(
+                              text: 'アカウントを作成しました',
+                              context: context,
+                              completion: () {
+                                model.init(context);
+                              });
+                        }
                       },
                     ),
                   ),

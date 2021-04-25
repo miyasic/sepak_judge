@@ -26,7 +26,6 @@ class MyModel extends ChangeNotifier {
         DialogUtils.showSimpleDialog(text: 'アカウントが存在しません。', context: context);
       }
     }
-    print(isLogin);
     notifyListeners();
   }
 

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sepakjudge/exception/firebaseauth_exception.dart';
 import 'package:sepakjudge/exception/generic_exception.dart';
+import 'package:sepakjudge/repository/player_repository.dart';
 
 /// ユーザ認証
 class AuthRepository {
@@ -58,6 +59,7 @@ class AuthRepository {
   Future logout() async {
     try {
       await _auth.signOut();
+      PlayersRepository.instance.playerRelease();
     } catch (e) {
       throw GenericException(errorMessages: [e.toString()]);
     }
