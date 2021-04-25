@@ -38,7 +38,6 @@ class AuthRepository {
         'createdAt': Timestamp.now(),
       });
     } catch (e) {
-      print(e.code);
       final result = FirebaseAuthExceptionJap.handleException(e);
       throw FirebaseAuthExceptionJap.exceptionMessage(result);
     }

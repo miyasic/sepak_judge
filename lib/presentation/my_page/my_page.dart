@@ -9,14 +9,16 @@ class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<MyModel>(
-      create: (_) => MyModel()..init(), //TempModelを作成
+      create: (_) => MyModel()..init(context), //TempModelを作成
       child: Scaffold(
         appBar: AppBar(
           title: Text('MyPage'),
         ),
         body: Consumer<MyModel>(
           builder: (context, model, child) {
-            return isLogin ? withLogin(model) : withoutLogin(model, context);
+            return isLogin && model.player != null
+                ? withLogin(model)
+                : withoutLogin(model, context);
           },
         ),
       ),
@@ -31,6 +33,7 @@ class MyPage extends StatelessWidget {
           await model.logout();
         }),
         Text('ログイン済みです。'),
+        Text(model.player.name),
       ],
     ));
   }

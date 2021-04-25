@@ -30,7 +30,7 @@ class PlayersRepository {
       }
       final doc = await _firestore.collection('players').doc(id).get();
       if (!doc.exists) {
-        throw GenericException(errorMessages: ['協会アカウントが見つかりませんでした']);
+        throw 'アカウントが見つかりませんでした。';
       }
       _player = Player(doc);
     }

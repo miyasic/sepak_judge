@@ -39,7 +39,9 @@ class SignupModel extends ChangeNotifier {
 
     try {
       await _auth.signUp(name, email, pass, isMale);
-    } catch (e) {}
+    } catch (e) {
+      DialogUtils.showSimpleDialog(text: e.toString(), context: context);
+    }
   }
 
   ///テスト用の関数。必要ないのでいいタイミングで消す。
