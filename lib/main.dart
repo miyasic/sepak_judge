@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sepakjudge/constants.dart';
 import 'package:sepakjudge/presentation/match_setting/match_setting_page.dart';
+import 'package:sepakjudge/presentation/my_page/my_page.dart';
 import 'package:sepakjudge/presentation/open_file/open_file_page.dart';
 import 'package:sepakjudge/domain/file_manager.dart';
-import 'package:sepakjudge/presentation/temp/temp_page.dart';
 import 'package:sepakjudge/utils/dialog_utils.dart';
 import 'package:firebase_core/firebase_core.dart';
+
+bool isLogin = false;
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -66,7 +68,7 @@ class MyApp extends StatelessWidget {
                       child: RaisedButton(
                         color: themeMainColor,
                         child: Text(
-                          'TempPage',
+                          'My Page',
                           style: TextStyle(fontSize: 40, color: Colors.white),
                         ),
                         onPressed: () async {
@@ -74,8 +76,7 @@ class MyApp extends StatelessWidget {
                           try {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => TempPage()),
+                              MaterialPageRoute(builder: (context) => MyPage()),
                             );
                           } catch (e) {
                             DialogUtils.showAlertDialog(
