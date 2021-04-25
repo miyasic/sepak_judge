@@ -9,7 +9,7 @@ class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<MyModel>(
-      create: (_) => MyModel(), //TempModelを作成
+      create: (_) => MyModel()..init(), //TempModelを作成
       child: Scaffold(
         appBar: AppBar(
           title: Text('MyPage'),
@@ -24,7 +24,15 @@ class MyPage extends StatelessWidget {
   }
 
   Widget withLogin(MyModel model) {
-    return Center(child: Text('ログイン済みです。'));
+    return Center(
+        child: Column(
+      children: [
+        RaisedButton(onPressed: () async {
+          await model.logout();
+        }),
+        Text('ログイン済みです。'),
+      ],
+    ));
   }
 
   Widget withoutLogin(MyModel model, context) {

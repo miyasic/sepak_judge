@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sepakjudge/main.dart';
 import 'package:sepakjudge/repository/auth_repository.dart';
 import 'package:sepakjudge/repository/player_repository.dart';
 import 'package:sepakjudge/utils/dialog_utils.dart';
@@ -12,6 +13,18 @@ class MyModel extends ChangeNotifier {
 
   final _auth = AuthRepository.instance;
   final _playerRepository = PlayersRepository.instance;
+
+  Future init() async {
+    isLogin = _auth.isLogin;
+    print(isLogin);
+    notifyListeners();
+  }
+
+  Future logout() async {
+    await _auth.logout();
+    isLogin = _auth.isLogin;
+    notifyListeners();
+  }
 //  Future SignUp(context, completion) async {
 //    final name = nameController.text;
 //    final email = emailController.text;
