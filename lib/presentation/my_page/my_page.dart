@@ -122,9 +122,21 @@ class MyPage extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          RaisedButton(child: Text('　大会申し込み　'), onPressed: () async {}),
-          Container(
-            height: 20,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              RaisedButton(child: Text('大会申し込み'), onPressed: () async {}),
+              RaisedButton(child: Text('　大会一覧　'), onPressed: () async {}),
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Divider(
+            thickness: 1,
+          ),
+          SizedBox(
+            height: 10,
           ),
           RaisedButton(
               child: Text('　サインアウト　'),
