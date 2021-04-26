@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sepakjudge/constants.dart';
 import 'package:sepakjudge/presentation/sign_up/signup_page.dart';
+import 'package:sepakjudge/presentation/team_select/team_select_page.dart';
 import 'package:sepakjudge/utils/dialog_utils.dart';
 
 import '../../main.dart';
@@ -112,7 +113,12 @@ class MyPage extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          RaisedButton(child: Text('所属チームを選ぶ'), onPressed: () async {}),
+          RaisedButton(
+              child: Text('所属チームを選ぶ'),
+              onPressed: () async {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => TeamSelectPage()));
+              }),
           SizedBox(
             height: 10,
           ),
