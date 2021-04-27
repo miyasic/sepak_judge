@@ -32,9 +32,6 @@ class MyPage extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Container(
-            height: 30,
-          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Padding(
@@ -46,7 +43,7 @@ class MyPage extends StatelessWidget {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   TextField(
                     decoration: InputDecoration(
@@ -103,35 +100,64 @@ class MyPage extends StatelessWidget {
           Divider(
             thickness: 1,
           ),
+          Text(
+            '所属チーム',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
           SizedBox(
             height: 10,
           ),
           Text(
             model.team.name ?? '所属チームが登録されていません',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 20,
+            ),
           ),
           SizedBox(
             height: 20,
           ),
-          RaisedButton(
-              child: Text('所属チームを選ぶ'),
-              onPressed: () async {
-                final isDone = await Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => TeamSelectPage()));
-                if (isDone == true) {
-                  await DialogUtils.showAlertDialog(
-                      text: 'チームに申請を送りました',
-                      context: context,
-                      completion: () {
-                        model.init(context);
-                      });
-                }
-              }),
+          model.team.name == null
+              ? RaisedButton(
+                  child: Text('所属チームを選ぶ'),
+                  onPressed: () async {
+                    final isDone = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TeamSelectPage()));
+                    if (isDone == true) {
+                      await DialogUtils.showAlertDialog(
+                          text: 'チームに申請を送りました',
+                          context: context,
+                          completion: () {
+                            model.init(context);
+                          });
+                    }
+                  })
+              : RaisedButton(
+                  child: Text('チームを移籍する'),
+                  onPressed: () async {
+                    final isDone = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TeamSelectPage()));
+                    if (isDone == true) {
+                      await DialogUtils.showAlertDialog(
+                          text: 'チームに申請を送りました',
+                          context: context,
+                          completion: () {
+                            model.init(context);
+                          });
+                    }
+                  }),
           SizedBox(
             height: 10,
           ),
           Divider(
             thickness: 1,
+          ),
+          Text(
+            '大会',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           SizedBox(
             height: 10,
