@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sepakjudge/utils/dialog_utils.dart';
 import 'team_select_model.dart';
 
 class TeamSelectPage extends StatelessWidget {
@@ -26,7 +27,13 @@ class TeamSelectPage extends StatelessWidget {
                         model.teams[index].name), //inputFileNamesは初期値に空白が入っている。
                     onTap: () async {
                       //todo:チームページを開く
-                      model.applyTeams(model.teams[index].teamId);
+                      try {
+                        model.applyTeams(model.teams[index].teamId);
+                        Navigator.pop(context, true);
+                      } catch (e) {
+                        DialogUtils.showSimpleDialog(
+                            text: e.toString(), context: context);
+                      }
                     },
                   );
                 },

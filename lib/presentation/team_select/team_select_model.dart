@@ -16,6 +16,9 @@ class TeamSelectModel extends ChangeNotifier {
   }
 
   Future applyTeams(teamId) async {
+    if (player.teamId != null) {
+      throw "もうすでにチームに所属しています。";
+    }
     _teamsRepository.applyTeam(teamId, this.player);
   }
 }
