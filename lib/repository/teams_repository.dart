@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sepakjudge/domain/player.dart';
 import 'package:sepakjudge/domain/teams.dart';
 import 'auth_repository.dart';
 
@@ -48,6 +49,24 @@ class TeamsRepository {
   Future<List<Team>> fetchTeam() async {
     final snapshot = await _firestore.collection('teams').get();
     return snapshot.docs.map((doc) => Team(doc)).toList();
+  }
+
+  /// 団体に所属の申請をする。
+  Future applyTeam(teamId, Player player) async {
+    _firestore
+        .collection('teams')
+        .doc(teamId)
+        .collection('members')
+        .doc(player.playerId)
+        .set({
+      'playerId': player.playerId,
+      'name': player.name,
+      'email': player.email,
+      'teamId': teamId,
+      'isMale': player.isMale,
+      'isApproved': false,
+      'createdAt': DateTime.now(),
+    });
   }
 
 //  /// 団体をアップデートする

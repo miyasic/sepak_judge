@@ -26,6 +26,7 @@ class TeamSelectPage extends StatelessWidget {
                         model.teams[index].name), //inputFileNamesは初期値に空白が入っている。
                     onTap: () async {
                       //todo:チームページを開く
+                      model.applyTeams(model.teams[index].teamId);
                     },
                   );
                 },
