@@ -26,14 +26,22 @@ class TeamSelectPage extends StatelessWidget {
                     title: Text(
                         model.teams[index].name), //inputFileNamesは初期値に空白が入っている。
                     onTap: () async {
-                      //todo:チームページを開く
-                      try {
-                        await model.applyTeams(model.teams[index].teamId);
-                        Navigator.pop(context, true);
-                      } catch (e) {
-                        DialogUtils.showSimpleDialog(
-                            text: e.toString(), context: context);
-                      }
+                      await DialogUtils.showOKCancelAlertDialog(
+                          context: context,
+                          text: '${model.teams[index].name}に所属申請を送信してもよろしいですか？',
+                          okAction: () async {
+                            try {
+                              await model.applyTeams(model.teams[index].teamId);
+                              print('送信しました。');
+                              Navigator.pop(context, true);
+                            } catch (e) {
+                              DialogUtils.showSimpleDialog(
+                                  text: e.toString(), context: context);
+                            }
+                          },
+                          cancelAction: () {
+                            print('送信しませんでした。');
+                          });
                     },
                   );
                 },

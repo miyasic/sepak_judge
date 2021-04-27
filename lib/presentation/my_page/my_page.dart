@@ -108,7 +108,7 @@ class MyPage extends StatelessWidget {
             height: 10,
           ),
           Text(
-            model.team.name ?? '所属チームが登録されていません',
+            model.teamName ?? '所属チームが登録されていません',
             style: TextStyle(
               fontSize: 20,
             ),
@@ -116,7 +116,7 @@ class MyPage extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          model.team.name == null
+          model.teamName == null
               ? RaisedButton(
                   child: Text('所属チームを選ぶ'),
                   onPressed: () async {

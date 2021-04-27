@@ -23,13 +23,17 @@ class MyModel extends ChangeNotifier {
   final _teamsRepository = TeamsRepository.instance;
   Player player;
   Team team;
+  String teamName;
 
   Future init(context) async {
     isLogin = _auth.isLogin;
     if (isLogin) {
       try {
         player = await _playerRepository.fetch();
-        team = await _teamsRepository.fetchTeam(player.teamId);
+        if (player.teamId != null) {
+          team = await _teamsRepository.fetchTeam(player.teamId);
+          teamName = team.name;
+        }
       } catch (e) {
         DialogUtils.showSimpleDialog(text: 'アカウントが存在しません。', context: context);
       } finally {

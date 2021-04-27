@@ -57,8 +57,8 @@ class DialogUtils {
   static Future showOKCancelAlertDialog({
     @required String text,
     BuildContext context,
-    String okText = 'OK',
-    String cancelText = 'Cancel',
+    String okText = 'はい',
+    String cancelText = 'いいえ',
     Function okAction,
     Function cancelAction,
   }) async {
@@ -88,7 +88,7 @@ class DialogUtils {
               child: Text(
                 okText,
                 style: TextStyle(
-                  fontWeight: FontWeight.normal,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
