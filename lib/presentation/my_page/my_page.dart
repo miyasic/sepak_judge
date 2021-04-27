@@ -19,7 +19,7 @@ class MyPage extends StatelessWidget {
         ),
         body: Consumer<MyModel>(
           builder: (context, model, child) {
-            return isLogin && model.player != null
+            return isLogin
                 ? withLogin(model, context)
                 : withoutLogin(model, context);
           },
@@ -29,6 +29,9 @@ class MyPage extends StatelessWidget {
   }
 
   Widget withLogin(MyModel model, context) {
+    if (model.player == null) {
+      return Center(child: CircularProgressIndicator());
+    }
     return SingleChildScrollView(
       child: Column(
         children: [

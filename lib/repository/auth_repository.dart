@@ -59,7 +59,6 @@ class AuthRepository {
   Future logout() async {
     try {
       await _auth.signOut();
-      PlayersRepository.instance.playerRelease();
     } catch (e) {
       throw GenericException(errorMessages: [e.toString()]);
     }

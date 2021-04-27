@@ -52,6 +52,8 @@ class MyModel extends ChangeNotifier {
   Future logout() async {
     await _auth.logout();
     isLogin = _auth.isLogin;
+    _playerRepository.playerRelease();
+    teamName = null;
     notifyListeners();
   }
 
