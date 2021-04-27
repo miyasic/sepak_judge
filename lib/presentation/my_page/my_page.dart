@@ -107,7 +107,7 @@ class MyPage extends StatelessWidget {
             height: 10,
           ),
           Text(
-            model.player.teamId ?? '所属チームが登録されていません',
+            model.team.name ?? '所属チームが登録されていません',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           SizedBox(
@@ -118,7 +118,7 @@ class MyPage extends StatelessWidget {
               onPressed: () async {
                 final isDone = await Navigator.push(context,
                     MaterialPageRoute(builder: (context) => TeamSelectPage()));
-                if (isDone) {
+                if (isDone == true) {
                   await DialogUtils.showAlertDialog(
                       text: 'チームに申請を送りました',
                       context: context,
@@ -216,7 +216,7 @@ class MyPage extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => SignupPage()));
-                            if (isDone) {
+                            if (isDone == true) {
                               await DialogUtils.showAlertDialog(
                                   text: 'アカウントを作成しました',
                                   context: context,

@@ -16,49 +16,28 @@ class TeamsRepository {
     return _instance;
   }
 
-  final _auth = AuthRepository.instance;
   final _firestore = FirebaseFirestore.instance;
-//
-//  /// 団体情報（ここで保持することでメモリキャッシュしている）
-//  Team _team;
-//
-//  /// 団体を返す
-//  /// 一度取得したらメモリキャッシュしておく
-//  Future<Team> fetch() async {
-//    if (_team == null) {
-//      final id = _auth.firebaseUser?.uid;
-//      if (id == null) {
-//        return null;
-//      }
-//      final doc = await _firestore.collection('teams').doc(id).get();
-//      if (!doc.exists) {
-//        throw GenericException(errorMessages: ['団体アカウントが見つかりませんでした']);
-//      }
-//      _team = Team(doc);
-//    }
-//    return _team;
-//  }
 
-  Future<List<String>> fetchTeamNames() async {
-    final QuerySnapshot snapshot = await _firestore.collection('teams').get();
-    final List<DocumentSnapshot> docs = snapshot.docs;
-    docs.map((doc) => print(doc.id));
-//    return docs.map((doc) => doc.).toList();
+  Future<Team> fetchTeam(String teamId) async {
+    final snapshot = await _firestore.collection('teams').doc(teamId).get();
+    return Team(snapshot);
   }
 
-  Future<List<Team>> fetchTeam() async {
+  Future<List<Team>> fetchTeams() async {
     final snapshot = await _firestore.collection('teams').get();
     return snapshot.docs.map((doc) => Team(doc)).toList();
   }
 
   /// 団体に所属の申請をする。
   Future applyTeam(teamId, Player player) async {
-    _firestore
+    final batch = _firestore.batch();
+
+    final forTeamDoc = _firestore
         .collection('teams')
         .doc(teamId)
         .collection('members')
-        .doc(player.playerId)
-        .set({
+        .doc(player.playerId);
+    batch.set(forTeamDoc, {
       'playerId': player.playerId,
       'name': player.name,
       'email': player.email,
@@ -67,6 +46,13 @@ class TeamsRepository {
       'isApproved': false,
       'createdAt': DateTime.now(),
     });
+
+    final forPlayerDoc = _firestore.collection('players').doc(player.playerId);
+    batch.set(forPlayerDoc, {
+      'teamId': teamId,
+      'isApproved': false,
+    });
+    batch.commit();
   }
 
 //  /// 団体をアップデートする

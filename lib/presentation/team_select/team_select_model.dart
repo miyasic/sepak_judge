@@ -10,7 +10,7 @@ class TeamSelectModel extends ChangeNotifier {
   List<Team> teams;
   Player player;
   Future init() async {
-    teams = await _teamsRepository.fetchTeam();
+    teams = await _teamsRepository.fetchTeams();
     player = await _playerRepository.fetch();
     notifyListeners();
   }
@@ -18,7 +18,11 @@ class TeamSelectModel extends ChangeNotifier {
   Future applyTeams(teamId) async {
     if (player.teamId != null) {
       throw "もうすでにチームに所属しています。";
+      return;
     }
     _teamsRepository.applyTeam(teamId, this.player);
+    player.isApproved = false;
+    player.teamId = teamId;
+    _playerRepository.updateLocalPlayer(player);
   }
 }

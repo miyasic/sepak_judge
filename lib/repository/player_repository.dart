@@ -42,6 +42,10 @@ class PlayersRepository {
     return;
   }
 
+  Future updateLocalPlayer(Player player) async {
+    _player = player;
+  }
+
   /// ユーザーをアップデートする
   Future updatePlayer(Player player) async {
     FirebaseFirestore.instance

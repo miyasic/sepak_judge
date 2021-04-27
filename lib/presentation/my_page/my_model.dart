@@ -3,10 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:sepakjudge/domain/match.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sepakjudge/domain/player.dart';
+import 'package:sepakjudge/domain/teams.dart';
 import 'package:sepakjudge/exception/generic_exception.dart';
 import 'package:sepakjudge/main.dart';
 import 'package:sepakjudge/repository/auth_repository.dart';
 import 'package:sepakjudge/repository/player_repository.dart';
+import 'package:sepakjudge/repository/teams_repository.dart';
 import 'package:sepakjudge/utils/dialog_utils.dart';
 
 class MyModel extends ChangeNotifier {
@@ -18,13 +20,16 @@ class MyModel extends ChangeNotifier {
 
   final _auth = AuthRepository.instance;
   final _playerRepository = PlayersRepository.instance;
+  final _teamsRepository = TeamsRepository.instance;
   Player player;
+  Team team;
 
   Future init(context) async {
     isLogin = _auth.isLogin;
     if (isLogin) {
       try {
         player = await _playerRepository.fetch();
+        team = await _teamsRepository.fetchTeam(player.teamId);
       } catch (e) {
         DialogUtils.showSimpleDialog(text: 'アカウントが存在しません。', context: context);
       } finally {

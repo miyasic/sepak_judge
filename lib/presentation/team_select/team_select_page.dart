@@ -28,7 +28,7 @@ class TeamSelectPage extends StatelessWidget {
                     onTap: () async {
                       //todo:チームページを開く
                       try {
-                        model.applyTeams(model.teams[index].teamId);
+                        await model.applyTeams(model.teams[index].teamId);
                         Navigator.pop(context, true);
                       } catch (e) {
                         DialogUtils.showSimpleDialog(
