@@ -104,7 +104,7 @@ class MyPage extends StatelessWidget {
             thickness: 1,
           ),
           Text(
-            '所属チーム',
+            model.player.isApproved ? '所属チーム' : '所属チーム(申請中)',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           SizedBox(

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:sepakjudge/domain/match.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sepakjudge/domain/player.dart';
 import 'package:sepakjudge/domain/teams.dart';
-import 'package:sepakjudge/exception/generic_exception.dart';
 import 'package:sepakjudge/main.dart';
 import 'package:sepakjudge/repository/auth_repository.dart';
 import 'package:sepakjudge/repository/player_repository.dart';
