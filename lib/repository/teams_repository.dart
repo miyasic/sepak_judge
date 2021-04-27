@@ -55,6 +55,42 @@ class TeamsRepository {
     batch.commit();
   }
 
+  /// 団体に移籍の申請をする。
+  Future changeTeam(newTeamId, oldTeamId, Player player) async {
+    final batch = _firestore.batch();
+
+    ///移籍先のチームに申請する。
+    final forNewTeamDoc = _firestore
+        .collection('teams')
+        .doc(newTeamId)
+        .collection('members')
+        .doc(player.playerId);
+    batch.set(forNewTeamDoc, {
+      'playerId': player.playerId,
+      'name': player.name,
+      'email': player.email,
+      'teamId': newTeamId,
+      'isMale': player.isMale,
+      'isApproved': false,
+      'createdAt': DateTime.now(),
+    });
+
+    ///移籍前のチームのメンバーデータを削除
+    final forOldTeamDoc = _firestore
+        .collection('teams')
+        .doc(oldTeamId)
+        .collection('members')
+        .doc(player.playerId);
+    batch.delete(forOldTeamDoc);
+
+    final forPlayerDoc = _firestore.collection('players').doc(player.playerId);
+    batch.set(forPlayerDoc, {
+      'teamId': newTeamId,
+      'isApproved': false,
+    });
+    batch.commit();
+  }
+
 //  /// 団体をアップデートする
 //  Future updateTeam(Team team) {
 //    FirebaseFirestore.instance

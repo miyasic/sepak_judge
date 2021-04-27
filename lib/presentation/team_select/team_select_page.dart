@@ -22,27 +22,62 @@ class TeamSelectPage extends StatelessWidget {
               child: ListView.builder(
                 itemCount: model.teams.length,
                 itemBuilder: (context, index) {
+                  void onTapWhenSelectTeam() async {
+                    await DialogUtils.showOKCancelAlertDialog(
+                        context: context,
+                        text: '${model.teams[index].name}に所属申請を送信してもよろしいですか？',
+                        okAction: () async {
+                          try {
+                            await model.applyTeams(model.teams[index].teamId);
+                            print('送信しました。');
+                            Navigator.pop(context, true);
+                          } catch (e) {
+                            DialogUtils.showSimpleDialog(
+                                text: e.toString(), context: context);
+                          }
+                        },
+                        cancelAction: () {
+                          print('送信しませんでした。');
+                        });
+                  }
+
+                  void onTapWhenChangeTeam() async {
+                    if (model.playerTeamName == model.teams[index].name) {
+                      try {
+                        DialogUtils.showSimpleDialog(
+                            text: '${model.playerTeamName}は現在所属している団体です。',
+                            context: context);
+                      } catch (e, s) {
+                        print(s);
+                      }
+                    } else {
+                      await DialogUtils.showOKCancelAlertDialog(
+                        text:
+                            '${model.playerTeamName}から${model.teams[index].name}に移籍します。\n両団体に移籍申請を送信してもよろしいですか？',
+                        context: context,
+                        okAction: () async {
+                          try {
+                            await model.changeTeams(model.teams[index].teamId);
+                            print('送信しました。');
+                            Navigator.pop(context, true);
+                          } catch (e) {
+                            DialogUtils.showSimpleDialog(
+                                text: e.toString(), context: context);
+                          }
+                        },
+                        cancelAction: () {
+                          print('送信しませんでした。');
+                        },
+                      );
+                    }
+                  }
+
                   return ListTile(
                     title: Text(
                         model.teams[index].name), //inputFileNamesは初期値に空白が入っている。
-                    onTap: () async {
-                      await DialogUtils.showOKCancelAlertDialog(
-                          context: context,
-                          text: '${model.teams[index].name}に所属申請を送信してもよろしいですか？',
-                          okAction: () async {
-                            try {
-                              await model.applyTeams(model.teams[index].teamId);
-                              print('送信しました。');
-                              Navigator.pop(context, true);
-                            } catch (e) {
-                              DialogUtils.showSimpleDialog(
-                                  text: e.toString(), context: context);
-                            }
-                          },
-                          cancelAction: () {
-                            print('送信しませんでした。');
-                          });
-                    },
+                    onTap: model.player.teamId == null
+                        ? onTapWhenSelectTeam
+                        : onTapWhenChangeTeam,
                   );
                 },
               ),

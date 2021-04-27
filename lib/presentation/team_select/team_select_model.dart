@@ -9,20 +9,38 @@ class TeamSelectModel extends ChangeNotifier {
   final _playerRepository = PlayersRepository.instance;
   List<Team> teams;
   Player player;
+  String playerTeamName;
   Future init() async {
     teams = await _teamsRepository.fetchTeams();
     player = await _playerRepository.fetch();
+    getPlayerTeamName();
     notifyListeners();
+  }
+
+  void getPlayerTeamName() {
+    for (final team in teams) {
+      if (team.teamId == player.teamId) {
+        playerTeamName = team.name;
+        break;
+      }
+    }
   }
 
   Future applyTeams(teamId) async {
     if (player.teamId != null) {
       throw "もうすでにチームに所属しています。";
-      return;
     }
     _teamsRepository.applyTeam(teamId, this.player);
     player.isApproved = false;
     player.teamId = teamId;
+    _playerRepository.updateLocalPlayer(player);
+  }
+
+  Future changeTeams(newTeamId) async {
+    String oldTeamId = player.teamId;
+    _teamsRepository.changeTeam(newTeamId, oldTeamId, this.player);
+    player.isApproved = false;
+    player.teamId = newTeamId;
     _playerRepository.updateLocalPlayer(player);
   }
 }
