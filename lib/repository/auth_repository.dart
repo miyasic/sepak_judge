@@ -36,6 +36,9 @@ class AuthRepository {
         'name': name,
         'email': user.email,
         'isMale': isMale,
+        'isApproved': true,
+        'teamId': "no_team",
+        'teamName': '所属チームが登録されていません',
         'createdAt': Timestamp.now(),
       });
     } catch (e) {

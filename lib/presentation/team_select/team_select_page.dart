@@ -28,7 +28,8 @@ class TeamSelectPage extends StatelessWidget {
                         text: '${model.teams[index].name}に所属申請を送信してもよろしいですか？',
                         okAction: () async {
                           try {
-                            await model.applyTeams(model.teams[index].teamId);
+                            await model.applyTeams(model.teams[index].teamId,
+                                model.teams[index].name);
                             print('送信しました。');
                             Navigator.pop(context, true);
                           } catch (e) {
@@ -57,7 +58,8 @@ class TeamSelectPage extends StatelessWidget {
                         context: context,
                         okAction: () async {
                           try {
-                            await model.changeTeams(model.teams[index].teamId);
+                            await model.changeTeams(model.teams[index].teamId,
+                                model.teams[index].name);
                             print('送信しました。');
                             Navigator.pop(context, true);
                           } catch (e) {
@@ -75,7 +77,7 @@ class TeamSelectPage extends StatelessWidget {
                   return ListTile(
                     title: Text(
                         model.teams[index].name), //inputFileNamesは初期値に空白が入っている。
-                    onTap: model.player.teamId == null
+                    onTap: model.player.teamId == "no_team"
                         ? onTapWhenSelectTeam
                         : onTapWhenChangeTeam,
                   );

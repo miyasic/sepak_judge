@@ -104,14 +104,18 @@ class MyPage extends StatelessWidget {
             thickness: 1,
           ),
           Text(
-            model.player.isApproved ? '所属チーム' : '所属チーム(申請中)',
+            model.player.teamId == "no_team"
+                ? "所属チーム"
+                : model.player.isApproved
+                    ? '所属チーム'
+                    : '所属チーム(申請中)',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           SizedBox(
             height: 10,
           ),
           Text(
-            model.teamName ?? '所属チームが登録されていません',
+            model.player.teamName ?? '所属チームが登録されていません',
             style: TextStyle(
               fontSize: 20,
             ),
@@ -119,7 +123,7 @@ class MyPage extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          model.teamName == null
+          model.player.teamId == "no_team"
               ? RaisedButton(
                   child: Text('所属チームを選ぶ'),
                   onPressed: () async {

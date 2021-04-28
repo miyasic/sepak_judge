@@ -26,7 +26,7 @@ class MyModel extends ChangeNotifier {
     if (isLogin) {
       try {
         player = await _playerRepository.fetch();
-        if (player.teamId != null) {
+        if (player.teamId != "no_team") {
           team = await _teamsRepository.fetchTeam(player.teamId);
           teamName = team.name;
         }

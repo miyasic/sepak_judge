@@ -29,7 +29,7 @@ class TeamsRepository {
   }
 
   /// 団体に所属の申請をする。
-  Future applyTeam(teamId, Player player) async {
+  Future applyTeam(teamId, teamName, Player player) async {
     final batch = _firestore.batch();
 
     final forTeamDoc = _firestore
@@ -48,15 +48,16 @@ class TeamsRepository {
     });
 
     final forPlayerDoc = _firestore.collection('players').doc(player.playerId);
-    batch.set(forPlayerDoc, {
+    batch.update(forPlayerDoc, {
       'teamId': teamId,
+      'teamName': teamName,
       'isApproved': false,
     });
     batch.commit();
   }
 
   /// 団体に移籍の申請をする。
-  Future changeTeam(newTeamId, oldTeamId, Player player) async {
+  Future changeTeam(newTeamId, newTeamName, oldTeamId, Player player) async {
     final batch = _firestore.batch();
 
     ///移籍先のチームに申請する。
@@ -84,39 +85,11 @@ class TeamsRepository {
     batch.delete(forOldTeamDoc);
 
     final forPlayerDoc = _firestore.collection('players').doc(player.playerId);
-    batch.set(forPlayerDoc, {
+    batch.update(forPlayerDoc, {
       'teamId': newTeamId,
+      'teamName': newTeamName,
       'isApproved': false,
     });
     batch.commit();
   }
-
-//  /// 団体をアップデートする
-//  Future updateTeam(Team team) {
-//    FirebaseFirestore.instance
-//        .collection('teams')
-//        .doc(_team.teamId)
-//        .update(_team.toJson());
-//  }
-//
-//  /// 団体のメンバーを取得する
-//  Future<List<Player>> fetchMembers(String teamId) async {
-//    final snapshot = await _firestore
-//        .collection('teams')
-//        .doc(teamId)
-//        .collection('members')
-//        .get();
-//    return snapshot.docs.map((doc) => Player(doc)).toList();
-//  }
-//
-//  Future approveMember(String playerId) async {
-//    _firestore
-//        .collection('teams')
-//        .doc(_team.teamId)
-//        .collection('members')
-//        .doc(playerId)
-//        .update({
-//      'isApproved': true,
-//    });
-//  }
 }

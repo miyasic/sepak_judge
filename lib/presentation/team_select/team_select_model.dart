@@ -26,21 +26,23 @@ class TeamSelectModel extends ChangeNotifier {
     }
   }
 
-  Future applyTeams(teamId) async {
-    if (player.teamId != null) {
+  Future applyTeams(teamId, teamName) async {
+    if (player.teamId != "no_team") {
       throw "もうすでにチームに所属しています。";
     }
-    _teamsRepository.applyTeam(teamId, this.player);
+    _teamsRepository.applyTeam(teamId, teamName, this.player);
     player.isApproved = false;
     player.teamId = teamId;
+    player.teamName = teamName;
     _playerRepository.updateLocalPlayer(player);
   }
 
-  Future changeTeams(newTeamId) async {
+  Future changeTeams(newTeamId, newTeamName) async {
     String oldTeamId = player.teamId;
-    _teamsRepository.changeTeam(newTeamId, oldTeamId, this.player);
+    _teamsRepository.changeTeam(newTeamId, newTeamName, oldTeamId, this.player);
     player.isApproved = false;
     player.teamId = newTeamId;
+    player.teamName = newTeamName;
     _playerRepository.updateLocalPlayer(player);
   }
 }
