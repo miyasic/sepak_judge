@@ -3,7 +3,7 @@ import 'package:sepakjudge/domain/competition.dart';
 import 'package:sepakjudge/repository/competitions_repository.dart';
 import 'package:sepakjudge/utils/dialog_utils.dart';
 
-class EntryCompetitionModel extends ChangeNotifier {
+class SelectCompetitionModel extends ChangeNotifier {
   final _competitionsRepository = CompetitionsRepository.instance;
   List<Competition> competitions;
 

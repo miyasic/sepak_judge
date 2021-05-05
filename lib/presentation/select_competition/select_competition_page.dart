@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sepakjudge/constants.dart';
-import 'entry_competition_model.dart';
+import 'select_competition_model.dart';
 import 'package:sepakjudge/date_extensions.dart';
 
-class EntryCompetitionPage extends StatelessWidget {
+class SelectCompetitionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<EntryCompetitionModel>(
+    return ChangeNotifierProvider<SelectCompetitionModel>(
       create: (_) =>
-          EntryCompetitionModel()..init(context), //EntryCompetitionModelを作成
+          SelectCompetitionModel()..init(context), //EntryCompetitionModelを作成
       child: Scaffold(
         appBar: AppBar(
           title: Text('大会申し込み'),
         ),
-        body: Consumer<EntryCompetitionModel>(
+        body: Consumer<SelectCompetitionModel>(
           builder: (context, model, child) {
             return Container(
               child: Container(
