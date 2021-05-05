@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sepakjudge/constants.dart';
+import 'package:sepakjudge/presentation/entry_competition/entry_competition_page.dart';
 import 'package:sepakjudge/presentation/sign_up/signup_page.dart';
 import 'package:sepakjudge/presentation/team_select/team_select_page.dart';
 import 'package:sepakjudge/utils/dialog_utils.dart';
@@ -172,7 +173,14 @@ class MyPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              RaisedButton(child: Text('大会申し込み'), onPressed: () async {}),
+              RaisedButton(
+                  child: Text('大会申し込み'),
+                  onPressed: () async {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EntryCompetitionPage()));
+                  }),
               RaisedButton(child: Text('　大会一覧　'), onPressed: () async {}),
             ],
           ),
