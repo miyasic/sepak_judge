@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sepakjudge/constants.dart';
+import 'package:sepakjudge/presentation/entry_competition/entry_competition_page.dart';
 import 'select_competition_model.dart';
 import 'package:sepakjudge/date_extensions.dart';
 
@@ -49,9 +50,13 @@ class SelectCompetitionPage extends StatelessWidget {
                                 .toYearMonthDateDOWString()),
                           ],
                         ),
-                        shape: Border(), // putFileNamesは初期値に空白が入っている。
                         onTap: () async {
                           //todo:画面遷移・ファイルからデータ取得
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      EntryCompetitionPage()));
                         },
                       ),
                     );
