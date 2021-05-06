@@ -92,4 +92,13 @@ class TeamsRepository {
     });
     batch.commit();
   }
+
+  fetchMembers(String teamId) async {
+    final snapshot = await _firestore
+        .collection('teams')
+        .doc(teamId)
+        .collection('members')
+        .get();
+    return snapshot.docs.map((doc) => Player(doc)).toList();
+  }
 }
