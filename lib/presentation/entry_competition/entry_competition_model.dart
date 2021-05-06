@@ -35,26 +35,22 @@ class EntryCompetitionModel extends ChangeNotifier {
 
   Future init(context) async {
     try {
+      //大会情報
       competitionDates = getCompetitionDates();
       association =
           await _associationRepository.fetch(competition.associationId);
+      //レグ情報
       _currentUser = await _playerRepository.fetch();
-      members = await _reguRepository.fetchMembers(_currentUser.teamId);
+//      members = await _reguRepository.fetchMembers(_currentUser.teamId);
+      _initRegu();
       setMyNameTextField();
-      print(members.length);
-      print(members[0].name);
     } catch (e) {
       DialogUtils.showSimpleDialog(text: e.toString(), context: context);
     }
     notifyListeners();
   }
 
-  void setMyNameTextField() {
-    playerNameControllerList[0][0].text = _currentUser.name;
-    regu.setMemberIds(_currentUser.playerId);
-    print(regu.memberIds);
-  }
-
+  //大会情報の整理
   List<DateTime> getCompetitionDates() {
     List<DateTime> dates = [];
     for (int i = 0; i < competition.competitionDays; i++) {
@@ -63,25 +59,40 @@ class EntryCompetitionModel extends ChangeNotifier {
     return dates;
   }
 
+  //regu情報の整理
+  void _initRegu() {
+    regu.setMemberIds(_currentUser.playerId);
+    print(regu.memberIds);
+    print(regu.memberNumbers);
+  }
+
+  void setMyNameTextField() {
+    playerNameControllerList[0][0].text = _currentUser.name;
+  }
+
   void addPlayer() {
     int x = this.playerNameControllerList.length + 1;
     if (x < 7) {
       this
           .playerNameControllerList
           .add([TextEditingController(text: '$x人目'), TextEditingController()]);
-//      this.regu.memberIds.add(ReguMembers());
+      this.regu.addMember();
     }
     onChangedReguInfo('');
     notifyListeners();
+    print(regu.memberNumbers);
+    print(regu.memberIds);
   }
 
   void deletePlayer() {
     if (this.playerNameControllerList.length > 3) {
       this.playerNameControllerList.removeLast();
-//      this.regu.members.removeLast();
+      this.regu.deleteMember();
     }
     onChangedReguInfo('');
     notifyListeners();
+    print(regu.memberNumbers);
+    print(regu.memberIds);
   }
 
   void onChangedReguInfo(String text) {

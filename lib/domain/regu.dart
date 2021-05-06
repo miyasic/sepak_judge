@@ -21,6 +21,7 @@ class ReguFireStore {
   int order;
   int numMember;
   List<String> memberIds;
+  List<int> memberNumbers = [null, null, null];
   String captainId;
   DateTime createdAt;
 
@@ -29,11 +30,22 @@ class ReguFireStore {
     name = doc.data()['name'];
     order = doc.data()['order'];
     memberIds = doc.data()['memberIds'];
+    memberNumbers = doc.data()['memberNumbers'];
     createdAt = doc.data()['createdAt'];
   }
 
   setMemberIds(String playerId) {
-    memberIds = [playerId, '', ''];
+    memberIds = [playerId, null, null];
+  }
+
+  addMember() {
+    memberIds.add(null);
+    memberNumbers.add(null);
+  }
+
+  deleteMember() {
+    memberIds.removeLast();
+    memberNumbers.removeLast();
   }
 
   Map<String, dynamic> toJson() {
@@ -42,6 +54,7 @@ class ReguFireStore {
     data['name'] = this.name;
     data['order'] = this.order;
     data['memberIds'] = this.memberIds;
+    data['memberNumbers'] = this.memberNumbers;
     data['captainId'] = this.captainId;
     data['createdAt'] = this.createdAt;
     return data;
