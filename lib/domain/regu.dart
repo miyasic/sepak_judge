@@ -20,16 +20,20 @@ class ReguFireStore {
   String name;
   int order;
   int numMember;
-  List<String> memberIds = [];
+  List<String> memberIds;
   String captainId;
   DateTime createdAt;
 
-  Team(DocumentSnapshot doc) {
+  Regu(DocumentSnapshot doc) {
     reguId = doc.id;
     name = doc.data()['name'];
     order = doc.data()['order'];
     memberIds = doc.data()['memberIds'];
     createdAt = doc.data()['createdAt'];
+  }
+
+  setMemberIds(String playerId) {
+    memberIds = [playerId, '', ''];
   }
 
   Map<String, dynamic> toJson() {

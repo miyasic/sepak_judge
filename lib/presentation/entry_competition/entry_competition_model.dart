@@ -31,7 +31,7 @@ class EntryCompetitionModel extends ChangeNotifier {
   ];
   final captainController = TextEditingController();
   int captainPickerIndex = 0;
-  ReguFireStore regu;
+  ReguFireStore regu = ReguFireStore();
 
   Future init(context) async {
     try {
@@ -51,6 +51,8 @@ class EntryCompetitionModel extends ChangeNotifier {
 
   void setMyNameTextField() {
     playerNameControllerList[0][0].text = _currentUser.name;
+    regu.setMemberIds(_currentUser.playerId);
+    print(regu.memberIds);
   }
 
   List<DateTime> getCompetitionDates() {
@@ -67,7 +69,7 @@ class EntryCompetitionModel extends ChangeNotifier {
       this
           .playerNameControllerList
           .add([TextEditingController(text: '$x人目'), TextEditingController()]);
-      this.regu.members.add(ReguMembers());
+//      this.regu.memberIds.add(ReguMembers());
     }
     onChangedReguInfo('');
     notifyListeners();
@@ -76,7 +78,7 @@ class EntryCompetitionModel extends ChangeNotifier {
   void deletePlayer() {
     if (this.playerNameControllerList.length > 3) {
       this.playerNameControllerList.removeLast();
-      this.regu.members.removeLast();
+//      this.regu.members.removeLast();
     }
     onChangedReguInfo('');
     notifyListeners();
@@ -84,17 +86,17 @@ class EntryCompetitionModel extends ChangeNotifier {
 
   void onChangedReguInfo(String text) {
     for (int i = 0; i < playerNameControllerList.length; i++) {
-      regu.members[i].name = playerNameControllerList[i][0].text;
-      regu.members[i].number = playerNameControllerList[i][1].text;
+//      regu.members[i].name = playerNameControllerList[i][0].text;
+//      regu.members[i].number = playerNameControllerList[i][1].text;
     }
-//    regu.name = reguNameController.text;
-    regu.captain = captainController.text;
+    regu.name = reguNameController.text;
+//    regu.captain = captainController.text;
   }
 
   void showCaptainPicker(
     context,
   ) {
-    final _pickerItems = regu.members.map((item) => Text(item.name)).toList();
+//    final _pickerItems = regu.members.map((item) => Text(item.name)).toList();
 
     showCupertinoModalPopup<void>(
       context: context,
@@ -110,10 +112,10 @@ class EntryCompetitionModel extends ChangeNotifier {
               scrollController:
                   FixedExtentScrollController(initialItem: captainPickerIndex),
               itemExtent: 32,
-              children: _pickerItems,
+//              children: _pickerItems,
               onSelectedItemChanged: (int index) {
                 captainPickerIndex = index;
-                captainController.text = regu.members[captainPickerIndex].name;
+//                captainController.text = regu.members[captainPickerIndex].name;
               },
             ),
           ),
