@@ -31,7 +31,7 @@ class EntryCompetitionModel extends ChangeNotifier {
   ];
   final captainController = TextEditingController();
   int captainPickerIndex = 0;
-  Regu regu;
+  ReguFireStore regu;
 
   Future init(context) async {
     try {
