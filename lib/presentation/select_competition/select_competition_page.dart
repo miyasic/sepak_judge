@@ -17,6 +17,9 @@ class SelectCompetitionPage extends StatelessWidget {
         ),
         body: Consumer<SelectCompetitionModel>(
           builder: (context, model, child) {
+            if (model.competitions == null) {
+              return Center(child: CircularProgressIndicator());
+            }
             return Container(
               child: Container(
                 width: double.infinity,
