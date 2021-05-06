@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sepakjudge/domain/assosiations.dart';
 import 'package:sepakjudge/domain/competition.dart';
+import 'package:sepakjudge/repository/associaiton_repository.dart';
 import 'package:sepakjudge/utils/dialog_utils.dart';
 
 class EntryCompetitionModel extends ChangeNotifier {
@@ -7,10 +9,15 @@ class EntryCompetitionModel extends ChangeNotifier {
   final Competition competition;
   List<DateTime> competitionDates;
 
+  final _associationRepository = AssociationsRepository.instance;
+  Association association;
+
   Future init(context) async {
     try {
       competitionDates = getCompetitionDates();
-      print(competition.competitionDays);
+      association =
+          await _associationRepository.fetch(competition.associationId);
+      print(association.name);
     } catch (e) {
       DialogUtils.showSimpleDialog(text: e.toString(), context: context);
     }

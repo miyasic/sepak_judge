@@ -25,7 +25,7 @@ class EntryCompetitionPage extends StatelessWidget {
                   Card(
                     elevation: 2,
                     child: Container(
-                      color: themeSecondBackColor,
+                      color: themeSecondBackColor.withOpacity(0.5),
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -46,6 +46,7 @@ class EntryCompetitionPage extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    Text('主催'),
                                     Text('会場'),
                                     Text('Division'),
                                     Text('申込締め切り'),
@@ -55,6 +56,12 @@ class EntryCompetitionPage extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    Text(
+                                      model.association.name,
+                                      style: TextStyle(
+//                                      fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                     Text(
                                       competition.stadium,
                                       style: TextStyle(
