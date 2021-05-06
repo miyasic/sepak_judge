@@ -55,6 +55,7 @@ class MemberSelectPage extends StatelessWidget {
 //                        ),
                         onTap: () async {
                           //todo:選択したプレイヤーを返す。
+                          Navigator.pop(context, model.members[index]);
                         },
                       ),
                     );

@@ -16,6 +16,7 @@ class EntryCompetitionModel extends ChangeNotifier {
   final Competition competition;
   List<DateTime> competitionDates;
 
+  String test = 'aiueo';
   final _associationRepository = AssociationsRepository.instance;
   final _reguRepository = TeamsRepository.instance;
   final _playerRepository = PlayersRepository.instance;
