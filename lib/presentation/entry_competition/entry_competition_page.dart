@@ -105,6 +105,82 @@ class EntryCompetitionPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Container(
+                    child: Text("レグメンバー"),
+                  ),
+                  //チーム名用のテキストフィールド
+//                  TextField(
+//                    style: TextStyle(
+//                        fontSize: 16, fontWeight: FontWeight.bold),
+//                    decoration: InputDecoration(
+//                      border: OutlineInputBorder(),
+//                      labelText: 'チーム名',
+//                    ),
+//                    controller: model.teamNameController,
+//                    onChanged: model.onChangedTeamInfo,
+//                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    '選手名と背番号',
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
+                  getTextFieldList(model.playerNameControllerList,
+                      model.onChangedReguInfo, context),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      RaisedButton.icon(
+                        onPressed: () {
+                          model.addPlayer();
+                        },
+                        icon: Icon(Icons.exposure_plus_1),
+                        label: Text(kTextAddMember),
+                      ),
+                      RaisedButton.icon(
+                        onPressed: () {
+                          model.deletePlayer();
+                        },
+                        icon: Icon(Icons.exposure_minus_1),
+                        label: Text(kTextMinusMember),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Text(
+                    'キャプテン',
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    child: TextField(
+                      autofocus: false,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'キャプテン',
+                      ),
+                      controller: model.captainController,
+                      onChanged: model.onChangedReguInfo,
+                      onTap: () {
+                        FocusScope.of(context).requestFocus(new FocusNode());
+                        model.showCaptainPicker(context);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  RaisedButton(
+                      child: Text(kTextRegister),
+                      onPressed: () {
+//                        model.register(context);
+                      }),
                 ],
               ),
             );
@@ -124,5 +200,45 @@ class EntryCompetitionPage extends StatelessWidget {
       }
       return text;
     }
+  }
+
+  Widget getTextFieldList(
+      List<List> playerList, onChanged, BuildContext context) {
+    return Column(
+      children: playerList
+          .map(
+            (player) => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: '選手名',
+                      ),
+                      controller: player[0],
+                      onChanged: onChanged,
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: '背番号',
+                      ),
+                      controller: player[1],
+                      onChanged: onChanged,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+          .toList(),
+    );
   }
 }
