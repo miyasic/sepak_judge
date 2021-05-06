@@ -55,8 +55,8 @@ class SelectCompetitionPage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      EntryCompetitionPage()));
+                                  builder: (context) => EntryCompetitionPage(
+                                      model.competitions[index])));
                         },
                       ),
                     );
