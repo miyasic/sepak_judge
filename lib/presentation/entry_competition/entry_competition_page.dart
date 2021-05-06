@@ -139,8 +139,8 @@ class EntryCompetitionPage extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.bold),
                           ),
-                          getTextFieldList(model.playerNameControllerList,
-                              model.onChangedReguInfo, context),
+                          getTextFieldList(
+                              model.playerNameControllerList, model, context),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -232,50 +232,54 @@ class EntryCompetitionPage extends StatelessWidget {
     }
   }
 
-  Widget getTextFieldList(
-      List<List> playerList, onChanged, BuildContext context) {
-    return Column(
-      children: playerList
-          .map(
-            (player) => Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    child: TextField(
-                      focusNode: AlwaysDisabledFocusNode(),
-                      onTap: () async {
-                        Player p = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MemberSelectPage()));
-                      },
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: '選手名',
-                      ),
-                      controller: player[0],
-                      onChanged: onChanged,
-                    ),
+  Widget getTextFieldList(List<List> playerList, EntryCompetitionModel model,
+      BuildContext context) {
+    List<Widget> textFieldList = [];
+
+    for (int i = 0; i < playerList.length; i++) {
+      textFieldList.add(
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 0.6,
+                child: TextField(
+                  focusNode: AlwaysDisabledFocusNode(),
+                  onTap: () async {
+                    final member = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MemberSelectPage()));
+                    model.setMember(member, i, context);
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: '選手名',
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: '背番号',
-                      ),
-                      controller: player[1],
-                      onChanged: onChanged,
-                    ),
-                  ),
-                ],
+                  controller: playerList[i][0],
+                  onChanged: model.onChangedReguInfo,
+                ),
               ),
-            ),
-          )
-          .toList(),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.2,
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: '背番号',
+                  ),
+                  controller: playerList[i][1],
+                  onChanged: model.onChangedReguInfo,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    return Column(
+      children: textFieldList.toList(),
     );
   }
 }

@@ -71,6 +71,18 @@ class EntryCompetitionModel extends ChangeNotifier {
     playerNameControllerList[0][0].text = _currentUser.name;
   }
 
+  void setMember(Player member, int index, BuildContext context) {
+    //選択されているメンバーの場合はダイアログを出すだけ
+    if (regu.memberIds.contains(member.playerId)) {
+      DialogUtils.showSimpleDialog(
+          text: '${member.name}はすでにメンバーに入っています。 ', context: context);
+    } else {
+      playerNameControllerList[index][0].text = member.name;
+      regu.memberIds[index] = member.playerId;
+    }
+    notifyListeners();
+  }
+
   void addPlayer() {
     int x = this.playerNameControllerList.length + 1;
     if (x < 7) {
