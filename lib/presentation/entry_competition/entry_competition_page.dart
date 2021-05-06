@@ -19,6 +19,9 @@ class EntryCompetitionPage extends StatelessWidget {
         ),
         body: Consumer<EntryCompetitionModel>(
           builder: (context, model, child) {
+            if (model.association == null) {
+              return Center(child: CircularProgressIndicator());
+            }
             return Container(
               child: Column(
                 children: [
