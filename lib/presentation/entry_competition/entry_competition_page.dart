@@ -245,6 +245,13 @@ class EntryCompetitionPage extends StatelessWidget {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: TextField(
+                      focusNode: AlwaysDisabledFocusNode(),
+                      onTap: () async {
+                        Player p = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MemberSelectPage()));
+                      },
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: '選手名',
@@ -271,4 +278,9 @@ class EntryCompetitionPage extends StatelessWidget {
           .toList(),
     );
   }
+}
+
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }
