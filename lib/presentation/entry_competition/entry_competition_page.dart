@@ -62,26 +62,22 @@ class EntryCompetitionPage extends StatelessWidget {
                                     Text(
                                       model.association.name,
                                       style: TextStyle(
-//                                      fontSize: 20,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
                                       competition.stadium,
                                       style: TextStyle(
-//                                      fontSize: 20,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
                                       competition.division,
                                       style: TextStyle(
-//                                      fontSize: 20,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
                                       competition.entryDeadline
                                           .toYearMonthDateDOWString(),
                                       style: TextStyle(
-//                                      fontSize: 20,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
@@ -89,7 +85,6 @@ class EntryCompetitionPage extends StatelessWidget {
                                         model.competitionDates,
                                       ),
                                       style: TextStyle(
-//                                      fontSize: 20,
                                           fontWeight: FontWeight.bold),
                                       overflow: TextOverflow.ellipsis,
                                     ),
@@ -105,82 +100,104 @@ class EntryCompetitionPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    child: Text("レグメンバー"),
-                  ),
                   //チーム名用のテキストフィールド
-//                  TextField(
-//                    style: TextStyle(
-//                        fontSize: 16, fontWeight: FontWeight.bold),
-//                    decoration: InputDecoration(
-//                      border: OutlineInputBorder(),
-//                      labelText: 'チーム名',
-//                    ),
-//                    controller: model.teamNameController,
-//                    onChanged: model.onChangedTeamInfo,
-//                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    '選手名と背番号',
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                  getTextFieldList(model.playerNameControllerList,
-                      model.onChangedReguInfo, context),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      RaisedButton.icon(
-                        onPressed: () {
-                          model.addPlayer();
-                        },
-                        icon: Icon(Icons.exposure_plus_1),
-                        label: Text(kTextAddMember),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'レグ名',
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.85,
+                            child: TextField(
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'レグ名',
+                              ),
+                              controller: model.reguNameController,
+                              onChanged: model.onChangedReguInfo,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            '選手名と背番号',
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                          getTextFieldList(model.playerNameControllerList,
+                              model.onChangedReguInfo, context),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              RaisedButton.icon(
+                                onPressed: () {
+                                  model.addPlayer();
+                                },
+                                icon: Icon(Icons.exposure_plus_1),
+                                label: Text(kTextAddMember),
+                              ),
+                              RaisedButton.icon(
+                                onPressed: () {
+                                  model.deletePlayer();
+                                },
+                                icon: Icon(Icons.exposure_minus_1),
+                                label: Text(kTextMinusMember),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Text(
+                            'キャプテン',
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.85,
+                            child: TextField(
+                              autofocus: false,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'キャプテン',
+                              ),
+                              controller: model.captainController,
+                              onChanged: model.onChangedReguInfo,
+                              onTap: () {
+                                FocusScope.of(context)
+                                    .requestFocus(new FocusNode());
+                                model.showCaptainPicker(context);
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          RaisedButton(
+                              child: Text(kTextRegister),
+                              onPressed: () {
+//                        model.register(context);
+                              }),
+                        ],
                       ),
-                      RaisedButton.icon(
-                        onPressed: () {
-                          model.deletePlayer();
-                        },
-                        icon: Icon(Icons.exposure_minus_1),
-                        label: Text(kTextMinusMember),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    'キャプテン',
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.85,
-                    child: TextField(
-                      autofocus: false,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'キャプテン',
-                      ),
-                      controller: model.captainController,
-                      onChanged: model.onChangedReguInfo,
-                      onTap: () {
-                        FocusScope.of(context).requestFocus(new FocusNode());
-                        model.showCaptainPicker(context);
-                      },
                     ),
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  RaisedButton(
-                      child: Text(kTextRegister),
-                      onPressed: () {
-//                        model.register(context);
-                      }),
                 ],
               ),
             );

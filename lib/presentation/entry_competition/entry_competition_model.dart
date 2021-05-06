@@ -19,8 +19,11 @@ class EntryCompetitionModel extends ChangeNotifier {
   final _associationRepository = AssociationsRepository.instance;
   final _reguRepository = TeamsRepository.instance;
   final _playerRepository = PlayersRepository.instance;
+
+  Player _currentUser;
   Association association;
   List<Player> members;
+  final reguNameController = TextEditingController();
   List<List> playerNameControllerList = [
     [TextEditingController(text: '1人目'), TextEditingController()],
     [TextEditingController(text: '2人目'), TextEditingController()],
@@ -35,14 +38,19 @@ class EntryCompetitionModel extends ChangeNotifier {
       competitionDates = getCompetitionDates();
       association =
           await _associationRepository.fetch(competition.associationId);
-      final Player _currentUser = await _playerRepository.fetch();
+      _currentUser = await _playerRepository.fetch();
       members = await _reguRepository.fetchMembers(_currentUser.teamId);
+      setMyNameTextField();
       print(members.length);
       print(members[0].name);
     } catch (e) {
       DialogUtils.showSimpleDialog(text: e.toString(), context: context);
     }
     notifyListeners();
+  }
+
+  void setMyNameTextField() {
+    playerNameControllerList[0][0].text = _currentUser.name;
   }
 
   List<DateTime> getCompetitionDates() {
