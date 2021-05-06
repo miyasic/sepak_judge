@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sepakjudge/constants.dart';
 import 'package:sepakjudge/domain/competition.dart';
+import 'package:sepakjudge/presentation/member_select/member_select_page.dart';
 import 'entry_competition_model.dart';
 import 'package:sepakjudge/date_extensions.dart';
 
@@ -189,6 +190,15 @@ class EntryCompetitionPage extends StatelessWidget {
                           SizedBox(
                             height: 30,
                           ),
+                          RaisedButton(
+                              child: Text('test'),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            MemberSelectPage()));
+                              }),
                           RaisedButton(
                               child: Text(kTextRegister),
                               onPressed: () {
