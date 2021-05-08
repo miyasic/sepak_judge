@@ -194,17 +194,6 @@ class EntryCompetitionPage extends StatelessWidget {
                             height: 30,
                           ),
                           RaisedButton(
-                              child: Text(model.test),
-                              onPressed: () async {
-                                Player p = await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            MemberSelectPage()));
-                                model.test = p.name;
-                                model.notifyListeners();
-                              }),
-                          RaisedButton(
                               child: Text(kTextRegister),
                               onPressed: () {
 //                        model.register(context);
@@ -240,36 +229,35 @@ class EntryCompetitionPage extends StatelessWidget {
 
     for (int i = 0; i < playerList.length; i++) {
       textFieldList.add(
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width * 0.6,
-                height: 60,
-                child: TextField(
-                  focusNode: AlwaysDisabledFocusNode(),
-                  onTap: () async {
-                    final member = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MemberSelectPage()));
-                    model.setMember(member, i, context);
-                  },
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: '選手名',
-                  ),
-                  controller: playerList[i][0],
-                  onChanged: model.onChangedReguInfo,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width * 0.6,
+              height: 60,
+              child: TextField(
+                focusNode: AlwaysDisabledFocusNode(),
+                onTap: () async {
+                  final member = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MemberSelectPage()));
+                  model.setMember(member, i, context);
+                },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: '選手名',
                 ),
+                controller: playerList[i][0],
+                onChanged: model.onChangedReguInfo,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.2,
-                height: 60,
-                child: KeyboardActions(
-                  config: _buildConfig(context, playerList),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.2,
+              height: 105,
+              child: KeyboardActions(
+                config: _buildConfig(context, playerList),
+                child: Center(
                   child: TextField(
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -285,8 +273,8 @@ class EntryCompetitionPage extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
     }
