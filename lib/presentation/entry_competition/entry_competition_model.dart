@@ -26,9 +26,9 @@ class EntryCompetitionModel extends ChangeNotifier {
   List<Player> members;
   final reguNameController = TextEditingController();
   List<List> playerNameControllerList = [
-    [TextEditingController(text: '1人目'), TextEditingController()],
-    [TextEditingController(text: '2人目'), TextEditingController()],
-    [TextEditingController(text: '3人目'), TextEditingController()],
+    [TextEditingController(text: '1人目'), TextEditingController(), FocusNode()],
+    [TextEditingController(text: '2人目'), TextEditingController(), FocusNode()],
+    [TextEditingController(text: '3人目'), TextEditingController(), FocusNode()],
   ];
   final captainController = TextEditingController();
   int captainPickerIndex = 0;
@@ -86,9 +86,11 @@ class EntryCompetitionModel extends ChangeNotifier {
   void addPlayer() {
     int x = this.playerNameControllerList.length + 1;
     if (x < 7) {
-      this
-          .playerNameControllerList
-          .add([TextEditingController(text: '$x人目'), TextEditingController()]);
+      this.playerNameControllerList.add([
+        TextEditingController(text: '$x人目'),
+        TextEditingController(),
+        FocusNode()
+      ]);
       this.regu.addMember();
     }
     onChangedReguInfo('');

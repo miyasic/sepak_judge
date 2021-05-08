@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:provider/provider.dart';
 import 'package:sepakjudge/constants.dart';
 import 'package:sepakjudge/domain/competition.dart';
@@ -245,6 +247,7 @@ class EntryCompetitionPage extends StatelessWidget {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width * 0.6,
+                height: 60,
                 child: TextField(
                   focusNode: AlwaysDisabledFocusNode(),
                   onTap: () async {
@@ -264,13 +267,22 @@ class EntryCompetitionPage extends StatelessWidget {
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.2,
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: '背番号',
+                height: 60,
+                child: KeyboardActions(
+                  config: _buildConfig(context, playerList),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: '背番号',
+                    ),
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    keyboardType: TextInputType.number,
+                    focusNode: playerList[i][2],
+                    controller: playerList[i][1],
+                    onChanged: model.onChangedReguInfo,
                   ),
-                  controller: playerList[i][1],
-                  onChanged: model.onChangedReguInfo,
                 ),
               ),
             ],
@@ -281,6 +293,44 @@ class EntryCompetitionPage extends StatelessWidget {
     return Column(
       children: textFieldList.toList(),
     );
+  }
+
+  /////　やってみる
+
+  KeyboardActionsConfig _buildConfig(
+      BuildContext context, List<List> playerList) {
+    final keyboardActionsList = playerList
+        .map(
+          (player) =>
+              KeyboardActionsItem(focusNode: player[2], toolbarButtons: [
+            (node) {
+              return GestureDetector(
+                onTap: () => node.unfocus(),
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Done',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.blue),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }
+          ]),
+        )
+        .toList();
+    return KeyboardActionsConfig(
+        keyboardActionsPlatform: KeyboardActionsPlatform.ALL,
+        keyboardBarColor: Colors.grey[200],
+        nextFocus: true,
+        actions: keyboardActionsList);
   }
 }
 
