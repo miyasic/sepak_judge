@@ -38,6 +38,15 @@ class ReguFireStore {
     memberIds = [playerId, null, null];
   }
 
+  printAll() {
+    print(reguId);
+    print(name);
+    print(order);
+    print(memberIds);
+    print(memberNumbers);
+    print(createdAt);
+  }
+
   addMember() {
     memberIds.add(null);
     memberNumbers.add(null);

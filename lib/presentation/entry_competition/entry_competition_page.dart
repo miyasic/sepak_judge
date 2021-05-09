@@ -194,6 +194,11 @@ class EntryCompetitionPage extends StatelessWidget {
                             height: 30,
                           ),
                           RaisedButton(
+                              child: Text('確認する'),
+                              onPressed: () {
+                                model.regu.printAll();
+                              }),
+                          RaisedButton(
                               child: Text(kTextRegister),
                               onPressed: () {
 //                        model.register(context);
@@ -282,8 +287,6 @@ class EntryCompetitionPage extends StatelessWidget {
       children: textFieldList.toList(),
     );
   }
-
-  /////　やってみる
 
   KeyboardActionsConfig _buildConfig(
       BuildContext context, List<List> playerList) {

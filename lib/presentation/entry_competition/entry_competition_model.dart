@@ -41,7 +41,6 @@ class EntryCompetitionModel extends ChangeNotifier {
           await _associationRepository.fetch(competition.associationId);
       //レグ情報
       _currentUser = await _playerRepository.fetch();
-//      members = await _reguRepository.fetchMembers(_currentUser.teamId);
       _initRegu();
       setMyNameTextField();
     } catch (e) {
@@ -112,10 +111,15 @@ class EntryCompetitionModel extends ChangeNotifier {
   void onChangedReguInfo(String text) {
     for (int i = 0; i < playerNameControllerList.length; i++) {
 //      regu.members[i].name = playerNameControllerList[i][0].text;
-//      regu.members[i].number = playerNameControllerList[i][1].text;
-    }
-    regu.name = reguNameController.text;
+      try {
+        regu.memberNumbers[i] = int.parse(playerNameControllerList[i][1].text);
+      } catch (e) {
+        print(e);
+      }
+      ;
+      regu.name = reguNameController.text;
 //    regu.captain = captainController.text;
+    }
   }
 
   void showCaptainPicker(
