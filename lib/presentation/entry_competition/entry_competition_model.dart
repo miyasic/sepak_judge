@@ -127,6 +127,8 @@ class EntryCompetitionModel extends ChangeNotifier {
   ) {
 //    final _pickerItems = regu.members.map((item) => Text(item.name)).toList();
 
+    final _pickerItems =
+        playerNameControllerList.map((player) => Text(player[0].text)).toList();
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) {
@@ -141,10 +143,13 @@ class EntryCompetitionModel extends ChangeNotifier {
               scrollController:
                   FixedExtentScrollController(initialItem: captainPickerIndex),
               itemExtent: 32,
-//              children: _pickerItems,
+              children: _pickerItems,
               onSelectedItemChanged: (int index) {
                 captainPickerIndex = index;
 //                captainController.text = regu.members[captainPickerIndex].name;
+                captainController.text =
+                    playerNameControllerList[index][0].text;
+                regu.captainId = regu.memberIds[index];
               },
             ),
           ),

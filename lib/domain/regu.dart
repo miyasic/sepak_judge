@@ -39,12 +39,11 @@ class ReguFireStore {
   }
 
   printAll() {
-    print(reguId);
     print(name);
     print(order);
     print(memberIds);
     print(memberNumbers);
-    print(createdAt);
+    print(captainId);
   }
 
   addMember() {
