@@ -176,10 +176,16 @@ class MyPage extends StatelessWidget {
               RaisedButton(
                   child: Text('大会申し込み'),
                   onPressed: () async {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SelectCompetitionPage()));
+                    if (model.player.isApproved == true) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SelectCompetitionPage()));
+                    } else {
+                      DialogUtils.showSimpleDialog(
+                          text: '所属チームが登録されていない場合や所属チームに申請中の場合は大会申し込みはできません。',
+                          context: context);
+                    }
                   }),
               RaisedButton(child: Text('　大会一覧　'), onPressed: () async {}),
             ],
