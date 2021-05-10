@@ -99,6 +99,7 @@ class TeamsRepository {
         .collection('teams')
         .doc(teamId)
         .collection('members')
+        .where('isApproved', isEqualTo: true)
         .get();
     return snapshot.docs.map((doc) => Player(doc)).toList();
   }
