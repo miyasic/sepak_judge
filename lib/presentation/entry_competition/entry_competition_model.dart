@@ -93,8 +93,6 @@ class EntryCompetitionModel extends ChangeNotifier {
     }
     onChangedReguInfo('');
     notifyListeners();
-    print(regu.memberNumbers);
-    print(regu.memberIds);
   }
 
   void deletePlayer() {
@@ -104,15 +102,17 @@ class EntryCompetitionModel extends ChangeNotifier {
     }
     onChangedReguInfo('');
     notifyListeners();
-    print(regu.memberNumbers);
-    print(regu.memberIds);
   }
 
   void onChangedReguInfo(String text) {
     for (int i = 0; i < playerNameControllerList.length; i++) {
-//      regu.members[i].name = playerNameControllerList[i][0].text;
       try {
-        regu.memberNumbers[i] = int.parse(playerNameControllerList[i][1].text);
+        if (playerNameControllerList[i][1].text.isEmpty) {
+          regu.memberNumbers[i] = null;
+        } else {
+          regu.memberNumbers[i] =
+              int.parse(playerNameControllerList[i][1].text);
+        }
       } catch (e) {
         print(e);
       }
@@ -157,8 +157,8 @@ class EntryCompetitionModel extends ChangeNotifier {
 
   entry(BuildContext context) {
     if (_checkEntryInfo(context)) {
-      _teamsRepository.entryCompetitions(
-          _currentUser.teamId, competition.competitionId, regu);
+//      _teamsRepository.entryCompetitions(
+//          _currentUser.teamId, competition.competitionId, regu);
     }
   }
 
@@ -174,7 +174,7 @@ class EntryCompetitionModel extends ChangeNotifier {
       DialogUtils.showSimpleDialog(text: '選手名の項目は全て埋めてください', context: context);
       return false;
     } else if (regu.memberNumbers.contains(null)) {
-      DialogUtils.showSimpleDialog(text: '背番号のの項目は全て埋めてください', context: context);
+      DialogUtils.showSimpleDialog(text: '背番号の項目は全て埋めてください', context: context);
       return false;
     } else if (regu.captainId == null || regu.captainId.isEmpty) {
       DialogUtils.showSimpleDialog(text: 'キャプテンが登録されていません', context: context);
