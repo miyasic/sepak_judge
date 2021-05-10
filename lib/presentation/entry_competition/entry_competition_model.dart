@@ -119,15 +119,12 @@ class EntryCompetitionModel extends ChangeNotifier {
       ;
       regu.name = reguNameController.text;
       regu.numMember = playerNameControllerList.length;
-//    regu.captain = captainController.text;
     }
   }
 
   void showCaptainPicker(
     context,
   ) {
-//    final _pickerItems = regu.members.map((item) => Text(item.name)).toList();
-
     final _pickerItems =
         playerNameControllerList.map((player) => Text(player[0].text)).toList();
     showCupertinoModalPopup<void>(
@@ -147,7 +144,6 @@ class EntryCompetitionModel extends ChangeNotifier {
               children: _pickerItems,
               onSelectedItemChanged: (int index) {
                 captainPickerIndex = index;
-//                captainController.text = regu.members[captainPickerIndex].name;
                 captainController.text =
                     playerNameControllerList[index][0].text;
                 regu.captainId = regu.memberIds[index];
@@ -159,8 +155,44 @@ class EntryCompetitionModel extends ChangeNotifier {
     );
   }
 
-  entry() {
-    _teamsRepository.entryCompetitions(
-        _currentUser.teamId, competition.competitionId, regu);
+  entry(BuildContext context) {
+    if (_checkEntryInfo(context)) {
+      _teamsRepository.entryCompetitions(
+          _currentUser.teamId, competition.competitionId, regu);
+    }
+  }
+
+  _checkEntryInfo(BuildContext context) {
+    //アップロードする前のチェック
+    //全てのテキストフィールドが埋まっているか
+    //背番号・選手にダブりがないか
+    //キャプテンがレグに存在しているか(キャプテンを選んだ後にその選手が変更されていないか
+    if (regu.name.isEmpty) {
+      DialogUtils.showSimpleDialog(text: 'レグ名を入力してください', context: context);
+      return false;
+    } else if (regu.memberIds.contains(null)) {
+      DialogUtils.showSimpleDialog(text: '選手名の項目は全て埋めてください', context: context);
+      return false;
+    } else if (regu.memberNumbers.contains(null)) {
+      DialogUtils.showSimpleDialog(text: '背番号のの項目は全て埋めてください', context: context);
+      return false;
+    } else if (regu.captainId == null || regu.captainId.isEmpty) {
+      DialogUtils.showSimpleDialog(text: 'キャプテンが登録されていません', context: context);
+      return false;
+    } else if (regu.memberNumbers.length !=
+        regu.memberNumbers.toSet().toList().length) {
+      DialogUtils.showSimpleDialog(
+          text: '背番号は重複しないようにしてください', context: context);
+      return false;
+    } else if (regu.memberIds.length !=
+        regu.memberIds.toSet().toList().length) {
+      DialogUtils.showSimpleDialog(text: '選手が重複しています', context: context);
+      return false;
+    } else if (!regu.memberIds.contains(regu.captainId)) {
+      DialogUtils.showSimpleDialog(
+          text: 'キャプテンが登録されていない選手です', context: context);
+      return false;
+    }
+    return true;
   }
 }

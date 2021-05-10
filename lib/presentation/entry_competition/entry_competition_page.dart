@@ -200,8 +200,11 @@ class EntryCompetitionPage extends StatelessWidget {
                           RaisedButton(
                               child: Text(kTextRegister),
                               onPressed: () {
-                                model.entry();
+                                model.entry(context);
                               }),
+                          SizedBox(
+                            height: 30,
+                          ),
                         ],
                       ),
                     ),
