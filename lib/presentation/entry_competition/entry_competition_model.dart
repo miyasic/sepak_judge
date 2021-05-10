@@ -17,7 +17,7 @@ class EntryCompetitionModel extends ChangeNotifier {
   List<DateTime> competitionDates;
 
   final _associationRepository = AssociationsRepository.instance;
-  final _reguRepository = TeamsRepository.instance;
+  final _teamsRepository = TeamsRepository.instance;
   final _playerRepository = PlayersRepository.instance;
 
   Player _currentUser;
@@ -118,6 +118,7 @@ class EntryCompetitionModel extends ChangeNotifier {
       }
       ;
       regu.name = reguNameController.text;
+      regu.numMember = playerNameControllerList.length;
 //    regu.captain = captainController.text;
     }
   }
@@ -156,5 +157,10 @@ class EntryCompetitionModel extends ChangeNotifier {
         );
       },
     );
+  }
+
+  entry() {
+    _teamsRepository.entryCompetitions(
+        _currentUser.teamId, competition.competitionId, regu);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sepakjudge/domain/player.dart';
+import 'package:sepakjudge/domain/regu.dart';
 import 'package:sepakjudge/domain/teams.dart';
 import 'auth_repository.dart';
 
@@ -100,5 +101,29 @@ class TeamsRepository {
         .collection('members')
         .get();
     return snapshot.docs.map((doc) => Player(doc)).toList();
+  }
+
+  entryCompetitions(
+      String teamId, String competitionId, ReguFireStore regu) async {
+    final batch = _firestore.batch();
+
+    final reguDoc = _firestore
+        .collection('teams')
+        .doc(teamId)
+        .collection('competitions')
+        .doc(competitionId)
+        .collection('regu')
+        .doc();
+    batch.set(reguDoc, {
+      'reguId': reguDoc.id,
+      'name': regu.name,
+      'order': regu.order,
+      'numMember': regu.numMember,
+      'memberIds': regu.memberIds,
+      'memberNumbers': regu.memberNumbers,
+      'captainId': regu.captainId,
+      'createdAt': DateTime.now(),
+    });
+    batch.commit();
   }
 }
