@@ -167,7 +167,8 @@ class EntryCompetitionModel extends ChangeNotifier {
     //全てのテキストフィールドが埋まっているか
     //背番号・選手にダブりがないか
     //キャプテンがレグに存在しているか(キャプテンを選んだ後にその選手が変更されていないか
-    if (regu.name.isEmpty) {
+    print(regu);
+    if (regu.name == null || regu.name.isEmpty) {
       DialogUtils.showSimpleDialog(text: 'レグ名を入力してください', context: context);
       return false;
     } else if (regu.memberIds.contains(null)) {
