@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sepakjudge/constants.dart';
+import 'package:sepakjudge/presentation/select_competition/select_competition_page.dart';
 import 'package:sepakjudge/presentation/sign_up/signup_page.dart';
 import 'package:sepakjudge/presentation/team_select/team_select_page.dart';
 import 'package:sepakjudge/utils/dialog_utils.dart';
@@ -172,7 +173,20 @@ class MyPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              RaisedButton(child: Text('大会申し込み'), onPressed: () async {}),
+              RaisedButton(
+                  child: Text('大会申し込み'),
+                  onPressed: () async {
+                    if (model.player.isApproved == true) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SelectCompetitionPage()));
+                    } else {
+                      DialogUtils.showSimpleDialog(
+                          text: '所属チームが登録されていない場合や所属チームに申請中の場合は大会申し込みはできません。',
+                          context: context);
+                    }
+                  }),
               RaisedButton(child: Text('　大会一覧　'), onPressed: () async {}),
             ],
           ),

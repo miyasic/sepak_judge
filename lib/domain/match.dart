@@ -1,4 +1,4 @@
-import 'package:sepakjudge/domain/team.dart';
+import 'package:sepakjudge/domain/regu.dart';
 
 class Match {
   String matchName = 'MatchName';
@@ -29,8 +29,8 @@ class Match {
   DateTime timeStart;
   DateTime timeEnd;
 
-  Team aTeam = Team(name: 'ATeam');
-  Team bTeam = Team(name: 'BTeam');
+  Regu aTeam = Regu(name: 'ATeam');
+  Regu bTeam = Regu(name: 'BTeam');
   String courtName;
   String chiefReferee;
   String assistantReferee;

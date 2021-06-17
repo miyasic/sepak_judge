@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sepakjudge/domain/file_manager.dart';
 import 'package:sepakjudge/domain/match.dart';
-import 'package:sepakjudge/domain/team.dart';
+import 'package:sepakjudge/domain/regu.dart';
 
 class OpenFileModel extends ChangeNotifier {
   OpenFileModel(this.filemanager);
@@ -22,14 +22,14 @@ class OpenFileModel extends ChangeNotifier {
     match.chiefReferee = checkNoData(inputFileData[4]);
     match.assistantReferee = checkNoData(inputFileData[5]);
     for (int i = 0; i < 6; i++) {
-      Player player = Player();
+      ReguMembers player = ReguMembers();
       player.name = checkNoData(inputFileData[6 + 2 * i]);
       player.number = checkNoData(inputFileData[7 + 2 * i]);
       match.aTeam.members.add(player);
     }
     match.aTeam.captain = checkNoData(inputFileData[18]);
     for (int i = 0; i < 6; i++) {
-      Player player = Player();
+      ReguMembers player = ReguMembers();
       player.name = checkNoData(inputFileData[19 + 2 * i]);
       player.number = checkNoData(inputFileData[20 + 2 * i]);
       match.bTeam.members.add(player);

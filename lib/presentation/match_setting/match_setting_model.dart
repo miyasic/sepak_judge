@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sepakjudge/domain/match.dart';
-import 'package:sepakjudge/domain/team.dart';
+import 'package:sepakjudge/domain/regu.dart';
 
 import '../../constants.dart';
 
@@ -20,20 +20,20 @@ class MatchSettingModel extends ChangeNotifier {
     match.aTeam.name = 'ATeam';
     match.bTeam.name = 'BTeam';
     match.aTeam.members = [
-      Player(name: '1人目', number: '1'),
-      Player(name: '2人目', number: '2'),
-      Player(name: '3人目', number: '3'),
-      Player(name: ''),
-      Player(name: ''),
-      Player(name: '')
+      ReguMembers(name: '1人目', number: '1'),
+      ReguMembers(name: '2人目', number: '2'),
+      ReguMembers(name: '3人目', number: '3'),
+      ReguMembers(name: ''),
+      ReguMembers(name: ''),
+      ReguMembers(name: '')
     ];
     match.bTeam.members = [
-      Player(name: '1人目', number: '1'),
-      Player(name: '2人目', number: '2'),
-      Player(name: '3人目', number: '3'),
-      Player(name: ''),
-      Player(name: ''),
-      Player(name: '')
+      ReguMembers(name: '1人目', number: '1'),
+      ReguMembers(name: '2人目', number: '2'),
+      ReguMembers(name: '3人目', number: '3'),
+      ReguMembers(name: ''),
+      ReguMembers(name: ''),
+      ReguMembers(name: '')
     ];
     print(match.aTeam.members[1].name);
     notifyListeners();

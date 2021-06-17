@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sepakjudge/domain/match.dart';
-import 'package:sepakjudge/domain/team.dart';
+import 'package:sepakjudge/domain/regu.dart';
 import 'package:sepakjudge/presentation/point_counting/point_counting_page.dart';
 import 'package:sepakjudge/utils/dialog_utils.dart';
 
@@ -20,7 +20,7 @@ class MatchDetailsSettingModel extends ChangeNotifier {
   }
 
   //TeamSettingPage用
-  Team team = Team(members: []);
+  Regu team = Regu(members: []);
   final teamNameController = TextEditingController();
   final captainController = TextEditingController();
   int captainPickerIndex = 0;
@@ -154,7 +154,7 @@ class MatchDetailsSettingModel extends ChangeNotifier {
       this
           .playerNameControllerList
           .add([TextEditingController(text: '$x人目'), TextEditingController()]);
-      this.team.members.add(Player());
+      this.team.members.add(ReguMembers());
     }
     onChangedTeamInfo('');
     notifyListeners();
